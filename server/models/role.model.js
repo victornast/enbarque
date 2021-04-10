@@ -8,7 +8,7 @@ const roleSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    points: {
+    accessLevel: {
       type: Number
     },
     organization: {

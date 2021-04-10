@@ -6,8 +6,7 @@ const defaultRoleSchema = new mongoose.Schema({
   name: {
     type: String
   },
-  //how should I call this?
-  points: {
+  accessLevel: {
     type: Number
   }
 });
