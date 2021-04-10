@@ -7,7 +7,7 @@ const User = require('../models/user.model');
 
 const router = new Router();
 
-router.post('/sign-up', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   const { name, email, password } = req.body;
   bcryptjs
     .hash(password, 10)
@@ -27,7 +27,7 @@ router.post('/sign-up', (req, res, next) => {
     });
 });
 
-router.post('/sign-in', (req, res, next) => {
+router.post('/signin', (req, res, next) => {
   let user;
   const { email, password } = req.body;
   User.findOne({ email })
@@ -52,7 +52,7 @@ router.post('/sign-in', (req, res, next) => {
     });
 });
 
-router.post('/sign-out', (req, res, next) => {
+router.post('/signout', (req, res, next) => {
   req.session.destroy();
   res.json({});
 });
