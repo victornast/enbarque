@@ -5,6 +5,12 @@ const { Router } = require('express');
 const bcryptjs = require('bcryptjs');
 const User = require('./../models/user.model');
 const Organization = require('./../models/organization.model');
+const DefaultLevel = require('./../models/defaultLevel.model');
+const DefaultRole = require('./../models/defaultRole.model');
+const DefaultPosition = require('./../models/defaultPosition.model');
+const Level = require('./../models/level.model');
+const Role = require('./../models/role.model');
+const Position = require('./../models/position.model');
 
 const router = new Router();
 
@@ -51,6 +57,19 @@ router.post('/signup', async (req, res, next) => {
       avatar
     });
     await Organization.findByIdAndUpdate(company._id, { admin: user._id });
+
+    const defaultRoles = await DefaultRole.find();
+    for (const defaultRole in defaultRoles)
+      await Role.create({ ...defaultRole, organization: company._id });
+
+    const defaultLevels = await DefaultLevel.find();
+    for (const defaultLevel in defaultLevels)
+      await Level.create({ ...defaultLevel, organization: company._id });
+
+    const defaultPositions = await DefaultPosition.find();
+    for (const defaultPosition in defaultPositions)
+      await Position.create({ ...defaultPosition, organization: company._id });
+
     req.session.userId = user._id;
     res.json({ user });
   } catch (error) {
