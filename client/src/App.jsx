@@ -8,6 +8,7 @@ function App() {
     <React.Fragment>
       <div className="App">enbarque</div>
       <Router>
+        <Link to="/auth/sign-up">Sign Up</Link>
         <Route path="/auth/sign-up" component={SignUp} exact />
       </Router>
     </React.Fragment>
