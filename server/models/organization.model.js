@@ -23,26 +23,20 @@ const organizationSchema = new mongoose.Schema(
         type: String
       }
     },
-    // company logo?
     logo: {
-      type: String
+      type: String,
+      default: ''
     },
     admin: {
-      firstName: {
-        type: String
-      },
-      lastName: {
-        type: String
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
     },
     email: {
       required: true,
       lowercase: true,
       trim: true
     },
-    // defaultEmailDomain: {
-    //   type: String,
-    // },
     website: {
       type: String
     }
