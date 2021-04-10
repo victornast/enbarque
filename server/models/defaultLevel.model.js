@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const defaultLevelSchema = new mongoose.Schema({
   name: {
     type: String,
-    enum: ["junior", "intermediate", "advanced", "senior", "expert"],
+    required: true,
+    unique: true
   },
   //how should I call this?
   level: {
-    type: Number,
-    enum: [1, 2, 3, 4, 5],
-  },
+    type: Number
+  }
 });
 
-module.exports = mongoose.model("DefaultLevel", defaultLevelSchema);
+module.exports = mongoose.model('DefaultLevel', defaultLevelSchema);

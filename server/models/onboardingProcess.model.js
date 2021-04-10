@@ -1,77 +1,77 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const onboardingProcessSchema = new mongoose.Schema(
   {
     organization: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Organization",
+      ref: 'Organization'
     },
     onboardee: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User'
     },
     manager: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User'
     },
     mentor: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User'
     },
     startingDate: {
-      type: Date,
+      type: Date
     },
     amountOfDays: {
-      type: Number, // Amount of days
+      type: Number // Amount of days
     },
     scheduledTasks: [
       {
         task: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Task",
+          ref: 'Task'
         },
         startingTimeSlot: {
-          type: Date,
+          type: Date
         },
         taskStatus: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "TaskStatus",
+          ref: 'TaskStatus'
         },
         timeslotSize: {
           type: Number,
-          default: 1,
+          default: 1
         },
         loggedTime: [
           {
             startingTime: {
-              type: Date,
+              type: Date
             },
             duration: {
-              type: Number,
-            },
-          },
-        ],
-      },
+              type: Number
+            }
+          }
+        ]
+      }
     ],
     unscheduledTasks: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Task",
-      },
-    ],
+        ref: 'Task'
+      }
+    ]
   },
   {
     timestamps: {
-      createdAt: "createdDate",
-      updatedAt: "updatedDate",
-    },
+      createdAt: 'createdDate',
+      updatedAt: 'updatedDate'
+    }
   }
 );
 
-module.exports = mongoose.model("OnboardingProcess", onboardingProcessSchema);
+module.exports = mongoose.model('OnboardingProcess', onboardingProcessSchema);

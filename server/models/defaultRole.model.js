@@ -1,17 +1,15 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const defaultRoleSchema = new mongoose.Schema({
   name: {
-    type: String,
-    enum: ["onboardee", "mentor", "manager", "hr", "normal"],
+    type: String
   },
   //how should I call this?
   points: {
-    type: Number,
-    enum: [1, 2, 3, 8, 10],
-  },
+    type: Number
+  }
 });
 
-module.exports = mongoose.model("DefaultRole", defaultRoleSchema);
+module.exports = mongoose.model('DefaultRole', defaultRoleSchema);

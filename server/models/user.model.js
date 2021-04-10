@@ -1,63 +1,63 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
     first_name: {
       type: String,
       trim: true,
-      required: true,
+      required: true
     },
     last_name: {
       type: String,
       trim: true,
-      required: true,
+      required: true
     },
     username: {
       type: String,
-      trim: true,
+      trim: true
     },
     email: {
       type: String,
       required: true,
       lowercase: true,
-      trim: true,
+      trim: true
     },
     passwordHashAndSalt: {
-      type: String,
+      type: String
     },
     defaultPassword: {
-      type: String,
+      type: String
     },
     avatar: {
-      type: String,
+      type: String
       // Default avatar??
     },
     organization: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Organization",
+      ref: 'Organization'
     },
     level: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Level",
+      ref: 'Level'
     },
     position: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Position",
+      ref: 'Position'
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
-    },
+      ref: 'Role'
+    }
   },
   {
     timestamps: {
-      createdAt: "createdDate",
-      updatedAt: "updatedDate",
-    },
+      createdAt: 'createdDate',
+      updatedAt: 'updatedDate'
+    }
   }
 );
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

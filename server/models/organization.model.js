@@ -1,58 +1,58 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const organizationSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
-      trim: true,
+      trim: true
     },
     address: {
       street: {
-        type: String,
+        type: String
       },
       postcode: {
-        type: String,
+        type: String
       },
       city: {
-        type: String,
+        type: String
       },
       country: {
-        type: String,
-      },
+        type: String
+      }
     },
     // company logo?
     logo: {
-      type: String,
+      type: String
     },
     admin: {
       firstName: {
-        type: String,
+        type: String
       },
       lastName: {
-        type: String,
-      },
+        type: String
+      }
     },
     email: {
       required: true,
       lowercase: true,
-      trim: true,
+      trim: true
     },
     // defaultEmailDomain: {
     //   type: String,
     // },
     website: {
-      type: String,
-    },
+      type: String
+    }
   },
   {
     timestamps: {
-      createdAt: "createdDate",
-      updatedAt: "updatedDate",
-    },
+      createdAt: 'createdDate',
+      updatedAt: 'updatedDate'
+    }
   }
 );
 
-module.exports = mongoose.model("Organization", organizationSchema);
+module.exports = mongoose.model('Organization', organizationSchema);
