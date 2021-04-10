@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const defaultPositionSchema = new mongoose.Schema({
   name: {
-    type: String,
-  },
+    type: String
+  }
 });
 
-module.exports = mongoose.model("DefaultPosition", defaultPositionSchema);
+module.exports = mongoose.model('DefaultPosition', defaultPositionSchema);

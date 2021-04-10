@@ -2,16 +2,15 @@
 
 const mongoose = require('mongoose');
 
-const positionSchema = new mongoose.Schema(
+const onboardingChecklistItemSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      trim: true
-    },
-    organization: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'Organization'
+      ref: 'User'
+    },
+    description: {
+      type: String
     }
   },
   {
@@ -22,4 +21,7 @@ const positionSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Position', positionSchema);
+module.exports = mongoose.model(
+  'OnboardingChecklistItem',
+  onboardingChecklistItemSchema
+);
