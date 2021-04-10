@@ -10,10 +10,14 @@ const mongoose = require('mongoose');
 const serveFavicon = require('serve-favicon');
 const basicAuthenticationDeserializer = require('./middleware/basic-authentication-deserializer.js');
 const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js');
+
 const baseRouter = require('./routes/index.route');
 const authenticationRouter = require('./routes/auth.route');
 const userRouter = require('./routes/user.route');
 const organizationRouter = require('./routes/organization.route');
+const taskRouter = require('./routes/task.route');
+const onboardingRouter = require('./routes/onboarding.route');
+
 const cors = require('cors');
 
 const app = express();
@@ -49,6 +53,8 @@ app.use('/', baseRouter);
 app.use('/auth', authenticationRouter);
 app.use('/user', userRouter);
 app.use('/corp', organizationRouter);
+app.use('/task', taskRouter);
+app.use('/onboarding', onboardingRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
