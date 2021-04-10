@@ -39,4 +39,32 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
+router.patch('/:id', async (req, res, next) => {
+  const { role, level, position, avatar } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        role,
+        level,
+        position,
+        avatar
+      },
+      { new: true }
+    );
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
