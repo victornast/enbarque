@@ -8,14 +8,29 @@ const User = require('../models/user.model');
 const router = new Router();
 
 router.post('/create', async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    role,
+    level,
+    position,
+    avatar,
+    organization
+  } = req.body;
   try {
     const hash = await bcryptjs.hash(password, 10);
     const user = await User.create({
-      name,
+      firstName,
+      lastName,
       email,
       passwordHashAndSalt: hash,
-      role
+      organization,
+      role,
+      level,
+      position,
+      avatar
     });
     req.session.userId = user._id;
     res.json({ user });
