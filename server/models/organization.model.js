@@ -33,6 +33,7 @@ const organizationSchema = new mongoose.Schema(
       ref: 'User'
     },
     email: {
+      type: String,
       required: true,
       lowercase: true,
       trim: true

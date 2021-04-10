@@ -3,8 +3,8 @@
 const { Router } = require('express');
 
 const bcryptjs = require('bcryptjs');
-const User = require('../models/user.model');
-const Organization = require('../models/organization.model');
+const User = require('./../models/user.model');
+const Organization = require('./../models/organization.model');
 
 const router = new Router();
 
@@ -83,7 +83,7 @@ router.post('/signin', (req, res, next) => {
     });
 });
 
-router.post('/signout', (req, res, next) => {
+router.post('/signout', (req, res) => {
   req.session.destroy();
   res.json({});
 });
