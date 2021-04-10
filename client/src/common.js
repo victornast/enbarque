@@ -1,4 +1,4 @@
-export const levelOptions = [{ name: "" }];
+export const levelOptions = () => {};
 
 export const positionOptions = [];
 
