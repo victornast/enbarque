@@ -23,26 +23,26 @@ router.post('/signup', async (req, res, next) => {
     const company = await Organization.create({
       name,
       adress,
-      emailCorp,
+      email: emailCorp,
       website
     });
 
     const defaultRoles = await DefaultRole.find().lean();
-    for (const defaultRole in defaultRoles) {
+    for (const defaultRole of defaultRoles) {
       delete defaultRole._id;
       defaultRole.organization = company._id;
     }
     const corpRoles = await Role.create(defaultRoles);
 
     const defaultLevels = await DefaultLevel.find().lean();
-    for (const defaultLevel in defaultLevels) {
+    for (const defaultLevel of defaultLevels) {
       delete defaultLevel._id;
       defaultLevel.organization = company._id;
     }
     const corpLevels = await Level.create(defaultLevels);
 
     const defaultPositions = await DefaultPosition.find().lean();
-    for (const defaultPosition in defaultPositions) {
+    for (const defaultPosition of defaultPositions) {
       delete defaultPosition._id;
       defaultPosition.organization = company._id;
     }
@@ -54,7 +54,9 @@ router.post('/signup', async (req, res, next) => {
     const level = corpLevels.reduce((prev, current) =>
       prev.level > current.level ? prev : current
     );
-    const position = corpPositions.filter((pos) => (pos.name = 'Manager'));
+    const position = corpPositions.filter((pos) => {
+      if (pos.name === 'Manager') return pos;
+    })[0];
 
     const user = await User.create({
       firstName,
