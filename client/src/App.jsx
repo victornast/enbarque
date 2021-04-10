@@ -8,7 +8,7 @@ import Employees from './views/Employees';
 import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
 import SignUp from './views/SignUp';
-import LogIn from './views/Login';
+import LogIn from './views/LogIn';
 
 function App() {
   return (
