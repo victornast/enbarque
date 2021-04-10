@@ -25,7 +25,8 @@ const organizationSchema = new mongoose.Schema(
     },
     logo: {
       type: String,
-      default: ''
+      default:
+        'https://res.cloudinary.com/dny9keold/image/upload/v1618064278/enbarque/default-organization_vpbtm9.png'
     },
     admin: {
       type: mongoose.Schema.Types.ObjectId,

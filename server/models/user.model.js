@@ -29,7 +29,8 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: '',
+      default:
+        'https://res.cloudinary.com/dny9keold/image/upload/v1618064278/enbarque/default-user_ccq75m.png',
       required: true
     },
     organization: {
