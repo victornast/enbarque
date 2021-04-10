@@ -11,12 +11,19 @@ const serveFavicon = require('serve-favicon');
 const basicAuthenticationDeserializer = require('./middleware/basic-authentication-deserializer.js');
 const bindUserToViewLocals = require('./middleware/bind-user-to-view-locals.js');
 const baseRouter = require('./routes/index.route');
-const authenticationRouter = require('./routes/authentication.route');
+const authenticationRouter = require('./routes/auth.route');
+const cors = require('cors');
 
 const app = express();
 
 app.use(serveFavicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(
+  cors({
+    origin: (process.env.ALLOWED_CORS_ORIGINS || '').split(','),
+    credentials: true
+  })
+);
 app.use(express.json());
 app.use(
   expressSession({
@@ -37,7 +44,7 @@ app.use(basicAuthenticationDeserializer);
 app.use(bindUserToViewLocals);
 
 app.use('/', baseRouter);
-app.use('/authentication', authenticationRouter);
+app.use('/auth', authenticationRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
