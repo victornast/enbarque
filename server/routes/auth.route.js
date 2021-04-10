@@ -57,4 +57,9 @@ router.post('/signout', (req, res, next) => {
   res.json({});
 });
 
+router.get('/verify', (req, res) => {
+  const user = req.user || null;
+  res.json({ user: user });
+});
+
 module.exports = router;
