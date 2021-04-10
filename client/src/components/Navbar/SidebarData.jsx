@@ -34,5 +34,17 @@ export const SidebarData = [
     path: '/corp/user/:id',
     icon: <FiIcons.FiUser />,
     className: 'nav-text'
+  },
+  {
+    title: 'Sign Up',
+    path: '/auth/sign-up',
+    icon: <FiIcons.FiUserPlus />,
+    className: 'nav-text'
+  },
+  {
+    title: 'Log In',
+    path: '/auth/log-in',
+    icon: <FiIcons.FiLogIn />,
+    className: 'nav-text'
   }
 ];

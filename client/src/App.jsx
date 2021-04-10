@@ -8,6 +8,8 @@ import Employees from './views/Employees';
 import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
 import SignUp from './views/SignUp';
+import LogIn from './views/LogIn';
+
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route exact path="/corp/settings" component={OrgSettings} />
           <Route exact path="/corp/user/:id" component={Account} />
           <Route exact path="/auth/sign-up" component={SignUp} />
+          <Route exact path="/auth/log-in" component={LogIn} />
+
         </Switch>
       </Router>
     </>
