@@ -1,28 +1,28 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const levelSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      trim: true,
+      trim: true
     },
     level: {
-      type: Number,
+      type: Number
     },
     organization: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "Organization",
-    },
+      ref: 'Organization'
+    }
   },
   {
     timestamps: {
-      createdAt: "createdDate",
-      updatedAt: "updatedDate",
-    },
+      createdAt: 'createdDate',
+      updatedAt: 'updatedDate'
+    }
   }
 );
 
-module.exports = mongoose.model("Level", levelSchema);
+module.exports = mongoose.model('Level', levelSchema);
