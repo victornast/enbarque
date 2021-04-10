@@ -15,6 +15,7 @@ const baseRouter = require('./routes/index.route');
 const authenticationRouter = require('./routes/auth.route');
 const userRouter = require('./routes/user.route');
 const organizationRouter = require('./routes/organization.route');
+const taskRouter = require('./routes/task.route');
 
 const cors = require('cors');
 
@@ -51,6 +52,7 @@ app.use('/', baseRouter);
 app.use('/auth', authenticationRouter);
 app.use('/user', userRouter);
 app.use('/corp', organizationRouter);
+app.use('/task', taskRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
