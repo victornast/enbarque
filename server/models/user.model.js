@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
-    first_name: {
+    firstName: {
       type: String,
       trim: true,
       required: true
     },
-    last_name: {
+    lastName: {
       type: String,
       trim: true,
       required: true
@@ -27,12 +27,10 @@ const userSchema = new mongoose.Schema(
     passwordHashAndSalt: {
       type: String
     },
-    defaultPassword: {
-      type: String
-    },
     avatar: {
-      type: String
-      // Default avatar??
+      type: String,
+      default: '',
+      required: true
     },
     organization: {
       type: mongoose.Schema.Types.ObjectId,
