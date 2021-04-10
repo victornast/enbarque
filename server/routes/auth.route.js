@@ -15,35 +15,47 @@ const Position = require('./../models/position.model');
 const router = new Router();
 
 router.post('/signup', async (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    username,
-    email,
-    password,
-    role,
-    level,
-    position
-  } = req.body;
-  let avatar;
-  if (req.body.avatar) {
-    avatar = req.body.avatar;
-  }
+  const { firstName, lastName, username, email, password } = req.body;
   const { name, adress, emailCorp, website } = req.body;
-  let logo;
-  if (req.body.logo) {
-    logo = req.body.logo;
-  }
 
   try {
     const hash = await bcryptjs.hash(password, 10);
     const company = await Organization.create({
       name,
       adress,
-      logo,
       emailCorp,
       website
     });
+
+    const defaultRoles = await DefaultRole.find().lean();
+    for (const defaultRole in defaultRoles) {
+      delete defaultRole._id;
+      defaultRole.organization = company._id;
+    }
+    const corpRoles = await Role.create(defaultRoles);
+
+    const defaultLevels = await DefaultLevel.find().lean();
+    for (const defaultLevel in defaultLevels) {
+      delete defaultLevel._id;
+      defaultLevel.organization = company._id;
+    }
+    const corpLevels = await Level.create(defaultLevels);
+
+    const defaultPositions = await DefaultPosition.find().lean();
+    for (const defaultPosition in defaultPositions) {
+      delete defaultPosition._id;
+      defaultPosition.organization = company._id;
+    }
+    const corpPositions = await Position.create(defaultPositions);
+
+    const role = corpRoles.reduce((prev, current) =>
+      prev.accessLevel > current.accessLevel ? prev : current
+    );
+    const level = corpLevels.reduce((prev, current) =>
+      prev.level > current.level ? prev : current
+    );
+    const position = corpPositions.filter((pos) => (pos.name = 'Manager'));
+
     const user = await User.create({
       firstName,
       lastName,
@@ -51,24 +63,15 @@ router.post('/signup', async (req, res, next) => {
       email,
       passwordHashAndSalt: hash,
       organization: company._id,
-      role,
-      level,
-      position,
-      avatar
+      role: role._id,
+      level: level._id,
+      position: position._id
     });
-    await Organization.findByIdAndUpdate(company._id, { admin: user._id });
-
-    const defaultRoles = await DefaultRole.find();
-    for (const defaultRole in defaultRoles)
-      await Role.create({ ...defaultRole, organization: company._id });
-
-    const defaultLevels = await DefaultLevel.find();
-    for (const defaultLevel in defaultLevels)
-      await Level.create({ ...defaultLevel, organization: company._id });
-
-    const defaultPositions = await DefaultPosition.find();
-    for (const defaultPosition in defaultPositions)
-      await Position.create({ ...defaultPosition, organization: company._id });
+    await Organization.findByIdAndUpdate(
+      company._id,
+      { admin: user._id },
+      { useFindAndModify: false }
+    );
 
     req.session.userId = user._id;
     res.json({ user });
