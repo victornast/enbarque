@@ -21,8 +21,8 @@ function App() {
           <Route exact path="/onboarding" component={Onboarding} />
           <Route exact path="/corp/settings" component={OrgSettings} />
           <Route exact path="/corp/user/:id" component={Account} />
-          <Route exact path="/auth/sign-up" component={SignUp} />
-          <Route exact path="/auth/log-in" component={LogIn} />
+          <Route exact path="/auth/signup" component={SignUp} />
+          <Route exact path="/auth/login" component={LogIn} />
         </Switch>
       </Router>
     </>
