@@ -1,14 +1,16 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React from 'react';
-import './App.scss';
-import Navbar from './components/Navbar/Navbar';
-import Dashboard from './views/Dashboard';
-import Onboarding from './views/Onboarding';
-import Employees from './views/Employees';
-import OrgSettings from './views/OrgSettings';
-import Account from './views/Account';
-import SignUp from './views/SignUp';
-import LogIn from './views/LogIn';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from "react";
+import "./App.scss";
+import Navbar from "./components/Navbar/Navbar";
+import Dashboard from "./views/Dashboard";
+import Onboarding from "./views/Onboarding";
+import Employees from "./views/Employees";
+import OrgSettings from "./views/OrgSettings";
+import Account from "./views/Account";
+import SignUp from "./views/SignUp";
+import LogIn from "./views/LogIn";
+// added in the branch to test
+import AddUser from "./views/AddUser";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route exact path="/corp/user/:id" component={Account} />
           <Route exact path="/auth/signup" component={SignUp} />
           <Route exact path="/auth/login" component={LogIn} />
+          {/* temp testing route */}
+          <Route exact path="/user/create" component={AddUser} />
         </Switch>
       </Router>
     </>

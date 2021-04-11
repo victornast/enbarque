@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import SelectGroup from "./SelectGroup";
-import { levelOptions, positionOptions, roleOptions } from "./../../common";
-import { addUser } from "./../../services/user";
+import SelectGroup from "../components/forms/SelectGroup";
+//import { levelOptions, positionOptions, roleOptions } from "../common";
+import {
+  getLevelOptions,
+  getPositionOptions,
+  getRoleOptions,
+} from "./../services/userOptions";
+import { addUser } from "../services/user";
 
 //
 class AddUser extends Component {
@@ -18,7 +23,7 @@ class AddUser extends Component {
   handleFormSubmission = async (event) => {
     event.preventDefault();
     const { firstName, lastName, email, position, role, level } = this.state;
-    addUser({
+    const user = await addUser({
       firstName,
       lastName,
       email,
@@ -42,6 +47,10 @@ class AddUser extends Component {
   };
 
   render() {
+    console.log(getLevelOptions());
+    console.log(getPositionOptions());
+    console.log(getRoleOptions());
+
     return (
       <div>
         <h1>Add an employee profile</h1>
@@ -79,21 +88,21 @@ class AddUser extends Component {
           <label>Position</label>
           <SelectGroup
             name="position"
-            values={positionOptions}
+            options={getPositionOptions()}
             onUpdate={(value) => this.handleSelectChange("position", value)}
           />
 
           <label>Level</label>
           <SelectGroup
             name="level"
-            values={levelOptions}
+            options={getLevelOptions()}
             onUpdate={(value) => this.handleSelectChange("level", value)}
           />
 
           <label>Role assigned for the onboarding process</label>
           <SelectGroup
             name="role"
-            values={roleOptions}
+            options={getRoleOptions()}
             onUpdate={(value) => this.handleSelectChange("role", value)}
           />
 
