@@ -5,8 +5,6 @@ const router = new express.Router();
 const Task = require('../models/task.model');
 //const routeGuard = require('../middleware/route-guard');
 
-const Task = require('./../models/task.model');
-
 router.get('/', async (req, res, next) => {
   try {
     console.log('Listing all tasks.');

@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { signUp } from './../services/authentication';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { signUp } from "./../services/authentication";
+import { Redirect } from "react-router-dom";
 
-import './../SignUp.scss';
+import "./../SignUp.scss";
 
 class SignUp extends Component {
   state = {
-    name: '',
-    website: '',
-    street: '',
-    postcode: '',
-    city: '',
-    country: '',
-    emailCorp: '',
-    logo: '',
-    firstName: '',
-    lastName: '',
-    avatar: '',
-    email: '',
-    password: '',
-    success: false
+    name: "",
+    website: "",
+    street: "",
+    postcode: "",
+    city: "",
+    country: "",
+    emailCorp: "",
+    logo: "",
+    firstName: "",
+    lastName: "",
+    avatar: "",
+    email: "",
+    password: "",
+    success: false,
   };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log('name: ', name, 'value: ', value);
+    console.log("name: ", name, "value: ", value);
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -34,7 +34,7 @@ class SignUp extends Component {
     const { name, files } = event.target;
     const file = files[0];
     this.setState({
-      [name]: file
+      [name]: file,
     });
   };
 
@@ -52,13 +52,15 @@ class SignUp extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
     const response = await signUp(formData).then((res) => {
-      console.log('res: ', res);
+      console.log("res: ", res);
       this.setState({
-        success: true
+        success: true,
       });
+      // new addition
+      this.props.onUserChange(res);
     });
   };
 
