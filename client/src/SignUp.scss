@@ -1,0 +1,91 @@
+$butteryellow: #ffd275;
+
+* {
+  box-sizing: border-box;
+}
+
+form {
+  margin-left: 4rem;
+}
+
+h1 {
+  margin: 2rem 0 2rem 6rem;
+}
+
+h2,
+h4 {
+  margin: 2rem 0 1em 0;
+}
+
+.organisationAndAdminContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0 5rem 3rem 0rem;
+  padding: 0 0 2rem 2rem;
+  border-radius: 50px;
+  box-shadow: 3px 3px 10px grey;
+  flex-wrap: nowrap;
+}
+
+.company-info {
+  width: 40vw;
+  margin: 0 1rem -5rem -2rem;
+  padding-left: 2rem;
+  border-radius: 50px 0 0 50px;
+  background-color: $butteryellow;
+  height: 582px;
+}
+
+.admin-info {
+  margin-left: 2rem;
+  width: 60vw;
+}
+
+button {
+  margin-top: 2rem;
+}
+
+label {
+  line-height: 3rem;
+  display: inline-block;
+  width: 15rem;
+}
+
+input {
+  border: solid 0.5px black;
+  border-radius: 25px;
+  padding: 0.2rem;
+  min-width: 10rem;
+  max-width: 15rem;
+}
+
+.submit {
+  background-color: $butteryellow;
+  border: solid 2px white;
+  border-radius: 25px;
+  padding: 0.2rem;
+  width: 29rem;
+  margin: 11rem 0 1rem 0;
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+  height: 2rem;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+}
+.fileUpload input.upload {
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  border: 1px solid black;
+}

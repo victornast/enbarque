@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = new express.Router();
+const Task = require('../models/task.model');
 //const routeGuard = require('../middleware/route-guard');
 
 const Task = require('./../models/task.model');
