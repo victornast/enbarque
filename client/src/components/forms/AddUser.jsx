@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import SelectGroup from "./SelectGroup";
 import { levelOptions, positionOptions, roleOptions } from "./../../common";
+import { addUser } from "./../../services/user";
 
+//
 class AddUser extends Component {
   state = {
     firstName: "",
@@ -16,6 +18,14 @@ class AddUser extends Component {
   handleFormSubmission = async (event) => {
     event.preventDefault();
     const { firstName, lastName, email, position, role, level } = this.state;
+    addUser({
+      firstName,
+      lastName,
+      email,
+      position,
+      role,
+      level,
+    });
   };
 
   handleInputChange = (event) => {

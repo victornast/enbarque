@@ -37,13 +37,13 @@ export const SidebarData = [
   },
   {
     title: 'Sign Up',
-    path: '/auth/sign-up',
+    path: '/auth/signup',
     icon: <FiIcons.FiUserPlus />,
     className: 'nav-text'
   },
   {
     title: 'Log In',
-    path: '/auth/log-in',
+    path: '/auth/login',
     icon: <FiIcons.FiLogIn />,
     className: 'nav-text'
   }
