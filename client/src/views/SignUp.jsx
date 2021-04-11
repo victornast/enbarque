@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './../SignUp.scss';
 
 class SignUp extends Component {
@@ -163,7 +164,7 @@ class SignUp extends Component {
                 <br />
               </div>
             </div>
-            <div>
+            <div className="admin-info">
               <h2>Administrator Info</h2>
               <label htmlFor="admin-firstName-input">First Name</label>
               <input

@@ -1,3 +1,5 @@
+$butteryellow: #ffd275;
+
 form {
   margin-left: 4rem;
 }
@@ -15,7 +17,6 @@ h4 {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #ffd275;
   margin: 0 5rem 3rem 0rem;
   padding: 0 0 2rem 2rem;
   border-radius: 50px;
@@ -23,7 +24,16 @@ h4 {
 }
 
 .company-info {
-  width: 50vw;
+  width: 40vw;
+  margin: 0 1rem -5rem -2rem;
+  padding-left: 2rem;
+  border-radius: 50px 0 0 50px;
+  background-color: $butteryellow;
+  height: 582px;
+}
+
+.admin-info {
+  margin-left: 2rem;
 }
 
 button {
@@ -44,13 +54,13 @@ input {
 }
 
 .submit {
-  background-color: white;
-  border: solid 2px #ffd275;
+  background-color: $butteryellow;
+  border: solid 2px white;
   border-radius: 25px;
   padding: 0.2rem;
   width: 29rem;
   margin: 11rem 0 1rem 0;
-  color: #d1951c;
+  color: white;
   cursor: pointer;
   font-weight: 800;
   height: 2rem;
