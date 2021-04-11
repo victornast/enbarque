@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { signUp } from './../services/authentication';
+import { Redirect } from 'react-router-dom';
 
 import './../SignUp.scss';
 
@@ -6,53 +8,23 @@ class SignUp extends Component {
   state = {
     name: '',
     website: '',
-    address: {
-      street: '',
-      postcode: '',
-      city: '',
-      country: ''
-    },
+    street: '',
+    postcode: '',
+    city: '',
+    country: '',
     emailCorp: '',
     logo: '',
-    admin: {
-      firstName: '',
-      lastName: ''
-    },
+    firstName: '',
+    lastName: '',
     avatar: '',
     email: '',
-    password: ''
-  };
-
-  handleFormSubmission = async (event) => {
-    event.preventDefault();
-    const {
-      name,
-      website,
-      emailCorp,
-      address,
-      logo,
-      admin,
-      email,
-      password
-    } = this.state;
-    const data = new FormData();
-    const values = {
-      name,
-      address,
-      logo,
-      website,
-      emailCorp,
-      admin,
-      email,
-      password
-    };
-    for (let key in values) {
-      data.append(key, values[key]);
-    }
+    password: '',
+    success: false
   };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
+    console.log('name: ', name, 'value: ', value);
     this.setState({
       [name]: value
     });
@@ -66,8 +38,34 @@ class SignUp extends Component {
     });
   };
 
+  handleFormSubmission = async (event) => {
+    event.preventDefault();
+    const formData = {
+      name: this.state.name,
+      website: this.state.website,
+      emailCorp: this.state.emailCorp,
+      street: this.state.street,
+      postcode: this.state.postcode,
+      city: this.state.city,
+      country: this.state.country,
+      logo: this.state.logo,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password
+    };
+    const response = await signUp(formData).then((res) => {
+      console.log('res: ', res);
+      this.setState({
+        success: true
+      });
+    });
+  };
+
   render() {
-    return (
+    return this.state.success ? (
+      <Redirect to="/dashboard"></Redirect>
+    ) : (
       <div>
         <h1>Register your organization</h1>
         <form onSubmit={this.handleFormSubmission}>
@@ -109,13 +107,20 @@ class SignUp extends Component {
                 required
               />
               <br />
-              <label htmlFor="logo-input">Logo</label>
-              <input
-                id="logo-input"
-                type="file"
-                name="logo"
-                onChange={this.handleFileInputChange}
-              />
+              <label htmlFor="logo-input" className="upload-button">
+                Logo
+              </label>
+              <div className="fileUpload">
+                <span>Upload</span>
+                <input
+                  type="file"
+                  className="upload"
+                  id="logo-input"
+                  name="logo"
+                  onChange={this.handleFileInputChange}
+                />
+              </div>
+              <input />
               <div>
                 <h4>Address</h4>
                 <label htmlFor="street-input">Street</label>
@@ -124,7 +129,7 @@ class SignUp extends Component {
                   type="text"
                   placeholder="address of your organization"
                   name="street"
-                  value={this.state.address.street}
+                  value={this.state.street}
                   onChange={this.handleInputChange}
                   required
                 />
@@ -135,7 +140,7 @@ class SignUp extends Component {
                   type="text"
                   placeholder="address of your organization"
                   name="postcode"
-                  value={this.state.address.postcode}
+                  value={this.state.postcode}
                   onChange={this.handleInputChange}
                   required
                 />
@@ -146,7 +151,7 @@ class SignUp extends Component {
                   type="text"
                   placeholder="address of your organization"
                   name="city"
-                  value={this.state.address.city}
+                  value={this.state.city}
                   onChange={this.handleInputChange}
                   required
                 />
@@ -157,7 +162,7 @@ class SignUp extends Component {
                   type="text"
                   placeholder="address of your organization"
                   name="country"
-                  value={this.state.address.country}
+                  value={this.state.country}
                   onChange={this.handleInputChange}
                   required
                 />
@@ -172,7 +177,7 @@ class SignUp extends Component {
                 type="admin"
                 placeholder="Your first name"
                 name="firstName"
-                value={this.state.admin.firstName}
+                value={this.state.firstName}
                 onChange={this.handleInputChange}
                 required
               />
@@ -183,12 +188,14 @@ class SignUp extends Component {
                 type="admin"
                 placeholder="Your last name"
                 name="lastName"
-                value={this.state.admin.lastName}
+                value={this.state.lastName}
                 onChange={this.handleInputChange}
                 required
               />
               <br />
-              <label htmlFor="avatar-input">Avatar</label>
+              <label htmlFor="avatar-input" className="upload-button">
+                Avatar
+              </label>
               <input
                 id="avatar-input"
                 type="file"

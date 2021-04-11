@@ -16,6 +16,7 @@ const fileUploadMiddleware = require('./../middleware/file-upload');
 const router = new Router();
 
 router.post('/signup', async (req, res, next) => {
+  console.log('req: ', req);
   const { firstName, lastName, username, email, password } = req.body;
   const { name, adress, emailCorp, website } = req.body;
 

@@ -1,5 +1,9 @@
 $butteryellow: #ffd275;
 
+* {
+  box-sizing: border-box;
+}
+
 form {
   margin-left: 4rem;
 }
@@ -21,6 +25,7 @@ h4 {
   padding: 0 0 2rem 2rem;
   border-radius: 50px;
   box-shadow: 3px 3px 10px grey;
+  flex-wrap: nowrap;
 }
 
 .company-info {
@@ -34,6 +39,7 @@ h4 {
 
 .admin-info {
   margin-left: 2rem;
+  width: 60vw;
 }
 
 button {
@@ -43,14 +49,15 @@ button {
 label {
   line-height: 3rem;
   display: inline-block;
-  width: 13rem;
+  width: 15rem;
 }
 
 input {
   border: solid 0.5px black;
   border-radius: 25px;
   padding: 0.2rem;
-  width: 15rem;
+  min-width: 10rem;
+  max-width: 15rem;
 }
 
 .submit {
@@ -64,4 +71,21 @@ input {
   cursor: pointer;
   font-weight: 800;
   height: 2rem;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+}
+.fileUpload input.upload {
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  border: 1px solid black;
 }
