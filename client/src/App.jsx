@@ -36,7 +36,7 @@ function App() {
               <SignUp {...props} onUserChange={handleUserChange} />
             )}
           />
-          <Route exact path="/auth/login" component={LogIn} />
+
           {/* temp testing route */}
           <Route
             exact

@@ -17,6 +17,7 @@ class AddUser extends Component {
     position: "",
     role: "",
     level: "",
+    user: this.props.user,
   };
   // username and password should be generated automatically
 
@@ -47,11 +48,8 @@ class AddUser extends Component {
   };
 
   render() {
-    const id = this.props.user._id;
-    console.log(getLevelOptions(id));
-    console.log(getPositionOptions(id));
-    console.log(getRoleOptions(id));
-
+    const id = this.state.user._id;
+    console.log(id);
     return (
       <div>
         <h1>Add an employee profile</h1>
@@ -87,9 +85,10 @@ class AddUser extends Component {
           />
 
           <label>Position</label>
+
           <SelectGroup
             name="position"
-            options={() => getPositionOptions(this.props.user._id)}
+            options={() => getPositionOptions(id)}
             onUpdate={(value) => this.handleSelectChange("position", value)}
           />
 
