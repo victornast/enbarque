@@ -13,8 +13,8 @@ const SelectGroup = ({ options, onUpdate }) => {
   return (
     <select value={selected} onChange={handleInputChange}>
       {options.map((option) => (
-        <option key={option.name} value={option.name}>
-          {option.name}
+        <option key={option} value={option}>
+          {option}
         </option>
       ))}
     </select>
