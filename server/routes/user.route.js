@@ -3,11 +3,27 @@
 const { Router } = require('express');
 
 const User = require('../models/user.model');
-const Position = require('../models/user.model');
-const Level = require('../models/user.model');
-const Role = require('../models/user.model');
+const Position = require('../models/position.model');
+const Level = require('../models/level.model');
+const Role = require('../models/role.model');
 
 const router = new Router();
+
+router.get('/', async (req, res, next) => {
+  // Remove if available in client
+  req.user = {};
+  req.user.organization = '6071edae7720851020ea6744';
+
+  const searchQuery = {};
+  searchQuery.organization = req.user.organization;
+
+  try {
+    const users = await User.find(searchQuery);
+    res.json({ users });
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.post('/create', async (req, res, next) => {
   const { firstName, lastName, email, position, role, level } = req.body;
