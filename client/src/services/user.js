@@ -1,6 +1,9 @@
-import api from './api';
+import api from "./api";
 
 export const addUser = async (data) => {
+  console.log("from user.js", data);
   const response = await api.post(`/user/create`, data);
-  return response.data.user;
+
+  console.log(response.data.newUser);
+  return response.data.newUser;
 };

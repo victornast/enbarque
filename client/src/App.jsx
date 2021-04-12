@@ -14,6 +14,8 @@ import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
 import SignUp from './views/SignUp';
 import LogIn from './views/LogIn';
+// added in the branch to test
+import AddUser from './views/AddUser';
 import CreateTask from './views/CreateTask';
 
 function App() {
@@ -49,6 +51,13 @@ function App() {
             render={(props) => (
               <SignUp {...props} onUserChange={handleUserChange} />
             )}
+          />
+
+          {/* temp testing route */}
+          <Route
+            exact
+            path="/user/create"
+            render={(props) => <AddUser {...props} user={user} />}
           />
           <Route
             exact
