@@ -18,7 +18,7 @@ export const getPositionOptions = async (id) => {
     const response = await api.get(`/corp/${id}/positions`); //id of the user at the moment
     const positions = [];
     response.data.positions.map((position) => positions.push(position.name));
-    console.log(positions);
+    // console.log(positions);
     return positions;
   } catch (error) {
     return new Error("There was an error getting positions");
@@ -30,7 +30,7 @@ export const getRoleOptions = async (id) => {
     const response = await api.get(`/corp/${id}/roles`); //id of the user at the moment
     const roles = [];
     response.data.roles.map((role) => roles.push(role.name));
-    console.log(roles);
+    // console.log(roles);
     return roles;
   } catch (error) {
     return new Error("There was an error getting roles");

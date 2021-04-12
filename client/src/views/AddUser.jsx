@@ -28,7 +28,8 @@ class AddUser extends Component {
   handleFormSubmission = async (event) => {
     event.preventDefault();
     const { firstName, lastName, email, position, role, level } = this.state;
-    const user = await addUser({
+    // console.log(firstName, lastName, email, possition, role, level);
+    const newUser = await addUser({
       firstName,
       lastName,
       email,
