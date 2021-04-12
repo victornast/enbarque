@@ -14,8 +14,11 @@ router.get('/:id/levels', async (req, res, next) => {
   console.log('levels', id);
   try {
     const user = await User.findById(id);
-    const orgId = user.oraganization;
-    const response = await Level.findById(orgId);
+    console.log(user);
+    const orgId = user.organization;
+    console.log(orgId);
+    const response = await Level.find({ organization: orgId });
+    console.log(response);
     res.json({ levels: response });
   } catch (error) {
     next(error);
@@ -27,8 +30,8 @@ router.get('/:id/roles', async (req, res, next) => {
   console.log('roles', id);
   try {
     const user = await User.findById(id);
-    const orgId = user.oraganization;
-    const response = await Role.findById(orgId);
+    const orgId = user.organization;
+    const response = await Role.find({ organization: orgId });
     res.json({ roles: response });
   } catch (error) {
     next(error);
@@ -40,8 +43,8 @@ router.get('/:id/positions', async (req, res, next) => {
   console.log('positions', id);
   try {
     const user = await User.findById(id);
-    const orgId = user.oraganization;
-    const response = await Position.findById(orgId);
+    const orgId = user.organization;
+    const response = await Position.find({ organization: orgId });
     res.json({ positions: response });
   } catch (error) {
     next(error);
