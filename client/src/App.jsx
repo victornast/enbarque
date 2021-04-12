@@ -8,6 +8,7 @@ import './App.scss';
 import Navbar from './components/Navbar/Navbar';
 import Dashboard from './views/Dashboard';
 import Onboarding from './views/Onboarding';
+import CreateOnboarding from './views/CreateOnboarding';
 import Employees from './views/Employees';
 import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
@@ -29,16 +30,17 @@ function App() {
           <Route
             exact
             path="/dashboard"
-            render={(props) => (
-              <Dashboard
-                user={user}
-                {...props}
-                onUserChange={handleUserChange}
-              />
-            )}
+            render={(props) => <Dashboard user={user} {...props} />}
           />
           <Route exact path="/user/team" component={Employees} />
           <Route exact path="/onboarding" component={Onboarding} />
+          <Route
+            exact
+            path="/onboarding/create"
+            render={(props) => (
+              <CreateOnboarding user={user} {...props} />
+            )}
+          />
           <Route exact path="/corp/settings" component={OrgSettings} />
           <Route exact path="/corp/user/:id" component={Account} />
           <Route
