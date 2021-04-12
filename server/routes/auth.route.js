@@ -11,10 +11,12 @@ const DefaultPosition = require('./../models/defaultPosition.model');
 const Level = require('./../models/level.model');
 const Role = require('./../models/role.model');
 const Position = require('./../models/position.model');
+const fileUploadMiddleware = require('./../middleware/file-upload');
 
 const router = new Router();
 
 router.post('/signup', async (req, res, next) => {
+  console.log('req: ', req);
   const { firstName, lastName, username, email, password } = req.body;
   const { name, adress, emailCorp, website } = req.body;
 

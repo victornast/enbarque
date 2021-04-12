@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
 import "./App.scss";
 import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./views/Dashboard";
@@ -11,8 +11,14 @@ import SignUp from "./views/SignUp";
 import LogIn from "./views/LogIn";
 // added in the branch to test
 import AddUser from "./views/AddUser";
+import CreateTask from "./views/CreateTask";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  function handleUserChange(user) {
+    setUser(user);
+  }
   return (
     <>
       <Router>
@@ -23,10 +29,17 @@ function App() {
           <Route exact path="/onboarding" component={Onboarding} />
           <Route exact path="/corp/settings" component={OrgSettings} />
           <Route exact path="/corp/user/:id" component={Account} />
-          <Route exact path="/auth/signup" component={SignUp} />
+          <Route
+            exact
+            path="/auth/signup"
+            render={(props) => (
+              <SignUp {...props} onUserChange={handleUserChange} />
+            )}
+          />
           <Route exact path="/auth/login" component={LogIn} />
           {/* temp testing route */}
           <Route exact path="/user/create" component={AddUser} />
+          <Route exact path="/task/create" component={CreateTask} />
         </Switch>
       </Router>
     </>

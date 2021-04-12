@@ -6,7 +6,8 @@ const positionSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      trim: true
+      trim: true,
+      required: true
     },
     organization: {
       type: mongoose.Schema.Types.ObjectId,

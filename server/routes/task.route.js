@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = new express.Router();
+const Task = require('../models/task.model');
 //const routeGuard = require('../middleware/route-guard');
 
 router.get('/', async (req, res, next) => {
@@ -14,9 +15,17 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/create', async (req, res, next) => {
+  const { headline, description, organization, duration } = req.body;
+  const newTask = {
+    headline,
+    description,
+    organization,
+    duration
+  };
+  if (req.body.position) newTask.position = req.body.position;
   try {
-    console.log('Creating a task.');
-    res.json({ status: 'success' });
+    const createdTask = await Task.create(newTask);
+    res.json({ createdTask });
   } catch (error) {
     next(error);
   }
