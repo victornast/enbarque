@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { findUsers } from '../services/user';
 
 function CreateOnboarding({ user }) {
   const today = new Date();
@@ -6,10 +8,19 @@ function CreateOnboarding({ user }) {
     today.toJSON().slice(0, 10)
   );
   const [amountOfDays, setAmountOfDays] = useState(5);
-  const [onboardee, setOnboardee] = useState(123);
+  const [onboardee, setOnboardee] = useState('');
   const [mentor, setMentor] = useState(user._id);
+  const [usersList, setUsersList] = useState([]);
 
-  console.log(user);
+  useEffect(() => {
+    async function getApi() {
+      const users = await findUsers();
+      setUsersList(users);
+      console.log(usersList);
+    }
+    getApi();
+  }, []);
+
   const handleFormSubmission = (event) => {
     event.preventDefault();
   };
@@ -25,8 +36,11 @@ function CreateOnboarding({ user }) {
           value={onboardee}
           onChange={(e) => setOnboardee(e.target.value)}
         >
-          <option value="123">John Smith</option>
-          <option value="456">JJ What</option>
+          {usersList.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.firstName}
+            </option>
+          ))}
         </select>
 
         <label htmlFor="input-mentor">Select Mentor:</label>
@@ -36,10 +50,11 @@ function CreateOnboarding({ user }) {
           value={mentor}
           onChange={(e) => setMentor(e.target.value)}
         >
-          <option value={user._id}>
-            {user.firstName + ' ' + user.lastName}
-          </option>
-          <option value="123">Not the Manager</option>
+          {usersList.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.firstName}
+            </option>
+          ))}
         </select>
 
         <label htmlFor="input-starting-date">Starting Date:</label>

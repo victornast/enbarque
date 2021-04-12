@@ -10,10 +10,6 @@ const Role = require('../models/role.model');
 const router = new Router();
 
 router.get('/', async (req, res, next) => {
-  // Remove if available in client
-  req.user = {};
-  req.user.organization = '6071edae7720851020ea6744';
-
   const searchQuery = {};
   searchQuery.organization = req.user.organization;
 
