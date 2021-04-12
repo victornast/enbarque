@@ -11,6 +11,9 @@ import { addUser } from "../services/user";
 //
 class AddUser extends Component {
   state = {
+    levels: [],
+    positions: [],
+    roles: [],
     firstName: "",
     lastName: "",
     email: "",
@@ -34,6 +37,18 @@ class AddUser extends Component {
     });
   };
 
+  async componentDidMount() {
+    const id = this.state.user._id;
+    const levels = await getLevelOptions(id);
+    const roles = await getRoleOptions(id);
+    const positions = await getPositionOptions(id);
+    this.setState({
+      levels,
+      roles,
+      positions,
+    });
+  }
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -48,8 +63,9 @@ class AddUser extends Component {
   };
 
   render() {
-    const id = this.state.user._id;
-    console.log("from AddUser", getLevelOptions(id));
+    console.log("from AddUser", this.state.levels);
+    console.log("from AddUser", this.state.roles);
+    console.log("from AddUser", this.state.positions);
     return (
       <div>
         <h1>Add an employee profile</h1>
@@ -88,21 +104,21 @@ class AddUser extends Component {
 
           <SelectGroup
             name="position"
-            options={getPositionOptions(id)}
+            options={this.state.positions}
             onUpdate={(value) => this.handleSelectChange("position", value)}
           />
 
           <label>Level</label>
           <SelectGroup
             name="level"
-            options={getLevelOptions(id)}
+            options={this.state.levels}
             onUpdate={(value) => this.handleSelectChange("level", value)}
           />
 
           <label>Role assigned for the onboarding process</label>
           <SelectGroup
             name="role"
-            options={getRoleOptions(id)}
+            options={this.state.roles}
             onUpdate={(value) => this.handleSelectChange("role", value)}
           />
 
