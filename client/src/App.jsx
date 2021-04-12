@@ -1,17 +1,22 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import React from 'react';
-import './App.scss';
-import Navbar from './components/Navbar/Navbar';
-import Dashboard from './views/Dashboard';
-import Onboarding from './views/Onboarding';
-import Employees from './views/Employees';
-import OrgSettings from './views/OrgSettings';
-import Account from './views/Account';
-import SignUp from './views/SignUp';
-import LogIn from './views/LogIn';
-import CreateTask from './views/CreateTask';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import "./App.scss";
+import Navbar from "./components/Navbar/Navbar";
+import Dashboard from "./views/Dashboard";
+import Onboarding from "./views/Onboarding";
+import Employees from "./views/Employees";
+import OrgSettings from "./views/OrgSettings";
+import Account from "./views/Account";
+import SignUp from "./views/SignUp";
+import LogIn from "./views/LogIn";
+import CreateTask from "./views/CreateTask";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  function handleUserChange(user) {
+    setUser(user);
+  }
   return (
     <>
       <Router>
@@ -22,7 +27,13 @@ function App() {
           <Route exact path="/onboarding" component={Onboarding} />
           <Route exact path="/corp/settings" component={OrgSettings} />
           <Route exact path="/corp/user/:id" component={Account} />
-          <Route exact path="/auth/signup" component={SignUp} />
+          <Route
+            exact
+            path="/auth/signup"
+            render={(props) => (
+              <SignUp {...props} onUserChange={handleUserChange} />
+            )}
+          />
           <Route exact path="/auth/login" component={LogIn} />
           <Route exact path="/task/create" component={CreateTask} />
         </Switch>
