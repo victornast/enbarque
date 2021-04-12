@@ -43,6 +43,13 @@ function App() {
             path="/user/create"
             render={(props) => <AddUser {...props} user={user} />}
           />
+          <Route
+            exact
+            path="/auth/login"
+            render={(props) => (
+              <LogIn {...props} onUserChange={handleUserChange} />
+            )}
+          />
           <Route exact path="/task/create" component={CreateTask} />
         </Switch>
       </Router>
