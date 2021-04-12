@@ -47,9 +47,10 @@ class AddUser extends Component {
   };
 
   render() {
-    console.log(getLevelOptions());
-    console.log(getPositionOptions());
-    console.log(getRoleOptions());
+    const id = this.props.user._id;
+    console.log(getLevelOptions(id));
+    console.log(getPositionOptions(id));
+    console.log(getRoleOptions(id));
 
     return (
       <div>
@@ -88,21 +89,21 @@ class AddUser extends Component {
           <label>Position</label>
           <SelectGroup
             name="position"
-            options={getPositionOptions()}
+            options={() => getPositionOptions(this.props.user._id)}
             onUpdate={(value) => this.handleSelectChange("position", value)}
           />
 
           <label>Level</label>
           <SelectGroup
             name="level"
-            options={getLevelOptions()}
+            options={getLevelOptions(id)}
             onUpdate={(value) => this.handleSelectChange("level", value)}
           />
 
           <label>Role assigned for the onboarding process</label>
           <SelectGroup
             name="role"
-            options={getRoleOptions()}
+            options={getRoleOptions(id)}
             onUpdate={(value) => this.handleSelectChange("role", value)}
           />
 

@@ -38,7 +38,11 @@ function App() {
           />
           <Route exact path="/auth/login" component={LogIn} />
           {/* temp testing route */}
-          <Route exact path="/user/create" component={AddUser} />
+          <Route
+            exact
+            path="/user/create"
+            render={(props) => <AddUser {...props} user={user} />}
+          />
           <Route exact path="/task/create" component={CreateTask} />
         </Switch>
       </Router>
