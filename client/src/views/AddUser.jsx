@@ -49,7 +49,7 @@ class AddUser extends Component {
 
   render() {
     const id = this.state.user._id;
-    console.log(id);
+    console.log("from AddUser", getLevelOptions(id));
     return (
       <div>
         <h1>Add an employee profile</h1>
@@ -88,7 +88,7 @@ class AddUser extends Component {
 
           <SelectGroup
             name="position"
-            options={() => getPositionOptions(id)}
+            options={getPositionOptions(id)}
             onUpdate={(value) => this.handleSelectChange("position", value)}
           />
 

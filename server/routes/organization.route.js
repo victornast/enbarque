@@ -11,15 +11,13 @@ const User = require('./../models/user.model');
 // Get the levels set by the manager
 router.get('/:id/levels', async (req, res, next) => {
   const id = req.params.id;
-  console.log('levels', id);
+  //console.log('levels', id);
   try {
     const user = await User.findById(id);
-    console.log(user);
     const orgId = user.organization;
-    console.log(orgId);
-    const response = await Level.find({ organization: orgId });
-    console.log(response);
-    res.json({ levels: response });
+    const levels = await Level.find({ organization: orgId });
+    console.log(levels);
+    res.json({ levels });
   } catch (error) {
     next(error);
   }
