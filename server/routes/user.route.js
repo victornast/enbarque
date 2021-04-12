@@ -41,21 +41,17 @@ router.post('/create', async (req, res, next) => {
       levelId
     });
     console.log('Creating user');
-    // await sendEmail({
-    //   receiver: process.env.EMAIL_ADDRESS,
-    //   subject: 'Invitation to the Onboarding Dashboard!',
-    //   body: `<p>
-    //       Hello ${firstName}!
-    //       Welcome to the Onboarding process.
-
-    //       You can log in to see your
-    //       dashboard <a href="http://localhost:3000/auth/login">here</a>.
-    //       Log in email: ${email},
-    //       Temporary password: ${password}
-
-    //       Looking forward to welcoming you soon!
-    //     </p>`
-    // });
+    await sendEmail({
+      receiver: process.env.EMAIL_ADDRESS,
+      subject: 'Invitation to the Onboarding Dashboard!',
+      body: `<h3>Hello ${firstName}!</h3>
+      <p>Welcome to our onboarding process!</p>
+      <p>You can log in and see the dashboard <a href="http://localhost:3000/auth/login">here</a></p>
+      <p>Log in email: ${email}<br>
+      Temporary password: ${password}</p>
+      <p>We are looking forward to welcoming you soon!</p>
+      <p>${req.user.firstName} ${req.user.lastName}`
+    });
     res.json({ status: 'success', newUser });
   } catch (error) {
     next(error);
