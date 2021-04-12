@@ -1,8 +1,8 @@
 import api from "./api";
 
-export const getLevelOptions = async () => {
+export const getLevelOptions = async (id) => {
   try {
-    const response = await api.get(`/corp/levels`);
+    const response = await api.get(`/corp/${id}/levels`);
     const levels = response.data.levels.map((level) => levels.push(level.name));
     return levels;
   } catch (error) {
@@ -10,9 +10,9 @@ export const getLevelOptions = async () => {
   }
 };
 
-export const getPositionOptions = async () => {
+export const getPositionOptions = async (id) => {
   try {
-    const response = await api.get(`/corp/positions`);
+    const response = await api.get(`/corp/${id}/positions`);
     const positions = response.data.positions.map((position) =>
       positions.push(position.name)
     );
@@ -22,9 +22,9 @@ export const getPositionOptions = async () => {
   }
 };
 
-export const getRoleOptions = async () => {
+export const getRoleOptions = async (id) => {
   try {
-    const response = await api.get(`/corp/roles`);
+    const response = await api.get(`/corp/${id}/roles`);
     const roles = response.data.roles.map((role) => roles.push(role.name));
     return roles;
   } catch (error) {
