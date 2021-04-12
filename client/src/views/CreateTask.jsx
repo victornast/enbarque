@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './../CreateTask.scss';
 
 class CreateTask extends Component {
   state = {
@@ -54,56 +55,25 @@ class CreateTask extends Component {
       <div>
         <h1>Create Task</h1>
         <form onSubmit={this.handleFormSubmission}>
-          <label htmlFor="headline-input">Task</label>
+          <h4>Task Headline</h4>
+          <label htmlFor="headline-input" style={{ display: 'none' }}>
+            Task
+          </label>
           <input
             id="headline-input"
             type="text"
             placeholder="headline"
             name="headline"
+            className="headline-input"
             value={this.state.headline}
             onChange={this.handleInputChange}
             required
           />
           <br />
-          {/* <label htmlFor="position-input">Position</label>
-          <input
-            type="checkbox"
-            name="position-1-input"
-            value="junior"
-            id="1"
-            onChange={this.handleInputChange}
-          >
-            junior
-          </input>
-          <input
-            type="checkbox"
-            name="position-2-input"
-            value="intermediate"
-            id="2"
-            onChange={this.handleInputChange}
-          >
-            intermediate
-          </input>
-          <input
-            type="checkbox"
-            name="position-3-input"
-            value="senior"
-            id="3"
-            onChange={this.handleInputChange}
-          >
-            senior
-          </input>
-          <input
-            type="checkbox"
-            name="position-4-input"
-            value="expert"
-            id="4"
-            onChange={this.handleInputChange}
-          >
-            expert
-          </input> */}
-          <br />
-          <label htmlFor="description-input">Description</label>
+          <h4>Description</h4>
+          <label htmlFor="description-input" style={{ display: 'none' }}>
+            Description
+          </label>
           <textarea
             id="description-input"
             placeholder="description of the task"
@@ -113,6 +83,44 @@ class CreateTask extends Component {
             required
           />
           <br />
+          <h4>Position</h4>
+          <label htmlFor="position-input">junior</label>
+          <input
+            type="checkbox"
+            name="position-1-input"
+            value="junior"
+            id="1"
+            onChange={this.handleInputChange}
+          />
+          <label htmlFor="position-input">intermediate</label>
+          <input
+            type="checkbox"
+            name="position-2-input"
+            value="intermediate"
+            id="2"
+            onChange={this.handleInputChange}
+          />
+          <label htmlFor="position-input">senior</label>
+          <input
+            type="checkbox"
+            name="position-3-input"
+            value="senior"
+            id="3"
+            onChange={this.handleInputChange}
+          />
+          <label htmlFor="position-input">expert</label>
+          <input
+            type="checkbox"
+            name="position-4-input"
+            value="expert"
+            id="4"
+            onChange={this.handleInputChange}
+          />
+          <br />
+          <h4>Priority</h4>
+          <label htmlFor="description-input" style={{ display: 'none' }}>
+            Priority
+          </label>
           <select name="priority">
             <option value="1" name="priority" onChange={this.handleInputChange}>
               1st Priority
@@ -125,7 +133,7 @@ class CreateTask extends Component {
             </option>
           </select>
           <br />
-          <button className="submit">Sign Up</button>
+          <button className="submit">Create Task</button>
         </form>
       </div>
     );
