@@ -24,6 +24,7 @@ class SignUp extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
+    //console.log("name: ", name, "value: ", value);
     this.setState({
       [name]: value
     });
@@ -54,10 +55,12 @@ class SignUp extends Component {
       password: this.state.password
     };
     const response = await signUp(formData).then((res) => {
-      //console.log('res: ', res);
+      //console.log("res: ", res);
       this.setState({
         success: true
       });
+      // new addition
+      this.props.onUserChange(res);
     });
   };
 
