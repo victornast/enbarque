@@ -3,9 +3,9 @@
 const { Router } = require('express');
 
 const User = require('../models/user.model');
-const Position = require('../models/user.model');
-const Level = require('../models/user.model');
-const Role = require('../models/user.model');
+const Position = require('../models/position.model');
+const Level = require('../models/level.model');
+const Role = require('../models/role.model');
 const generatePassword = require('../utilities/generate-password');
 const sendEmail = require('../utilities/send-email');
 const bcryptjs = require('bcryptjs');
