@@ -1,45 +1,43 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import './../CreateTask.scss';
 
 class CreateTask extends Component {
   state = {
     headline: '',
     description: '',
-    priority: '',
+    priority: 'select',
     organizationId: '',
-    position: ['junior', 'intermediate', 'senior', 'expert'],
-    duration: ''
+    position: '',
+    duration: 'select'
   };
 
-  handleFormSubmission = async (event) => {
-    event.preventDefault();
-    const {
-      headline,
-      description,
-      priority,
-      organizationId,
-      position,
-      duration
-    } = this.state;
-    const data = new FormData();
-    const values = {
-      headline,
-      description,
-      priority,
-      organizationId,
-      position,
-      duration
-    };
-    for (let key in values) {
-      data.append(key, values[key]);
-    }
-  };
+  // handleFormSubmission = async (event) => {
+  //   event.preventDefault();
+  //   const formData = {
+  //     headline: this.state.headline,
+  //     description: this.state.description,
+  //     priority: this.state.priority,
+  //     organizationId: this.state.organizationId,
+  //     position: this.state.position,
+  //     duration: this.state.duration
+  //   };
+  //   const response = await createTask(formData).then((res) => {
+  //     //console.log("res: ", res);
+  //     this.setState({
+  //       success: true
+  //     });
+  //     // new addition
+  //     this.props.onUserChange(res);
+  //   });
+  // };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
+    console.log(this.state);
   };
 
   handleFileInputChange = (event) => {
@@ -51,7 +49,9 @@ class CreateTask extends Component {
   };
 
   render() {
-    return (
+    return this.state.success ? (
+      <Redirect to="/dashboard"></Redirect>
+    ) : (
       <div>
         <h1>Create Task</h1>
         <form onSubmit={this.handleFormSubmission}>
@@ -83,37 +83,33 @@ class CreateTask extends Component {
             required
           />
           <br />
-          <h4>Position</h4>
+          <h4>Suited for the following positions:</h4>
           <label htmlFor="position-input">junior</label>
           <input
             type="checkbox"
-            name="position-1-input"
+            name="position"
             value="junior"
-            id="1"
             onChange={this.handleInputChange}
           />
           <label htmlFor="position-input">intermediate</label>
           <input
             type="checkbox"
-            name="position-2-input"
+            name="position"
             value="intermediate"
-            id="2"
             onChange={this.handleInputChange}
           />
           <label htmlFor="position-input">senior</label>
           <input
             type="checkbox"
-            name="position-3-input"
+            name="position"
             value="senior"
-            id="3"
             onChange={this.handleInputChange}
           />
           <label htmlFor="position-input">expert</label>
           <input
             type="checkbox"
-            name="position-4-input"
+            name="position"
             value="expert"
-            id="4"
             onChange={this.handleInputChange}
           />
           <br />
@@ -121,17 +117,75 @@ class CreateTask extends Component {
           <label htmlFor="description-input" style={{ display: 'none' }}>
             Priority
           </label>
-          <select name="priority">
-            <option value="1" name="priority" onChange={this.handleInputChange}>
+          <select
+            name="priority"
+            onChange={this.handleInputChange}
+            value={this.state.priority}
+          >
+            <option value="1" name="priority">
               1st Priority
             </option>
-            <option value="2" name="priority" onChange={this.handleInputChange}>
+            <option value="2" name="priority">
               2nd Priority
             </option>
-            <option value="3" name="priority" onChange={this.handleInputChange}>
+            <option value="3" name="priority">
               3rd Priority
             </option>
           </select>
+          <br />
+          <h4>Estimated Time Requirement</h4>
+          <label htmlFor="duration-input" style={{ display: 'none' }}>
+            Duration
+          </label>
+          <select
+            name="duration"
+            id="duration"
+            value={this.state.duration}
+            onChange={this.handleInputChange}
+          >
+            <option value="30" name="duration">
+              30min
+            </option>
+            <option value="60" name="duration">
+              1h
+            </option>
+            <option value="90" name="duration">
+              1h 30min
+            </option>
+            <option value="120" name="duration">
+              2h
+            </option>
+            <option value="150" name="duration">
+              2h 30min
+            </option>
+            <option value="180" name="duration">
+              3h
+            </option>
+            <option value="210" name="duration">
+              3h 30min
+            </option>
+            <option value="240" name="duration">
+              half a day
+            </option>
+            <option value="480" name="duration">
+              whole day
+            </option>
+            <option value="other" name="duration">
+              specify time manually...
+            </option>
+          </select>
+          <br />
+          {this.state.duration === 'other' ? (
+            <input
+              type="text"
+              name="duration"
+              value=""
+              placeholder="time"
+              onChange={this.handleInputChange}
+            />
+          ) : (
+            ''
+          )}
           <br />
           <button className="submit">Create Task</button>
         </form>
