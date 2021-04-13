@@ -7,3 +7,8 @@ export const addUser = async (data) => {
   console.log(response.data.newUser);
   return response.data.newUser;
 };
+
+export const loadEmployees = async () => {
+  const response = await api.get("/corp/users");
+  return response.data.employees;
+};
