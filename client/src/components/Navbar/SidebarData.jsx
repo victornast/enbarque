@@ -12,6 +12,12 @@ export const SidebarData = [
     className: "nav-text",
   },
   {
+    title: "Manager-Dashboard",
+    path: "/manager-dashboard",
+    icon: <AiIcons.AiOutlineDashboard />,
+    className: "nav-text",
+  },
+  {
     title: "Onboarding",
     path: "/onboarding",
     icon: <BsIcons.BsListCheck />,
@@ -50,7 +56,7 @@ export const SidebarData = [
   },
   {
     title: "Log In",
-    path: "/auth/login",
+    path: "/auth/signin",
     icon: <FiIcons.FiLogIn />,
     className: "nav-text",
   },

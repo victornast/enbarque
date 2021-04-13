@@ -2,8 +2,11 @@ import api from './api';
 
 export const signIn = async (data) => {
   const response = await api.post('/auth/signin', data);
+  console.log('response: ', response);
   const body = response.data;
+  console.log('body: ', body);
   const user = body.user;
+  console.log('user: ', user);
   return user;
 };
 

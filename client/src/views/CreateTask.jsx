@@ -8,9 +8,8 @@ class CreateTask extends Component {
     headline: '',
     description: '',
     priority: 'select',
-    organization: '',
-    position: '',
-    duration: 'select',
+    position: [''],
+    duration: 1,
     success: false
   };
 
@@ -186,7 +185,7 @@ class CreateTask extends Component {
               type="text"
               name="duration"
               value=""
-              placeholder="time"
+              placeholder="time in minutes"
               onChange={this.handleInputChange}
             />
           ) : (

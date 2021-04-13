@@ -16,15 +16,25 @@ const fileUploadMiddleware = require('./../middleware/file-upload');
 const router = new Router();
 
 router.post('/signup', async (req, res, next) => {
-  
   const { firstName, lastName, username, email, password } = req.body;
-  const { name, adress, emailCorp, website } = req.body;
+  const {
+    name,
+    street,
+    postcode,
+    city,
+    country,
+    emailCorp,
+    website
+  } = req.body;
 
   try {
     const hash = await bcryptjs.hash(password, 10);
     const company = await Organization.create({
       name,
-      adress,
+      street,
+      postcode,
+      city,
+      country,
       email: emailCorp,
       website
     });
