@@ -41,9 +41,18 @@ class AddUser extends Component {
 
   async componentDidMount() {
     const id = this.state.user._id;
-    const levels = await getLevelOptions(id);
-    const roles = await getRoleOptions(id);
-    const positions = await getPositionOptions(id);
+    const levelObjectArray = await getLevelOptions(id);
+    const levels = levelObjectArray.map((levelObject) =>
+      levels.push(levelObject.name)
+    );
+    const roleObjectArray = await getRoleOptions(id);
+    const roles = roleObjectArray.map((roleObject) =>
+      roles.push(roleObject.name)
+    );
+    const positionObjectArray = await getPositionOptions(id);
+    const positions = positionObjectArray.map((positionObject) =>
+      positions.push(positionObject.name)
+    );
     this.setState({
       levels,
       roles,

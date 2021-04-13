@@ -17,7 +17,7 @@ export const getPositionOptions = async (id) => {
   try {
     const response = await api.get(`/corp/${id}/positions`); //id of the user at the moment
     const positions = [];
-    response.data.positions.map((position) => positions.push(position.name));
+    response.data.positions.map((position) => positions.push(position));
     // console.log(positions);
     return positions;
   } catch (error) {
