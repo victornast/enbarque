@@ -16,7 +16,6 @@ function CreateOnboarding({ user }) {
     async function getApi() {
       const users = await findUsers();
       await setUsersList(users);
-      console.log(usersList);
     }
     getApi();
   }, []);
