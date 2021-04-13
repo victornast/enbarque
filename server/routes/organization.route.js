@@ -14,7 +14,10 @@ router.get('/users', async (req, res, next) => {
   searchQuery.organization = req.user.organization;
 
   try {
-    const users = await User.find(searchQuery);
+    const users = await User.find(searchQuery)
+      .populate('role')
+      .populate('level')
+      .populate('position');
     res.json({ users });
   } catch (error) {
     next(error);

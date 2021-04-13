@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import EmployeeList from "./../components/employees/EmployeeList";
-import { loadEmployees } from "./../services/user";
+import { findUsers } from "./../services/organization";
 
 class ManagerDashboard extends Component {
   state = {
@@ -8,17 +8,21 @@ class ManagerDashboard extends Component {
   };
 
   async componentDidMount() {
-    const employees = await loadEmployees();
+    const users = await findUsers();
     this.setState({
-      employees,
+      employees: users,
     });
   }
 
   render() {
     return (
       <div>
-        <h1>Manager Dashboard</h1>
-        <EmployeeList employees={this.state.employees} />
+        {!!this.state.employees.length && (
+          <>
+            <h1>Manager Dashboard</h1>
+            <EmployeeList employees={this.state.employees} />
+          </>
+        )}
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 
 const EmployeeCardSmall = ({ employee }) => {
+  console.log(employee);
   return (
     <div>
       <span>
