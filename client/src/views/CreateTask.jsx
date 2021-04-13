@@ -24,7 +24,7 @@ class CreateTask extends Component {
       position: this.state.position,
       duration: this.state.duration
     };
-    const response = await createTask(formData).then((res) => {
+    await createTask(formData).then((res) => {
       console.log('res: ', res);
       this.setState({
         success: true
@@ -71,7 +71,10 @@ class CreateTask extends Component {
           />
           <br />
           <h4>Description</h4>
-          <label htmlFor="description-input" style={{ display: 'none' }}>
+          <label
+            htmlFor="description-input"
+            style={{ display: 'none' }}
+          >
             Description
           </label>
           <textarea
@@ -114,7 +117,10 @@ class CreateTask extends Component {
           />
           <br />
           <h4>Priority</h4>
-          <label htmlFor="description-input" style={{ display: 'none' }}>
+          <label
+            htmlFor="description-input"
+            style={{ display: 'none' }}
+          >
             Priority
           </label>
           <select

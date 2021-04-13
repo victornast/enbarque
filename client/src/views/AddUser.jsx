@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import SelectGroup from "../components/forms/SelectGroup";
+import React, { Component } from 'react';
+import SelectGroup from '../components/forms/SelectGroup';
 //import { levelOptions, positionOptions, roleOptions } from "../common";
 import {
   getLevelOptions,
   getPositionOptions,
-  getRoleOptions,
-} from "./../services/userOptions";
-import { addUser } from "../services/user";
+  getRoleOptions
+} from './../services/userOptions';
+import { addUser } from '../services/user';
 
 //
 class AddUser extends Component {
@@ -14,28 +14,35 @@ class AddUser extends Component {
     levels: [],
     positions: [],
     roles: [],
-    firstName: "",
-    lastName: "",
-    email: "",
-    position: "",
-    role: "",
-    level: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    position: '',
+    role: '',
+    level: '',
     user: this.props.user,
-    loaded: false,
+    loaded: false
   };
   // username and password should be generated automatically
 
   handleFormSubmission = async (event) => {
     event.preventDefault();
-    const { firstName, lastName, email, position, role, level } = this.state;
-    // console.log(firstName, lastName, email, possition, role, level);
-    const newUser = await addUser({
+    const {
       firstName,
       lastName,
       email,
       position,
       role,
-      level,
+      level
+    } = this.state;
+    // console.log(firstName, lastName, email, possition, role, level);
+    await addUser({
+      firstName,
+      lastName,
+      email,
+      position,
+      role,
+      level
     });
   };
 
@@ -48,20 +55,20 @@ class AddUser extends Component {
       levels,
       roles,
       positions,
-      loaded: true,
+      loaded: true
     });
   }
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
   handleSelectChange = (name, value) => {
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -108,21 +115,27 @@ class AddUser extends Component {
             <SelectGroup
               name="position"
               options={this.state.positions}
-              onUpdate={(value) => this.handleSelectChange("position", value)}
+              onUpdate={(value) =>
+                this.handleSelectChange('position', value)
+              }
             />
 
             <label>Level</label>
             <SelectGroup
               name="level"
               options={this.state.levels}
-              onUpdate={(value) => this.handleSelectChange("level", value)}
+              onUpdate={(value) =>
+                this.handleSelectChange('level', value)
+              }
             />
 
             <label>Role</label>
             <SelectGroup
               name="role"
               options={this.state.roles}
-              onUpdate={(value) => this.handleSelectChange("role", value)}
+              onUpdate={(value) =>
+                this.handleSelectChange('role', value)
+              }
             />
 
             <button>Save</button>
