@@ -9,11 +9,8 @@ export const signIn = async (data) => {
 
 export const signUp = async (data) => {
   const response = await api.post('/auth/signup', data);
-  console.log('response: ', response);
   const body = response.data;
-  console.log('body: ', body);
   const user = body.user;
-  console.log('user: ', user);
   return user;
 };
 

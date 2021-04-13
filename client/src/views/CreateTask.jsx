@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { createTask } from './../services/task';
 import './../CreateTask.scss';
 
 class CreateTask extends Component {
@@ -7,30 +8,29 @@ class CreateTask extends Component {
     headline: '',
     description: '',
     priority: 'select',
-    organizationId: '',
+    organization: '',
     position: '',
-    duration: 'select'
+    duration: 'select',
+    success: false
   };
 
-  // handleFormSubmission = async (event) => {
-  //   event.preventDefault();
-  //   const formData = {
-  //     headline: this.state.headline,
-  //     description: this.state.description,
-  //     priority: this.state.priority,
-  //     organizationId: this.state.organizationId,
-  //     position: this.state.position,
-  //     duration: this.state.duration
-  //   };
-  //   const response = await createTask(formData).then((res) => {
-  //     //console.log("res: ", res);
-  //     this.setState({
-  //       success: true
-  //     });
-  //     // new addition
-  //     this.props.onUserChange(res);
-  //   });
-  // };
+  handleFormSubmission = async (event) => {
+    event.preventDefault();
+    const formData = {
+      headline: this.state.headline,
+      description: this.state.description,
+      priority: this.state.priority,
+      organization: this.state.organization,
+      position: this.state.position,
+      duration: this.state.duration
+    };
+    const response = await createTask(formData).then((res) => {
+      console.log('res: ', res);
+      this.setState({
+        success: true
+      });
+    });
+  };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
