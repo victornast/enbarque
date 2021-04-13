@@ -1,4 +1,9 @@
-import api from "./api";
+import api from './api';
+
+export const findUsers = async () => {
+  const response = await api.get('/user');
+  return response.data.users;
+};
 
 export const addUser = async (data) => {
   // console.log("from user.js", data);

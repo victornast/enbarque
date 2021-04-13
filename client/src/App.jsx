@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { signOut, verify } from "./services/authentication";
 import React, { Component, useState } from "react";
@@ -7,14 +7,16 @@ import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./views/Dashboard";
 import ManagerDashboard from "./views/ManagerDashboard";
 import Onboarding from "./views/Onboarding";
+import CreateOnboarding from './views/CreateOnboarding';
 import Employees from "./views/Employees";
 import OrgSettings from "./views/OrgSettings";
 import Account from "./views/Account";
 import SignUp from "./views/SignUp";
 import LogIn from "./views/LogIn";
+
 // added in the branch to test
-import AddUser from "./views/AddUser";
-import CreateTask from "./views/CreateTask";
+import AddUser from './views/AddUser';
+import CreateTask from './views/CreateTask';
 
 class App extends Component {
   state = {
@@ -79,6 +81,15 @@ class App extends Component {
               redirect="/auth/signin"
               render={(props) => (
                 <Onboarding {...props} user={this.state.user} />
+              )}
+            />
+            <ProtectedRoute
+              exact
+              path="/onboarding/create"
+              authorized={this.state.user}
+              redirect="/auth/signin"
+              render={(props) => (
+                <CreateOnboarding {...props} user={this.state.user} />
               )}
             />
             <ProtectedRoute
