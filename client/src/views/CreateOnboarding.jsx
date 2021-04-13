@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { findUsers } from '../services/user';
+import { findUsers } from '../services/organization';
 import { createOnboarding } from '../services/onboarding';
 
 function CreateOnboarding({ user }) {
@@ -29,7 +29,6 @@ function CreateOnboarding({ user }) {
       startDate,
       amountOfDays
     };
-    console.log(data);
     const res = await createOnboarding(data);
     console.log(res);
   };

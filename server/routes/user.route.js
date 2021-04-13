@@ -12,18 +12,6 @@ const bcryptjs = require('bcryptjs');
 
 const router = new Router();
 
-router.get('/', async (req, res, next) => {
-  const searchQuery = {};
-  searchQuery.organization = req.user.organization;
-
-  try {
-    const users = await User.find(searchQuery);
-    res.json({ users });
-  } catch (error) {
-    next(error);
-  }
-});
-
 router.post('/create', async (req, res, next) => {
   const { firstName, lastName, email, position, role, level } = req.body;
   const orgId = req.user.organization;
