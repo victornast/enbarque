@@ -1,24 +1,24 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
-import { signOut, verify } from "./services/authentication";
-import React, { Component, useState } from "react";
-import "./App.scss";
-import Navbar from "./components/Navbar/Navbar";
-import Dashboard from "./views/Dashboard";
-import Onboarding from "./views/Onboarding";
-import Employees from "./views/Employees";
-import OrgSettings from "./views/OrgSettings";
-import Account from "./views/Account";
-import SignUp from "./views/SignUp";
-import LogIn from "./views/LogIn";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
+import { signOut, verify } from './services/authentication';
+import React, { Component, useState } from 'react';
+import './App.scss';
+import Navbar from './components/Navbar/Navbar';
+import Dashboard from './views/Dashboard';
+import Onboarding from './views/Onboarding';
+import Employees from './views/Employees';
+import OrgSettings from './views/OrgSettings';
+import Account from './views/Account';
+import SignUp from './views/SignUp';
+import LogIn from './views/LogIn';
 // added in the branch to test
-import AddUser from "./views/AddUser";
-import CreateTask from "./views/CreateTask";
+import AddUser from './views/AddUser';
+import CreateTask from './views/CreateTask';
 
 class App extends Component {
   state = {
     user: null,
-    loaded: false,
+    loaded: false
   };
 
   async componentDidMount() {
@@ -29,7 +29,7 @@ class App extends Component {
 
   handleUserChange = (user) => {
     this.setState({
-      user,
+      user
     });
   };
 
@@ -53,10 +53,40 @@ class App extends Component {
                 <Dashboard {...props} user={this.state.user} />
               )}
             />
-            <Route exact path="/user/team" component={Employees} />
-            <Route exact path="/onboarding" component={Onboarding} />
-            <Route exact path="/corp/settings" component={OrgSettings} />
-            <Route exact path="/corp/user/:id" component={Account} />
+            <ProtectedRoute
+              exact
+              path="/user/team"
+              authorized={this.state.user}
+              redirect="/auth/signin"
+              render={(props) => (
+                <Employees {...props} user={this.state.user} />
+              )}
+            />
+            <ProtectedRoute
+              exact
+              path="/onboarding"
+              authorized={this.state.user}
+              redirect="/auth/signin"
+              render={(props) => (
+                <Onboarding {...props} user={this.state.user} />
+              )}
+            />
+            <ProtectedRoute
+              exact
+              path="/corp/settings"
+              authorized={this.state.user}
+              redirect="/auth/signin"
+              render={(props) => (
+                <OrgSettings {...props} user={this.state.user} />
+              )}
+            />
+            <ProtectedRoute
+              exact
+              path="/corp/user/:id"
+              authorized={this.state.user}
+              redirect="/auth/signin"
+              render={(props) => <Account {...props} user={this.state.user} />}
+            />
             <Route
               exact
               path="/auth/signup"
@@ -66,9 +96,11 @@ class App extends Component {
             />
 
             {/* temp testing route */}
-            <Route
+            <ProtectedRoute
               exact
               path="/user/create"
+              authorized={this.state.user}
+              redirect="/auth/signin"
               render={(props) => <AddUser {...props} user={this.state.user} />}
             />
             <Route
@@ -78,7 +110,15 @@ class App extends Component {
                 <LogIn {...props} onUserChange={this.handleUserChange} />
               )}
             />
-            <Route exact path="/task/create" component={CreateTask} />
+            <ProtectedRoute
+              exact
+              path="/task/create"
+              authorized={this.state.user}
+              redirect="/auth/signin"
+              render={(props) => (
+                <CreateTask {...props} user={this.state.user} />
+              )}
+            />
           </Switch>
         </Router>
       </>
