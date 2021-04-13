@@ -9,8 +9,8 @@ const User = require('./../models/user.model');
 //const routeGuard = require('../middleware/route-guard');
 
 // Get the levels set by the manager
-router.get('/:id/levels', async (req, res, next) => {
-  const id = req.params.id;
+router.get('/levels', async (req, res, next) => {
+  const id = req.user._id;
   //console.log('levels', id);
   try {
     const user = await User.findById(id);
@@ -23,8 +23,8 @@ router.get('/:id/levels', async (req, res, next) => {
   }
 });
 
-router.get('/:id/roles', async (req, res, next) => {
-  const id = req.params.id;
+router.get('/roles', async (req, res, next) => {
+  const id = req.user._id;
   // console.log('roles', id);
   try {
     const user = await User.findById(id);
@@ -36,8 +36,8 @@ router.get('/:id/roles', async (req, res, next) => {
   }
 });
 
-router.get('/:id/positions', async (req, res, next) => {
-  const id = req.params.id;
+router.get('/positions', async (req, res, next) => {
+  const id = req.user._id;
   // console.log('positions', id);
   try {
     const user = await User.findById(id);
