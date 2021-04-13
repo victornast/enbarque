@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { findUsers } from '../services/user';
+import { createOnboarding } from '../services/onboarding';
 
 function CreateOnboarding({ user }) {
   const today = new Date();
@@ -8,7 +9,7 @@ function CreateOnboarding({ user }) {
     today.toJSON().slice(0, 10)
   );
   const [amountOfDays, setAmountOfDays] = useState(5);
-  const [onboardee, setOnboardee] = useState('');
+  const [onboardee, setOnboardee] = useState(user._id);
   const [mentor, setMentor] = useState(user._id);
   const [usersList, setUsersList] = useState([]);
 
@@ -20,8 +21,17 @@ function CreateOnboarding({ user }) {
     getApi();
   }, []);
 
-  const handleFormSubmission = (event) => {
+  const handleFormSubmission = async (event) => {
     event.preventDefault();
+    const data = {
+      onboardee: usersList.filter((user) => user._id === onboardee)[0],
+      mentor,
+      startDate,
+      amountOfDays
+    };
+    console.log(data);
+    const res = await createOnboarding(data);
+    console.log(res);
   };
 
   return (
