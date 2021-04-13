@@ -9,17 +9,19 @@ router.get('/', async (req, res, next) => {
   try {
     console.log('Listing all tasks.');
     res.json({ status: 'success' });
+    const allTasks = await Task.find();
+    res.json({ allTasks });
   } catch (error) {
     next(error);
   }
 });
 
 router.post('/create', async (req, res, next) => {
-  const { headline, description, organization, duration } = req.body;
+  const { headline, description, duration } = req.body;
   const newTask = {
     headline,
     description,
-    organization,
+    organization: req.user.organization,
     duration
   };
   if (req.body.position) newTask.position = req.body.position;
