@@ -4,6 +4,9 @@ const express = require('express');
 const router = new express.Router();
 //const routeGuard = require('../middleware/route-guard');
 
+const OnboardingProcess = require('../models/onboardingProcess.model');
+const Task = require('../models/task.model');
+
 router.get('/', async (req, res, next) => {
   try {
     console.log('Listing all onboarding processes.');
@@ -14,9 +17,30 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/create', async (req, res, next) => {
+  const { onboardee, mentor, startDate, amountOfDays } = req.body;
+
   try {
-    console.log('Creating an onboarding process.');
-    res.json({ status: 'success' });
+    const tasks = await Task.find({
+      $and: [
+        { organization: req.user.organization },
+        {
+          $or: [{ position: undefined }, { position: onboardee.position }]
+        }
+      ]
+    });
+
+    const onboardingObject = {
+      organization: req.user.organization,
+      onboardee: onboardee._id,
+      manager: req.user._id,
+      mentor,
+      startingDate: new Date(startDate),
+      amountOfDays,
+      scheduledTasks: [],
+      unscheduledTasks: [...tasks.map((task) => task._id)]
+    };
+    const onboardingProcess = await OnboardingProcess.create(onboardingObject);
+    res.json({ onboardingProcess });
   } catch (error) {
     next(error);
   }

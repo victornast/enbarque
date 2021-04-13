@@ -1,4 +1,4 @@
-import api from "./api";
+import api from './api';
 
 export const addUser = async (data) => {
   // console.log("from user.js", data);
