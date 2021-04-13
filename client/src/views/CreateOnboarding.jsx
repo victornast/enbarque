@@ -15,7 +15,11 @@ function CreateOnboarding({ user }) {
   useEffect(() => {
     async function getApi() {
       const users = await findUsers();
+<<<<<<< HEAD
       setUsersList(users);
+=======
+      await setUsersList(users);
+>>>>>>> be3ce8444d59d2db2533cc872572876730d2e8d6
     }
     getApi();
   }, []);
