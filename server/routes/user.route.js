@@ -6,6 +6,9 @@ const User = require('../models/user.model');
 const Position = require('../models/position.model');
 const Level = require('../models/level.model');
 const Role = require('../models/role.model');
+const generatePassword = require('../utilities/generate-password');
+const sendEmail = require('../utilities/send-email');
+const bcryptjs = require('bcryptjs');
 
 const router = new Router();
 
@@ -24,6 +27,10 @@ router.get('/', async (req, res, next) => {
 router.post('/create', async (req, res, next) => {
   const { firstName, lastName, email, position, role, level } = req.body;
   const orgId = req.user.organization;
+  const password = await generatePassword();
+  console.log(password);
+  const hash = await bcryptjs.hash(password, 10);
+  console.log('hash:', hash);
   try {
     const positionId = await Position.findOne({
       $and: [{ name: position }, { organization: orgId }]
@@ -40,11 +47,23 @@ router.post('/create', async (req, res, next) => {
       lastName,
       email,
       organization: orgId,
+      passwordHashAndSalt: hash,
       positionId,
       roleId,
       levelId
     });
     console.log('Creating user');
+    await sendEmail({
+      receiver: process.env.EMAIL_ADDRESS,
+      subject: 'Invitation to the Onboarding Dashboard!',
+      body: `<h3>Hello ${firstName}!</h3>
+      <p>Welcome to our onboarding process!</p>
+      <p>You can log in and see the dashboard <a href="http://localhost:3000/auth/login">here</a></p>
+      <p>Log in email: ${email}<br>
+      Temporary password: ${password}</p>
+      <p>We are looking forward to welcoming you soon!</p>
+      <p>${req.user.firstName} ${req.user.lastName}`
+    });
     res.json({ status: 'success', newUser });
   } catch (error) {
     next(error);
