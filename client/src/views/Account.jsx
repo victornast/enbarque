@@ -1,11 +1,29 @@
-import React from 'react'
+import React from 'react';
+import { Component } from 'react';
+import { loadUser } from '../services/user';
 
-function Account() {
+class Account extends Component {
+  state = {
+    user: null
+  };
+
+  async componentDidMount() {
+    const user = await loadUser(this.props.match.params.id);
+    this.setState({ user });
+  }
+
+  render() {
+    const { user } = this.state;
     return (
-        <div className='account'>
-            <h1>Account</h1>
-        </div>
-    )
+      <main>
+        {user && (
+          <>
+            <h1>{user.firstName}</h1>
+          </>
+        )}
+      </main>
+    );
+  }
 }
 
-export default Account
+export default Account;
