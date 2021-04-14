@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const EmployeeCardSmall = ({ employee }) => {
   console.log(employee);
@@ -7,11 +8,11 @@ const EmployeeCardSmall = ({ employee }) => {
       <span>
         {employee.firstName} {employee.lastName}
       </span>
-      <span>{employee.position.name}</span>
-      <span>{employee.level.name}</span>
-      <span>{employee.role.name}</span>
-      <button>Assign to onboarding</button>
-      <button>Edit Profile</button>
+      {(employee.position && <span>{employee.position.name}</span>) || ""}
+      {(employee.level && <span>{employee.level.name}</span>) || ""}
+      {(employee.role && <span>{employee.role.name}</span>) || ""}
+      <Link to={`/onboarding/${employee._id}`}>Assign to onboarding </Link>
+      <Link to={`/auth/${employee._id}/profile`}>Edit</Link>
     </div>
   );
 };

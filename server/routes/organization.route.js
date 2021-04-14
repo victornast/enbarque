@@ -15,9 +15,9 @@ router.get('/users', async (req, res, next) => {
 
   try {
     const users = await User.find(searchQuery)
-      .populate('role')
-      .populate('level')
-      .populate('position');
+      .populate('role', 'name')
+      .populate('level', 'name')
+      .populate('position', 'name');
     res.json({ users });
   } catch (error) {
     next(error);
