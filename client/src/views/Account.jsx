@@ -19,6 +19,8 @@ class Account extends Component {
         {user && (
           <>
             <h1>{user.firstName}</h1>
+            <h1>{user.lastName}</h1>
+
           </>
         )}
       </main>

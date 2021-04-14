@@ -92,7 +92,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/corp/user/:id"
+              path="/auth/verify"
               authorized={this.state.user}
               redirect="/auth/signin"
               render={(props) => <Account {...props} user={this.state.user} />}

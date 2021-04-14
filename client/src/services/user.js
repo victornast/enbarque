@@ -9,6 +9,6 @@ export const addUser = async (data) => {
 };
 
 export const loadUser = async (id) => {
-  const response = await api.get(`/corp/${id}`);
+  const response = await api.get(`/auth/verify`);
   return response.data.user;
 };
