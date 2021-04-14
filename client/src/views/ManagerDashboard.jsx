@@ -15,12 +15,17 @@ class ManagerDashboard extends Component {
   }
 
   render() {
+    const manager = this.props.user;
     return (
       <div>
         {!!this.state.employees.length && (
           <>
             <h1>Manager Dashboard</h1>
-            <EmployeeList employees={this.state.employees} />
+            <h3>
+              Manager: {manager.firstName} {manager.lastName}
+            </h3>
+            <h3>Employees:</h3>
+            <EmployeeList employees={this.state.employees} user={manager} />
           </>
         )}
       </div>
