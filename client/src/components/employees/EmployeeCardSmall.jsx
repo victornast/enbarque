@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const EmployeeCardSmall = ({ employee }) => {
-  // console.log(employee);
+const EmployeeCardSmall = ({ employee, plan }) => {
+  console.log(plan);
   return (
     <div className="table__row">
       <span>
@@ -15,12 +15,19 @@ const EmployeeCardSmall = ({ employee }) => {
         {(employee.level && <span>{employee.level.name}</span>) || "n/a"}
       </span>
       <span>
-        {(employee.role && <span>{employee.role.name}</span>) || (
+        {(employee.role && <span>{employee.role.name}</span>) || "n/a"}
+      </span>
+      <span>
+        {(plan && (
+          <Link className="table__btn--assign" to={`/onboarding/${plan._id}`}>
+            Edit
+          </Link>
+        )) || (
           <Link
             className="table__btn--assign"
-            to={`/onboarding/${employee._id}`}
+            to={`/onboarding/create/${employee._id}`}
           >
-            Assign
+            Create
           </Link>
         )}
       </span>

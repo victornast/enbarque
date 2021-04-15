@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import EmployeeList from "./../components/employees/EmployeeList";
 import { findUsers } from "./../services/organization";
+import { findPlans } from "./../services/onboarding";
 
 class ManagerDashboard extends Component {
   state = {
     employees: [],
+    plans: [],
   };
 
   async componentDidMount() {
@@ -12,10 +14,17 @@ class ManagerDashboard extends Component {
     this.setState({
       employees: users,
     });
+    const onboardingProcesses = await findPlans();
+    console.log(onboardingProcesses);
+    this.setState({
+      plans: onboardingProcesses || [],
+    });
+    console.log(this.state.plans);
   }
 
   render() {
     const manager = this.props.user;
+    const plans = this.state.plans;
     return (
       <div>
         {!!this.state.employees.length && (
@@ -25,7 +34,11 @@ class ManagerDashboard extends Component {
               Manager: {manager.firstName} {manager.lastName}
             </h3>
             <h3>Employees:</h3>
-            <EmployeeList employees={this.state.employees} user={manager} />
+            <EmployeeList
+              employees={this.state.employees}
+              user={manager}
+              plans={plans}
+            />
           </>
         )}
       </div>
