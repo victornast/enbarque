@@ -25,6 +25,11 @@ function Navbar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
+            <li className="navbar-toggle">
+              <Link to="/task/create" className="menu-bars">
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </li>
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.className}>

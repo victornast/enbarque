@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
 import { createTask } from './../services/task';
+import { getPositionOptions } from './../services/userOptions';
 import './../CreateTask.scss';
 
 class CreateTask extends Component {
@@ -8,19 +9,63 @@ class CreateTask extends Component {
     headline: '',
     description: '',
     priority: 'select',
-    position: [''],
+    positions: [],
+    checkboxes: {},
     duration: 1,
     success: false
   };
-
+  async componentDidMount() {
+    const positions = await getPositionOptions();
+    this.setState({ positions });
+    console.log('state after position setting: ', this.state);
+    this.setState({
+      checkboxes: positions.reduce((option) => ({
+        [option]: false
+      }))
+    });
+    console.log('this.state.checkboxes: ', this.state.checkboxes);
+  }
+  handleInputChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+  handleFileInputChange = (event) => {
+    const { name, files } = event.target;
+    const file = files[0];
+    this.setState({
+      [name]: file
+    });
+  };
+  handleCheckboxChange = (event) => {
+    console.log(this.state);
+    const { name } = event.target;
+    this.setState((prevState) => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [name]: !prevState.checkboxes[name]
+      }
+    }));
+    console.log('this.state.checkboxes: ', this.state.checkboxes);
+  };
   handleFormSubmission = async (event) => {
     event.preventDefault();
+    const selectedCheckboxes = [];
+    console.log('this.state.checkboxes: ', this.state.checkboxes);
+    Object.keys(this.state.checkboxes)
+      .filter((checkbox) => this.state.checkboxes[checkbox])
+      .forEach((checkbox) => {
+        selectedCheckboxes.push(checkbox);
+        console.log(checkbox, 'is selected.');
+      });
+    console.log('selectedCheckboxes: ', selectedCheckboxes);
     const formData = {
       headline: this.state.headline,
       description: this.state.description,
       priority: this.state.priority,
       organization: this.state.organization,
-      position: this.state.position,
+      positions: selectedCheckboxes,
       duration: this.state.duration
     };
     const response = await createTask(formData).then((res) => {
@@ -30,24 +75,8 @@ class CreateTask extends Component {
       });
     });
   };
-
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-    console.log(this.state);
-  };
-
-  handleFileInputChange = (event) => {
-    const { name, files } = event.target;
-    const file = files[0];
-    this.setState({
-      [name]: file
-    });
-  };
-
   render() {
+    //  console.log("this.state.checkboxes: ", this.state.checkboxes);
     return this.state.success ? (
       <Redirect to="/dashboard"></Redirect>
     ) : (
@@ -82,56 +111,25 @@ class CreateTask extends Component {
             required
           />
           <br />
+          <br />
           <h4>Suited for the following positions:</h4>
-          <label htmlFor="position-input">junior</label>
-          <input
-            type="checkbox"
-            name="position"
-            value="junior"
-            onChange={this.handleInputChange}
-          />
-          <label htmlFor="position-input">intermediate</label>
-          <input
-            type="checkbox"
-            name="position"
-            value="intermediate"
-            onChange={this.handleInputChange}
-          />
-          <label htmlFor="position-input">senior</label>
-          <input
-            type="checkbox"
-            name="position"
-            value="senior"
-            onChange={this.handleInputChange}
-          />
-          <label htmlFor="position-input">expert</label>
-          <input
-            type="checkbox"
-            name="position"
-            value="expert"
-            onChange={this.handleInputChange}
-          />
-          <br />
-          <h4>Priority</h4>
-          <label htmlFor="description-input" style={{ display: 'none' }}>
-            Priority
-          </label>
-          <select
-            name="priority"
-            onChange={this.handleInputChange}
-            value={this.state.priority}
-          >
-            <option value="1" name="priority">
-              1st Priority
-            </option>
-            <option value="2" name="priority">
-              2nd Priority
-            </option>
-            <option value="3" name="priority">
-              3rd Priority
-            </option>
-          </select>
-          <br />
+          {this.state.positions.map((position) => {
+            return (
+              <div key={position._id}>
+                <label>
+                  <input
+                    type="checkbox"
+                    name={position.name}
+                    checked={this.state.checkboxes[position.name]}
+                    onChange={this.handleCheckboxChange}
+                    className="form-check-input"
+                    id={position.name}
+                  />
+                  {position.name}
+                </label>
+              </div>
+            );
+          })}
           <h4>Estimated Time Requirement</h4>
           <label htmlFor="duration-input" style={{ display: 'none' }}>
             Duration
@@ -192,5 +190,4 @@ class CreateTask extends Component {
     );
   }
 }
-
 export default CreateTask;
