@@ -7,5 +7,5 @@ export const createOnboarding = async (data) => {
 
 export const findPlans = async () => {
   const response = await api.get("/onboarding");
-  return response.data.onboaringProcessPlans;
+  return response.data.onboardingProcessPlans;
 };

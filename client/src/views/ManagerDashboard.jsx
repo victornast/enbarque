@@ -7,19 +7,18 @@ class ManagerDashboard extends Component {
   state = {
     employees: [],
     plans: [],
+    loaded: false,
   };
 
   async componentDidMount() {
     const users = await findUsers();
+    const onboardingProcesses = await findPlans();
+
     this.setState({
       employees: users,
+      plans: onboardingProcesses,
+      loaded: true,
     });
-    const onboardingProcesses = await findPlans();
-    console.log(onboardingProcesses);
-    this.setState({
-      plans: onboardingProcesses || [],
-    });
-    console.log(this.state.plans);
   }
 
   render() {
@@ -27,7 +26,7 @@ class ManagerDashboard extends Component {
     const plans = this.state.plans;
     return (
       <div>
-        {!!this.state.employees.length && (
+        {this.state.loaded && (
           <>
             <h1>Manager Dashboard</h1>
             <h3>

@@ -3,14 +3,19 @@ import EmployeeCardSmall from "./EmployeeCardSmall";
 import "./EmployeeList.scss";
 
 const EmployeeList = ({ employees, user, plans }) => {
-  // console.log(user._id);
   const hasPlan = (employee) => {
-    plans.filter((plan) => plan[employee.role]._id === employee._id);
+    const plan = plans.find((plan) => plan.onboardee === employee._id);
+    return plan;
   };
-
   const employeesList = employees.filter(
     (employee) => employee._id !== user._id
   );
+  // const employeesListWithPlans = employeesList.map(
+  //   (employee) => {
+  //     const plan = hasPlan(employee);
+  //     return { ...employee, plan };
+  //   });
+
   return (
     <div>
       <div className="table">
