@@ -3,6 +3,7 @@ import * as AiIcons from 'react-icons/ai';
 import * as BsIcons from 'react-icons/bs';
 import * as GiIcons from 'react-icons/gi';
 import * as FiIcons from 'react-icons/fi';
+import * as CgIcons from 'react-icons/cg';
 
 export const SidebarData = [
   {
@@ -58,6 +59,12 @@ export const SidebarData = [
     title: 'Log In',
     path: '/auth/signin',
     icon: <FiIcons.FiLogIn />,
+    className: 'nav-text'
+  },
+  {
+    title: 'Sign Out',
+    path: '/auth/signout',
+    icon: <CgIcons.CgLogOut />,
     className: 'nav-text'
   }
 ];
