@@ -19,7 +19,7 @@ const taskSchema = new mongoose.Schema(
       required: true
     },
     position: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       ref: 'Position'
     },
     duration: {

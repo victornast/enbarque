@@ -8,21 +8,30 @@ class CreateTask extends Component {
   state = {
     headline: '',
     description: '',
-    priority: 'select',
-    positions: [],
+    position: [],
     checkboxes: {},
-    duration: 1,
+    duration: '',
     success: false
   };
   async componentDidMount() {
-    const positions = await getPositionOptions();
-    this.setState({ positions });
-    console.log('state after position setting: ', this.state);
+    const position = await getPositionOptions();
+    this.setState({ position });
+    console.log('this.state.position: ', this.state.position);
     this.setState({
-      checkboxes: positions.reduce((option) => ({
-        [option]: false
-      }))
+      checkboxes: position.reduce(
+        (accumulator, item) => ({
+          ...accumulator,
+          [item._id]: false
+        }),
+        {}
+      )
     });
+    // this.setState({
+    //   checkboxes: position.reduce((options, option) => ({
+    //     ...options,
+    //     [option]: false
+    //   }))
+    // });
     console.log('this.state.checkboxes: ', this.state.checkboxes);
   }
   handleInputChange = (event) => {
@@ -63,9 +72,7 @@ class CreateTask extends Component {
     const formData = {
       headline: this.state.headline,
       description: this.state.description,
-      priority: this.state.priority,
-      organization: this.state.organization,
-      positions: selectedCheckboxes,
+      position: selectedCheckboxes,
       duration: this.state.duration
     };
     await createTask(formData).then((res) => {
@@ -99,10 +106,7 @@ class CreateTask extends Component {
           />
           <br />
           <h4>Description</h4>
-          <label
-            htmlFor="description-input"
-            style={{ display: 'none' }}
-          >
+          <label htmlFor="description-input" style={{ display: 'none' }}>
             Description
           </label>
           <textarea
@@ -115,21 +119,19 @@ class CreateTask extends Component {
           />
           <br />
           <br />
-          <h4>Suited for the following positions:</h4>
-          {this.state.positions.map((position) => {
+          <h4>Suited for the following position:</h4>
+          {this.state.position.map((position) => {
             return (
               <div key={position._id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    name={position.name}
-                    checked={this.state.checkboxes[position.name]}
-                    onChange={this.handleCheckboxChange}
-                    className="form-check-input"
-                    id={position.name}
-                  />
-                  {position.name}
-                </label>
+                <label>{position.name}</label>
+                <input
+                  type="checkbox"
+                  name={position._id}
+                  checked={this.state.checkboxes[position._id]}
+                  onChange={this.handleCheckboxChange}
+                  className="form-check-input"
+                  id={position._id}
+                />
               </div>
             );
           })}
@@ -142,7 +144,9 @@ class CreateTask extends Component {
             id="duration"
             value={this.state.duration}
             onChange={this.handleInputChange}
+            required
           >
+            <option value="" disabled></option>
             <option value="30" name="duration">
               30min
             </option>
@@ -170,12 +174,12 @@ class CreateTask extends Component {
             <option value="480" name="duration">
               whole day
             </option>
-            <option value="other" name="duration">
+            {/* <option value="other" name="duration">
               specify time manually...
-            </option>
+            </option> */}
           </select>
           <br />
-          {this.state.duration === 'other' ? (
+          {/* {this.state.duration === 'other' ? (
             <input
               type="text"
               name="duration"
@@ -185,7 +189,7 @@ class CreateTask extends Component {
             />
           ) : (
             ''
-          )}
+          )} */}
           <br />
           <button className="submit">Create Task</button>
         </form>
