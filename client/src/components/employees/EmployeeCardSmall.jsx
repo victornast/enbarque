@@ -26,7 +26,7 @@ const EmployeeCardSmall = ({ employee }) => {
       </span>
       <span>
         <Link className="table__btn--view" to={`/corp/user/${employee._id}`}>
-          View
+          View / Edit
         </Link>
       </span>
     </div>
