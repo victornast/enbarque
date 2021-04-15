@@ -8,6 +8,22 @@ const Role = require('./../models/role.model');
 const User = require('./../models/user.model');
 //const routeGuard = require('../middleware/route-guard');
 
+// Get all users in organization
+router.get('/users', async (req, res, next) => {
+  const searchQuery = {};
+  searchQuery.organization = req.user.organization;
+
+  try {
+    const users = await User.find(searchQuery)
+      .populate('role')
+      .populate('level')
+      .populate('position');
+    res.json({ users });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Get the levels set by the manager
 router.get('/levels', async (req, res, next) => {
   const id = req.user._id;

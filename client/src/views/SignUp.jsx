@@ -54,7 +54,7 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    const response = await signUp(formData).then((res) => {
+    await signUp(formData).then((res) => {
       //console.log("res: ", res);
       this.setState({
         success: true
