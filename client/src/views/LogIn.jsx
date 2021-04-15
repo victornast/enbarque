@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import { signIn } from './../services/authentication';
+import { signIn, verify } from './../services/authentication';
+import { Redirect } from 'react-router-dom';
 
 class LogIn extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    success: false
   };
 
-  handleFormSubmission = async event => {
+  handleFormSubmission = async (event) => {
     event.preventDefault();
     const { email, password } = this.state;
     const user = await signIn({ email, password });
     this.props.onUserChange(user);
+    this.setState({
+      success: true
+    });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
@@ -22,7 +27,9 @@ class LogIn extends Component {
   };
 
   render() {
-    return (
+    return this.state.success ? (
+      <Redirect to="/dashboard"></Redirect>
+    ) : (
       <main>
         <header>
           <h1>Log In</h1>
