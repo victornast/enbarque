@@ -3,7 +3,7 @@ import EmployeeCardSmall from "./EmployeeCardSmall";
 import "./EmployeeList.scss";
 
 const EmployeeList = ({ employees, user }) => {
-  console.log(user._id);
+  // console.log(user._id);
   const employeesList = employees.filter(
     (employee) => employee._id !== user._id
   );
