@@ -2,19 +2,33 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const EmployeeCardSmall = ({ employee }) => {
-  console.log(employee);
+  // console.log(employee);
   return (
-    <div>
+    <div className="table__row">
       <span>
         {employee.firstName} {employee.lastName}
       </span>
-      {(employee.position && <span>{employee.position.name}</span>) || ""}
-      {(employee.level && <span>{employee.level.name}</span>) || ""}
-      {(employee.role && <span>{employee.role.name}</span>) || (
-        <Link to={`/onboarding/${employee._id}`}>Assign to onboarding </Link>
-      )}
-
-      <Link to={`/auth/${employee._id}/profile`}>Edit</Link>
+      <span>
+        {(employee.position && <span>{employee.position.name}</span>) || "n/a"}
+      </span>
+      <span>
+        {(employee.level && <span>{employee.level.name}</span>) || "n/a"}
+      </span>
+      <span>
+        {(employee.role && <span>{employee.role.name}</span>) || (
+          <Link
+            className="table__btn--assign"
+            to={`/onboarding/${employee._id}`}
+          >
+            Assign
+          </Link>
+        )}
+      </span>
+      <span>
+        <Link className="table__btn--view" to={`/corp/user/${employee._id}`}>
+          View / Edit
+        </Link>
+      </span>
     </div>
   );
 };
