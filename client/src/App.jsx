@@ -1,3 +1,4 @@
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,12 +7,15 @@ import {
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
+
 import './App.scss';
 import Navbar from './components/Navbar/Navbar';
 import Dashboard from './views/Dashboard';
 import ManagerDashboard from './views/ManagerDashboard';
 import Onboarding from './views/Onboarding';
+
 import CreateOnboarding from './views/CreateOnboarding';
+
 import Employees from './views/Employees';
 import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
@@ -107,7 +111,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/corp/user/:id"
+              path="/auth/verify"
               authorized={this.state.user}
               redirect="/auth/signin"
               render={(props) => (

@@ -1,4 +1,4 @@
-import api from "./api";
+import api from './api';
 
 export const addUser = async (data) => {
   // console.log("from user.js", data);
@@ -6,4 +6,9 @@ export const addUser = async (data) => {
 
   console.log(response.data.newUser);
   return response.data.newUser;
+};
+
+export const loadUser = async (id) => {
+  const response = await api.get(`/auth/verify`);
+  return response.data.user;
 };
