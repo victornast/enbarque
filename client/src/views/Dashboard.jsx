@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import OnboardeeDashboard from './../components/onboardee/OnboardeeDashboard';
+
 function Dashboard({ user }) {
   return (
     <div className="dashboard">
@@ -14,6 +16,9 @@ function Dashboard({ user }) {
         <span>Hello, {user.firstName}.</span>
       </div>
       <Link to="/onboarding/create">Create New Onboarding Plan</Link>
+
+      {/* Display only if onboardee */}
+      <OnboardeeDashboard user={user} />
     </div>
   );
 }
