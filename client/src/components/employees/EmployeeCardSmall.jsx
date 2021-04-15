@@ -25,7 +25,10 @@ const EmployeeCardSmall = ({ employee, plan }) => {
         )) || (
           <Link
             className="table__btn--assign"
-            to={`/onboarding/create/${employee._id}`}
+            to={{
+              pathname: `/onboarding/create/${employee._id}`,
+              state: { onboardee: employee },
+            }}
           >
             Create
           </Link>

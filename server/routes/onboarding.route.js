@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/create', async (req, res, next) => {
   const { onboardee, mentor, startDate, amountOfDays } = req.body;
-
+  console.log(onboardee);
   try {
     const tasks = await Task.find({
       $and: [
