@@ -6,7 +6,7 @@ import { SidebarData } from './SidebarData';
 import './Navbar.scss';
 import { IconContext } from 'react-icons';
 
-function Navbar() {
+function Navbar({ user, onSignOut }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
