@@ -9,8 +9,13 @@ const Task = require('../models/task.model');
 
 router.get('/', async (req, res, next) => {
   try {
+    const orgId = req.user.organization;
+    const onboardingProcessPlans = await OnboardingProcess.find({
+      organization: orgId
+    });
     console.log('Listing all onboarding processes.');
-    res.json({ status: 'success' });
+    console.log(onboardingProcessPlans);
+    res.json({ status: 'success', onboardingProcessPlans });
   } catch (error) {
     next(error);
   }
@@ -18,7 +23,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/create', async (req, res, next) => {
   const { onboardee, mentor, startDate, amountOfDays } = req.body;
-
+  console.log(onboardee);
   try {
     const tasks = await Task.find({
       $and: [

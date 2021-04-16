@@ -6,7 +6,7 @@ import { SidebarData } from './SidebarData';
 import './Navbar.scss';
 import { IconContext } from 'react-icons';
 
-function Navbar() {
+function Navbar({ user, onSignOut }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -22,6 +22,11 @@ function Navbar() {
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
               <Link to="#" className="menu-bars">
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </li>
+            <li className="navbar-toggle">
+              <Link to="/task/create" className="menu-bars">
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
