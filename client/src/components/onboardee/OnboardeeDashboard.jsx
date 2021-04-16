@@ -37,6 +37,21 @@ function OnboardeeDashboard({ user }) {
           topics that should be followed each day.
         </p>
       </section>
+      <section>
+        <h2>Onboarding Backlog</h2>
+        <p>
+          Topics that couldn't be covered during the onboarding and
+          should be approached as soon as possible in parallel with the
+          projects, as part of the personal development plans.
+        </p>
+      </section>
+      <section>
+        <h2>Feedback Notes</h2>
+        <p>
+          Help us improve the onboarding process by adding here feedback
+          notes and optimization suggestions:
+        </p>
+      </section>
     </>
   );
 }
