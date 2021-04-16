@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { signIn, verify } from './../services/authentication';
+import { signIn } from './../services/authentication';
 import { Redirect } from 'react-router-dom';
 
 class LogIn extends Component {
