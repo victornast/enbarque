@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { signOut } from './../services/authentication';
+import React from 'react';
 import './../SignOut.scss';
 
-const SignOut = ({ user, onSignOut }) => {
+const SignOut = ({ onSignOut }) => {
   return (
     <div className="signout-text">
       <h1>Are you sure you want to sign out?</h1>
