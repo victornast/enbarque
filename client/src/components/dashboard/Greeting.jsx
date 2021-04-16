@@ -2,7 +2,7 @@ import React from 'react';
 
 function Greeting({ user }) {
   return (
-    <div
+    <h2
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -12,10 +12,10 @@ function Greeting({ user }) {
       <img
         src={user.avatar}
         alt={user.firstName + ' ' + user.lastName}
-        height={60}
+        height={70}
       />
-      <p>Hello, {user.firstName}.</p>
-    </div>
+      <span>Hello, {user.firstName}.</span>
+    </h2>
   );
 }
 
