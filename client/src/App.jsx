@@ -19,7 +19,7 @@ import LogIn from "./views/LogIn";
 import SignOut from "./views/SignOut";
 
 // added in the branch to test
-import AddUser from "./views/AddUser";
+//import AddUser from "./components/forms/AddUser";
 import CreateTask from "./views/CreateTask";
 
 class App extends Component {
@@ -120,14 +120,6 @@ class App extends Component {
               )}
             />
 
-            {/* temp testing route */}
-            <ProtectedRoute
-              exact
-              path="/user/create"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => <AddUser {...props} user={this.state.user} />}
-            />
             <Route
               exact
               path="/auth/signin"

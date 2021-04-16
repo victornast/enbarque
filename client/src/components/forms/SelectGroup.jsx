@@ -1,4 +1,4 @@
-//import './SelectGroup.scss';
+import "./SelectGroup.scss";
 import { useState } from "react";
 
 const SelectGroup = ({ options, onUpdate }) => {
@@ -11,7 +11,11 @@ const SelectGroup = ({ options, onUpdate }) => {
   };
 
   return (
-    <select value={selected} onChange={handleInputChange}>
+    <select
+      className="select-group"
+      value={selected}
+      onChange={handleInputChange}
+    >
       <option disabled></option>
       {options.map((option) => (
         <option key={option} value={option}>
