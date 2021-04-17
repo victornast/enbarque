@@ -23,24 +23,6 @@ class AddUser extends Component {
     user: this.props.user,
     loaded: false,
   };
-  // username and password should be generated automatically
-
-  handleFormSubmission = async (event) => {
-    event.preventDefault();
-    const { firstName, lastName, email, position, role, level } = this.state;
-    // console.log(firstName, lastName, email, possition, role, level);
-    await addUser({
-      firstName,
-      lastName,
-      email,
-      position,
-      role,
-      level,
-    });
-    this.props.toggleForm();
-    this.props.onAddUser();
-  };
-
   async componentDidMount() {
     const levelObjectArray = await getLevelOptions();
     let levels = [];
@@ -60,6 +42,23 @@ class AddUser extends Component {
       loaded: true,
     });
   }
+
+  // username and password should be generated automatically
+  handleFormSubmission = async (event) => {
+    event.preventDefault();
+    const { firstName, lastName, email, position, role, level } = this.state;
+    // console.log(firstName, lastName, email, possition, role, level);
+    await addUser({
+      firstName,
+      lastName,
+      email,
+      position,
+      role,
+      level,
+    });
+    this.props.toggleForm();
+    this.props.onAddUser();
+  };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;

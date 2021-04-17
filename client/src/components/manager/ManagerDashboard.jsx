@@ -1,18 +1,16 @@
-import React, { Component } from "react";
-import EmployeeList from "./../components/employees/EmployeeList";
-import AddUser from "./../components/forms/AddUser";
-import { findUsers } from "./../services/organization";
-import { findPlans } from "./../services/onboarding";
-import "./ManagerDashboard.scss";
-import { Link } from "react-router-dom";
-import { FaThemeisle } from "react-icons/fa";
+import React, { Component } from 'react';
+import EmployeeList from './../employees/EmployeeList';
+import AddUser from '../forms/AddUser';
+import { findUsers } from '../../services/organization';
+import { findPlans } from '../../services/onboarding';
+import './ManagerDashboard.scss';
 
 class ManagerDashboard extends Component {
   state = {
     employees: [],
     plans: [],
     loaded: false,
-    createForm: false,
+    createForm: false
   };
 
   async componentDidMount() {
@@ -21,19 +19,19 @@ class ManagerDashboard extends Component {
 
     this.setState({
       plans: onboardingProcesses,
-      loaded: true,
+      loaded: true
     });
   }
   loadEmployees = async () => {
     const users = await findUsers();
     this.setState({
-      employees: users,
+      employees: users
     });
   };
 
   toggleCreateAnUserForm = () => {
     this.setState({
-      createForm: !this.state.createForm,
+      createForm: !this.state.createForm
     });
   };
 

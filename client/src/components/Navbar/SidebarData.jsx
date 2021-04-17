@@ -1,6 +1,5 @@
 import React from 'react';
 import * as AiIcons from 'react-icons/ai';
-import * as BsIcons from 'react-icons/bs';
 import * as GiIcons from 'react-icons/gi';
 import * as FiIcons from 'react-icons/fi';
 import * as CgIcons from 'react-icons/cg';
@@ -10,24 +9,6 @@ export const generateSidebarData = (user) => [
     title: 'Dashboard',
     path: '/dashboard',
     icon: <AiIcons.AiOutlineDashboard />,
-    className: 'nav-text'
-  },
-  {
-    title: 'Manager-Dashboard',
-    path: '/manager-dashboard',
-    icon: <AiIcons.AiOutlineDashboard />,
-    className: 'nav-text'
-  },
-  {
-    title: 'Onboarding',
-    path: '/onboarding',
-    icon: <BsIcons.BsListCheck />,
-    className: 'nav-text'
-  },
-  {
-    title: 'Employees',
-    path: '/user/team',
-    icon: <BsIcons.BsPeople />,
     className: 'nav-text'
   },
   {

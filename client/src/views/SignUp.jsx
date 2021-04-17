@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { signUp } from './../services/authentication';
-import { Redirect } from 'react-router-dom';
 
 import './../SignUp.scss';
 
@@ -18,8 +17,7 @@ class SignUp extends Component {
     lastName: '',
     avatar: '',
     email: '',
-    password: '',
-    success: false
+    password: ''
   };
 
   handleInputChange = (event) => {
@@ -54,20 +52,14 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    await signUp(formData).then((res) => {
-      //console.log("res: ", res);
-      this.setState({
-        success: true
-      });
-      // new addition
+    signUp(formData).then((res) => {
       this.props.onUserChange(res);
+      this.props.history.push('/dashboard');
     });
   };
 
   render() {
-    return this.state.success ? (
-      <Redirect to="/dashboard"></Redirect>
-    ) : (
+    return (
       <div>
         <h1>Register your organization</h1>
         <form onSubmit={this.handleFormSubmission}>
