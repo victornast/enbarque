@@ -12,7 +12,6 @@ const User = require('./../models/user.model');
 router.get('/users', async (req, res, next) => {
   const searchQuery = {};
   searchQuery.organization = req.user.organization;
-
   try {
     const users = await User.find(searchQuery)
       .populate('role')
