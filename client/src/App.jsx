@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-=======
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
->>>>>>> 7899b7473627aa42fbcc0b5946b63b0f57d7ffbc
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
@@ -25,10 +17,8 @@ import Account from './views/Account';
 import SignUp from './views/SignUp';
 import LogIn from './views/LogIn';
 import SignOut from './views/SignOut';
-<<<<<<< HEAD
 import ListTasks from './views/ListTasks';
-=======
->>>>>>> 7899b7473627aa42fbcc0b5946b63b0f57d7ffbc
+import SingleTask from './views/SingleTask';
 
 // added in the branch to test
 //import AddUser from "./components/forms/AddUser";
@@ -64,17 +54,18 @@ class App extends Component {
           <Router>
             <Navbar user={this.state.user} />
             <Switch>
-            {/* Route /task is here only temporarily: */}
-            <ProtectedRoute
-              exact
-              path="/task"
-              authorized={this.state.user}
-              redirect="/task"
-              render={(props) => (
-                <ListTasks {...props} user={this.state.user} />
-              )}
-            />
-            {/* Route /task is here only temporarily */}
+              {/* Route /task is here only temporarily: */}
+              <ProtectedRoute
+                exact
+                path="/tasks"
+                authorized={this.state.user}
+                redirect="/task"
+                render={(props) => (
+                  <ListTasks {...props} user={this.state.user} />
+                )}
+              />
+
+              {/* Route /task is here only temporarily */}
               <ProtectedRoute
                 exact
                 path="/dashboard"
@@ -142,10 +133,7 @@ class App extends Component {
                 exact
                 path="/auth/signup"
                 render={(props) => (
-                  <SignUp
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
+                  <SignUp {...props} onUserChange={this.handleUserChange} />
                 )}
               />
 
@@ -153,19 +141,25 @@ class App extends Component {
                 exact
                 path="/auth/signin"
                 render={(props) => (
-                  <LogIn
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
+                  <LogIn {...props} onUserChange={this.handleUserChange} />
                 )}
               />
               <ProtectedRoute
                 exact
-                path="/task/create"
+                path="/tasks/create"
                 authorized={this.state.user}
                 redirect="/auth/signin"
                 render={(props) => (
                   <CreateTask {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/tasks/:id"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <SingleTask {...props} user={this.state.user} />
                 )}
               />
               <ProtectedRoute

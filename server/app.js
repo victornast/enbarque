@@ -56,7 +56,7 @@ app.use('/', baseRouter);
 app.use('/auth', authenticationRouter);
 app.use('/user', userRouter);
 app.use('/corp', organizationRouter);
-app.use('/task', taskRouter);
+app.use('/tasks', taskRouter);
 app.use('/onboarding', onboardingRouter);
 
 // Catch missing routes and forward to error handler

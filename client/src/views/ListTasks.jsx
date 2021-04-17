@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import { findTasks } from './../services/task';
 import './../ListTasks.scss';
+import SingleTask from './../views/SingleTask';
 
 class ListTasks extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class ListTasks extends Component {
   }
 
   render() {
+    console.log('this.props.user: ', this.props.user);
     return this.state.loaded ? (
       <React.Fragment>
         <h1>All tasks</h1>
@@ -36,7 +38,15 @@ class ListTasks extends Component {
               <tbody>
                 <tr key={task._id}>
                   <td valign="top">
-                    <a href={'/' + task._id}>{task.headline}</a>
+                    <Link
+                      key={task._id}
+                      to={{
+                        pathname: `/tasks/${task._id}`,
+                        state: { task }
+                      }}
+                    >
+                      {task.headline}
+                    </Link>
                   </td>
                   <td>{task.description}</td>
                   <td valign="top">

@@ -68,6 +68,7 @@ router.get('/:id', async (req, res, next) => {
       'position'
     ]);
     res.json({ task });
+    console.log('task: ', task);
   } catch (error) {
     next(error);
   }

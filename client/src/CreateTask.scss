@@ -1,5 +1,7 @@
+$butteryellow: #ffd275;
+
 label {
-  width: 6rem;
+  width: 8rem;
 }
 
 textarea {
@@ -14,6 +16,7 @@ textarea {
 
 select {
   border-radius: 25px;
+  width: 20rem;
 }
 
 .submit {
@@ -23,4 +26,20 @@ select {
 
 form {
   margin-left: 6rem;
+}
+
+.de-select_all {
+  width: 10rem;
+  height: 2rem;
+  margin-right: 1rem;
+  background-color: $butteryellow;
+  border: none;
+  border-radius: 25px;
+  margin-top: 0;
+  color: white;
+  font-weight: 800;
+}
+
+input[type='checkbox'] {
+  margin-left: 3rem;
 }

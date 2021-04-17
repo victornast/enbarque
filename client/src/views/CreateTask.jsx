@@ -58,6 +58,22 @@ class CreateTask extends Component {
     }));
     console.log('this.state.checkboxes: ', this.state.checkboxes);
   };
+
+  selectAllCheckboxes = (isSelected) => {
+    Object.keys(this.state.checkboxes).forEach((checkbox) => {
+      // BONUS: Can you explain why we pass updater function to setState instead of an object?
+      this.setState((prevState) => ({
+        checkboxes: {
+          ...prevState.checkboxes,
+          [checkbox]: isSelected
+        }
+      }));
+    });
+  };
+
+  selectAll = () => this.selectAllCheckboxes(true);
+  deselectAll = () => this.selectAllCheckboxes(false);
+
   handleFormSubmission = async (event) => {
     event.preventDefault();
     const selectedCheckboxes = [];
@@ -120,6 +136,12 @@ class CreateTask extends Component {
           <br />
           <br />
           <h4>Suited for the following position:</h4>
+          <button className="de-select_all" onClick={this.selectAll}>
+            Select all
+          </button>
+          <button className="de-select_all" onClick={this.deselectAll}>
+            Deselect all
+          </button>
           {this.state.position.map((position) => {
             return (
               <div key={position._id}>
@@ -146,7 +168,9 @@ class CreateTask extends Component {
             onChange={this.handleInputChange}
             required
           >
-            <option value="" disabled></option>
+            <option value="" disabled>
+              Select...
+            </option>
             <option value="30" name="duration">
               30min
             </option>
