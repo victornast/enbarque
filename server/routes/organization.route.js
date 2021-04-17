@@ -6,10 +6,10 @@ const Level = require('./../models/level.model');
 const Position = require('./../models/position.model');
 const Role = require('./../models/role.model');
 const User = require('./../models/user.model');
-//const routeGuard = require('../middleware/route-guard');
+const routeGuard = require('../middleware/route-guard');
 
 // Get all users in organization
-router.get('/users', async (req, res, next) => {
+router.get('/users', routeGuard, async (req, res, next) => {
   const searchQuery = {};
   searchQuery.organization = req.user.organization;
   try {

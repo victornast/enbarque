@@ -11,7 +11,6 @@ const DefaultPosition = require('./../models/defaultPosition.model');
 const Level = require('./../models/level.model');
 const Role = require('./../models/role.model');
 const Position = require('./../models/position.model');
-const fileUploadMiddleware = require('./../middleware/file-upload');
 
 const router = new Router();
 
@@ -81,11 +80,14 @@ router.post('/signup', async (req, res, next) => {
       level: level._id,
       position: position._id
     });
+
     await Organization.findByIdAndUpdate(
       company._id,
       { admin: user._id },
       { useFindAndModify: false }
     );
+    const userRole = await Role.findById(user.role);
+    user.role = userRole;
 
     req.session.userId = user._id;
     res.json({ user });
@@ -98,6 +100,7 @@ router.post('/signin', (req, res, next) => {
   let user;
   const { email, password } = req.body;
   User.findOne({ email })
+    .populate('role')
     .then((document) => {
       if (!document) {
         return Promise.reject(new Error("There's no user with that email."));

@@ -10,7 +10,6 @@ import React, { Component } from 'react';
 import './App.scss';
 import Navbar from './components/Navbar/Navbar';
 import Dashboard from './views/Dashboard';
-import ManagerDashboard from './views/ManagerDashboard';
 import Onboarding from './views/Onboarding';
 
 import CreateOnboarding from './views/CreateOnboarding';
@@ -63,15 +62,6 @@ class App extends Component {
                 redirect="/auth/signin"
                 render={(props) => (
                   <Dashboard {...props} user={this.state.user} />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/manager-dashboard"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <ManagerDashboard {...props} user={this.state.user} />
                 )}
               />
               <ProtectedRoute
