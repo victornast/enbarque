@@ -10,9 +10,11 @@ const Position = require('../models/position.model');
 router.get('/', async (req, res, next) => {
   try {
     console.log('Listing all tasks.');
-    res.json({ status: 'success' });
-    const allTasks = await Task.find();
+    const allTasks = await Task.find()
+      .populate('organization')
+      .populate('position');
     res.json({ allTasks });
+    // console.log('allTasks: ', allTasks);
   } catch (error) {
     next(error);
   }

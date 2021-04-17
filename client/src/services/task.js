@@ -8,3 +8,10 @@ export const createTask = async (data) => {
   const createdTask = body.createdTask;
   return createdTask;
 };
+
+export const findTasks = async () => {
+  const response = await api.get('/task');
+
+  console.log('response.data: ', response.data);
+  return response.data;
+};
