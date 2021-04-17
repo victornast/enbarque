@@ -1,21 +1,20 @@
-import { BrowserRouter, Switch, Link } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
-import { signOut, verify } from './services/authentication';
-import React, { Component } from 'react';
+import { BrowserRouter, Switch, Link } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { signOut, verify } from "./services/authentication";
+import React, { Component } from "react";
 
-import './App.scss';
+import "./App.scss";
 // import Navbar from './components/Navbar/Navbar';
-import Dashboard from './views/Dashboard';
-import Onboarding from './views/Onboarding';
+import Dashboard from "./views/Dashboard";
+import Onboarding from "./views/Onboarding";
 
-import CreateOnboarding from './views/CreateOnboarding';
-import OrgSettings from './views/OrgSettings';
-import Account from './views/Account';
-import SignUp from './views/SignUp';
-import LogIn from './views/LogIn';
-import SignOut from './views/SignOut';
+import CreateOnboarding from "./views/CreateOnboarding";
+import OrgSettings from "./views/OrgSettings";
+import Account from "./views/Account";
+import SignUp from "./views/SignUp";
+import LogIn from "./views/LogIn";
+import SignOut from "./views/SignOut";
 import Welcome from "./views/Welcome";
-
 
 // added in the branch to test
 //import AddUser from "./components/forms/AddUser";
@@ -53,9 +52,7 @@ class App extends Component {
               <>
                 <Link to="/dashboard">Dashboard</Link>
                 <Link to="/task/create">Create Task</Link>
-                <Link to={`/corp/user/${this.state.user._id}`}>
-                  Account
-                </Link>
+                <Link to={`/corp/user/${this.state.user._id}`}>Account</Link>
                 <button onClick={this.handleSignOut}>Sign Out</button>
               </>
             )) || (
@@ -142,8 +139,10 @@ class App extends Component {
                   <LogIn {...props} onUserChange={this.handleUserChange} />
                 )}
               />
-              <Route
+              <ProtectedRoute
+                authorized={!this.state.user}
                 path="/welcome"
+                redirect="/dashboard"
                 render={(props) => (
                   <Welcome {...props} onUserChange={this.handleUserChange} />
                 )}
