@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { signIn } from './../services/authentication';
-import { Redirect } from 'react-router-dom';
 
 class LogIn extends Component {
   state = {
     email: '',
-    password: '',
-    success: false
+    password: ''
   };
 
   handleFormSubmission = async (event) => {
@@ -14,9 +12,7 @@ class LogIn extends Component {
     const { email, password } = this.state;
     const user = await signIn({ email, password });
     this.props.onUserChange(user);
-    this.setState({
-      success: true
-    });
+    this.props.history.push('/dashboard');
   };
 
   handleInputChange = (event) => {
@@ -27,9 +23,7 @@ class LogIn extends Component {
   };
 
   render() {
-    return this.state.success ? (
-      <Redirect to="/dashboard"></Redirect>
-    ) : (
+    return (
       <main>
         <header>
           <h1>Log In</h1>
