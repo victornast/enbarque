@@ -1,17 +1,17 @@
-import React from 'react';
-import { Component } from 'react';
-import { loadUser } from '../services/user';
-import './../Account.scss';
-import { Divider, Avatar } from '@material-ui/core';
+import React from "react";
+import { Component } from "react";
+import { loadUser } from "../services/user";
+import "./../Account.scss";
+import { Divider, Avatar } from "@material-ui/core";
 
 class Account extends Component {
   state = {
-    user: null
+    user: null,
   };
 
   async componentDidMount() {
     const user = await loadUser(this.props.match.params.id);
-    this.setState({ user });
+    this.setState(user);
   }
 
   render() {
@@ -30,33 +30,31 @@ class Account extends Component {
 
               <div className="row">
                 <div className="column">
-                  {' '}
+                  {" "}
                   <p>
-                    <span className="text">Full name: </span>{' '}
-                    {user.firstName} {user.lastName}
+                    <span className="text">Full name: </span> {user.firstName}{" "}
+                    {user.lastName}
                   </p>
                   <p>
                     <span className="text">Email: </span> {user.email}
                   </p>
                   <p>
-                    <span className="text">Organization:</span>{' '}
+                    <span className="text">Organization:</span>{" "}
                     {user.organization}
                   </p>
                 </div>
                 <div className="column">
-                  {' '}
+                  {" "}
                   <p>
-                    {' '}
-                    <span className="text">Position: </span>{' '}
-                    {user.position}
+                    {" "}
+                    <span className="text">Position: </span> {user.position}
                   </p>
                   <p>
                     <span className="text">Level: </span> {user.level}
                   </p>
                   <p>
-                    {' '}
-                    <span className="text">Role: </span>{' '}
-                    {user.role.name}
+                    {" "}
+                    <span className="text">Role: </span> {user.role.name}
                   </p>
                 </div>
               </div>
