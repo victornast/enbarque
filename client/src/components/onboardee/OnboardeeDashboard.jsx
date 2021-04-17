@@ -56,7 +56,10 @@ function OnboardeeDashboard({ user }) {
               be approached as soon as possible in parallel with the projects,
               as part of the personal development plans.
             </p>
-            <BacklogList process={process} />
+            <BacklogList
+              process={process}
+              onUpdate={(newProcess) => setProcess(newProcess)}
+            />
           </section>
           <section>
             <h2>Feedback Notes</h2>
