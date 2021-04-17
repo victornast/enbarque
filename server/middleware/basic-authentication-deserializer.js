@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
   const userId = req.session.userId;
   if (userId) {
     User.findById(userId)
+      .populate('role')
       .then((user) => {
         req.user = user;
         next();
