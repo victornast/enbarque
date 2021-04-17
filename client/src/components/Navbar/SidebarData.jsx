@@ -45,7 +45,7 @@ export const SidebarData = [
   },
   {
     title: 'Account',
-    path: '/auth/verify',
+    path: '/corp/users/:id',
     icon: <FiIcons.FiUser />,
     className: 'nav-text'
   },

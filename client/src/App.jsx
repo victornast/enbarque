@@ -23,6 +23,7 @@ import AddUser from './views/AddUser';
 import CreateTask from './views/CreateTask';
 
 class App extends Component {
+
   state = {
     user: null,
     loaded: false
@@ -107,7 +108,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/auth/verify"
+              path="/corp/users/:id"
               authorized={this.state.user}
               redirect="/auth/signin"
               render={(props) => <Account {...props} user={this.state.user} />}
@@ -121,7 +122,7 @@ class App extends Component {
             />
 
             {/* temp testing route */}
-            <ProtectedRoute
+            <ProtectedRoute 
               exact
               path="/user/create"
               authorized={this.state.user}

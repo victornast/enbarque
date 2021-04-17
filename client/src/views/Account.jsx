@@ -5,6 +5,7 @@ import './../Account.scss';
 import { Divider, Avatar } from '@material-ui/core';
 
 class Account extends Component {
+  
   state = {
     user: null
   };
