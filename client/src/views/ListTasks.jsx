@@ -24,20 +24,26 @@ class ListTasks extends Component {
       <React.Fragment>
         <h1>All tasks</h1>
         <table>
-          <thead>
+          <thead className="coloredColumn">
             <tr>
-              <th className="coloredColumn">Headline</th>
+              <th>Headline</th>
               <th>Description</th>
+              <th>Duration</th>
             </tr>
           </thead>
           {this.state.tasks.map((task) => {
             return (
               <tbody>
                 <tr key={task._id}>
-                  <td className="coloredColumn">
-                    <a href={'/' + task._id + '/edit'}>{task.headline}</a>
+                  <td valign="top">
+                    <a href={'/' + task._id}>{task.headline}</a>
                   </td>
                   <td>{task.description}</td>
+                  <td valign="top">
+                    {task.duration / 60 === 1
+                      ? task.duration / 60 + ' hour'
+                      : task.duration / 60 + ' hours'}{' '}
+                  </td>
                 </tr>
               </tbody>
             );

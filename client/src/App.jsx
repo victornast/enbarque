@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+=======
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
+>>>>>>> 7899b7473627aa42fbcc0b5946b63b0f57d7ffbc
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
@@ -17,7 +25,10 @@ import Account from './views/Account';
 import SignUp from './views/SignUp';
 import LogIn from './views/LogIn';
 import SignOut from './views/SignOut';
+<<<<<<< HEAD
 import ListTasks from './views/ListTasks';
+=======
+>>>>>>> 7899b7473627aa42fbcc0b5946b63b0f57d7ffbc
 
 // added in the branch to test
 //import AddUser from "./components/forms/AddUser";
@@ -48,10 +59,11 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        <Router>
-          <Navbar />
-          <Switch>
+      this.state.loaded && (
+        <>
+          <Router>
+            <Navbar user={this.state.user} />
+            <Switch>
             {/* Route /task is here only temporarily: */}
             <ProtectedRoute
               exact
@@ -63,107 +75,116 @@ class App extends Component {
               )}
             />
             {/* Route /task is here only temporarily */}
-            <ProtectedRoute
-              exact
-              path="/dashboard"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <Dashboard {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/manager-dashboard"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <ManagerDashboard {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/user/team"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <Employees {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/onboarding"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <Onboarding {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/onboarding/create/:id"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <CreateOnboarding {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/corp/settings"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <OrgSettings {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/auth/verify"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => <Account {...props} user={this.state.user} />}
-            />
-            <Route
-              exact
-              path="/auth/signup"
-              render={(props) => (
-                <SignUp {...props} onUserChange={this.handleUserChange} />
-              )}
-            />
+              <ProtectedRoute
+                exact
+                path="/dashboard"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <Dashboard {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/manager-dashboard"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <ManagerDashboard {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/user/team"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <Employees {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/onboarding"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <Onboarding {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/onboarding/create/:id"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <CreateOnboarding {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/corp/settings"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <OrgSettings {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/corp/user/:id"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <Account {...props} user={this.state.user} />
+                )}
+              />
+              <Route
+                exact
+                path="/auth/signup"
+                render={(props) => (
+                  <SignUp
+                    {...props}
+                    onUserChange={this.handleUserChange}
+                  />
+                )}
+              />
 
-            <Route
-              exact
-              path="/auth/signin"
-              render={(props) => (
-                <LogIn {...props} onUserChange={this.handleUserChange} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/task/create"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <CreateTask {...props} user={this.state.user} />
-              )}
-            />
-            <ProtectedRoute
-              exact
-              path="/auth/signout"
-              authorized={this.state.user}
-              redirect="/auth/signin"
-              render={(props) => (
-                <SignOut
-                  {...props}
-                  user={this.state.user}
-                  onSignOut={this.handleSignOut}
-                />
-              )}
-            />
-          </Switch>
-        </Router>
-      </>
+              <Route
+                exact
+                path="/auth/signin"
+                render={(props) => (
+                  <LogIn
+                    {...props}
+                    onUserChange={this.handleUserChange}
+                  />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/task/create"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <CreateTask {...props} user={this.state.user} />
+                )}
+              />
+              <ProtectedRoute
+                exact
+                path="/auth/signout"
+                authorized={this.state.user}
+                redirect="/auth/signin"
+                render={(props) => (
+                  <SignOut
+                    {...props}
+                    user={this.state.user}
+                    onSignOut={this.handleSignOut}
+                  />
+                )}
+              />
+            </Switch>
+          </Router>
+        </>
+      )
     );
   }
 }

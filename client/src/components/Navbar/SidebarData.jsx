@@ -1,63 +1,68 @@
-import React from "react";
-import * as AiIcons from "react-icons/ai";
-import * as BsIcons from "react-icons/bs";
-import * as GiIcons from "react-icons/gi";
-import * as FiIcons from "react-icons/fi";
-import * as CgIcons from "react-icons/cg";
+import React from 'react';
+import * as AiIcons from 'react-icons/ai';
+import * as BsIcons from 'react-icons/bs';
+import * as GiIcons from 'react-icons/gi';
+import * as FiIcons from 'react-icons/fi';
+import * as CgIcons from 'react-icons/cg';
 
-export const SidebarData = [
+export const generateSidebarData = (user) => [
   {
-    title: "Dashboard",
-    path: "/dashboard",
+    title: 'Dashboard',
+    path: '/dashboard',
     icon: <AiIcons.AiOutlineDashboard />,
-    className: "nav-text",
+    className: 'nav-text'
   },
   {
-    title: "Manager-Dashboard",
-    path: "/manager-dashboard",
+    title: 'Manager-Dashboard',
+    path: '/manager-dashboard',
     icon: <AiIcons.AiOutlineDashboard />,
-    className: "nav-text",
+    className: 'nav-text'
   },
   {
-    title: "Onboarding",
-    path: "/onboarding",
+    title: 'Onboarding',
+    path: '/onboarding',
     icon: <BsIcons.BsListCheck />,
-    className: "nav-text",
+    className: 'nav-text'
   },
   {
-    title: "Employees",
-    path: "/user/team",
+    title: 'Employees',
+    path: '/user/team',
     icon: <BsIcons.BsPeople />,
-    className: "nav-text",
+    className: 'nav-text'
   },
   {
-    title: "Organization settings",
-    path: "/corp/settings",
+    title: 'Organization settings',
+    path: '/corp/settings',
     icon: <GiIcons.GiSettingsKnobs />,
-    className: "nav-text",
+    className: 'nav-text'
   },
+  ...(user
+    ? [
+        {
+          title: 'Account',
+          path: `/corp/user/${user._id}`,
+          icon: <FiIcons.FiUser />,
+          className: 'nav-text'
+        }
+      ]
+    : []),
+
   {
-    title: "Account",
-    path: "/auth/verify",
-    icon: <FiIcons.FiUser />,
-    className: "nav-text",
-  },
-  {
-    title: "Sign Up",
-    path: "/auth/signup",
+    title: 'Sign Up',
+    path: '/auth/signup',
     icon: <FiIcons.FiUserPlus />,
-    className: "nav-text",
+    className: 'nav-text'
   },
   {
-    title: "Log In",
-    path: "/auth/signin",
+    title: 'Log In',
+    path: '/auth/signin',
     icon: <FiIcons.FiLogIn />,
-    className: "nav-text",
+    className: 'nav-text'
   },
   {
-    title: "Sign Out",
-    path: "/auth/signout",
+    title: 'Sign Out',
+    path: '/auth/signout',
     icon: <CgIcons.CgLogOut />,
-    className: "nav-text",
-  },
+    className: 'nav-text'
+  }
 ];

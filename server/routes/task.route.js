@@ -63,8 +63,11 @@ router.delete('/:id/delete', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('Finding a task.');
-    res.json({ status: 'success' });
+    const task = await Task.findById(req.params.id).populate([
+      'organization',
+      'position'
+    ]);
+    res.json({ task });
   } catch (error) {
     next(error);
   }

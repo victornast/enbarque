@@ -10,14 +10,20 @@ table {
 th {
   padding-bottom: 1rem;
   width: 10rem;
-  text-align: left;
+  text-align: start;
 }
 
 .coloredColumn {
   background-color: #ffd275;
+  border-radius: 25px;
 }
 
 a {
   text-decoration: none;
   color: #c78500;
+}
+
+td {
+  width: 20rem;
+  border-bottom: 0.5px solid #ffd275;
 }

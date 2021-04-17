@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import { generateSidebarData } from './SidebarData';
 import './Navbar.scss';
 import { IconContext } from 'react-icons';
 
 function Navbar({ user, onSignOut }) {
   const [sidebar, setSidebar] = useState(false);
+
+  const SidebarData = generateSidebarData(user);
 
   const showSidebar = () => setSidebar(!sidebar);
   return (
