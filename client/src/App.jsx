@@ -14,15 +14,17 @@ import Account from './views/Account';
 import SignUp from './views/SignUp';
 import LogIn from './views/LogIn';
 import SignOut from './views/SignOut';
+import Welcome from "./views/Welcome";
+
 
 // added in the branch to test
 //import AddUser from "./components/forms/AddUser";
-import CreateTask from './views/CreateTask';
+import CreateTask from "./views/CreateTask";
 
 class App extends Component {
   state = {
     user: null,
-    loaded: false
+    loaded: false,
   };
 
   async componentDidMount() {
@@ -33,7 +35,7 @@ class App extends Component {
 
   handleUserChange = (user) => {
     this.setState({
-      user
+      user,
     });
   };
 
@@ -128,10 +130,7 @@ class App extends Component {
                 authorized={!this.state.user}
                 redirect="/dashboard"
                 render={(props) => (
-                  <SignUp
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
+                  <SignUp {...props} onUserChange={this.handleUserChange} />
                 )}
               />
               <ProtectedRoute
@@ -140,10 +139,13 @@ class App extends Component {
                 authorized={!this.state.user}
                 redirect="/dashboard"
                 render={(props) => (
-                  <LogIn
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
+                  <LogIn {...props} onUserChange={this.handleUserChange} />
+                )}
+              />
+              <Route
+                path="/welcome"
+                render={(props) => (
+                  <Welcome {...props} onUserChange={this.handleUserChange} />
                 )}
               />
               <ProtectedRoute
