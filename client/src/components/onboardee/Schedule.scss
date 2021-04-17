@@ -1,0 +1,11 @@
+.week-view {
+  display: flex;
+}
+
+.day-card {
+  flex-grow: 1;
+  height: 200px;
+  border: black 1px solid;
+  max-width: 200px;
+  min-width: 100px;
+}

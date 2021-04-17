@@ -11,7 +11,7 @@ class Account extends Component {
 
   async componentDidMount() {
     const user = await loadUser(this.props.match.params.id);
-    this.setState(user);
+    this.setState({ user });
   }
 
   render() {
