@@ -1,0 +1,15 @@
+@import './../../style/eb-variables';
+@import './../../style/eb-mixins';
+
+.greeting-title {
+  @include headline-l;
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    flex: 0 0 auto;
+    width: auto;
+    height: 2em;
+    margin-right: 0.5em;
+  }
+}

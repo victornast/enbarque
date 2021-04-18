@@ -67,133 +67,138 @@ class App extends Component {
           </nav>
           {/* <Navbar user={this.state.user} /> */}
           {this.state.loaded && (
-            <Switch>
-              {/* Route /task is here only temporarily: */}
-              <ProtectedRoute
-                exact
-                path="/tasks"
-                authorized={this.state.user}
-                redirect="/task"
-                render={(props) => (
-                  <ListTasks {...props} user={this.state.user} />
-                )}
-              />
+            <main>
+              <Switch>
+                {/* Route /task is here only temporarily: */}
+                <ProtectedRoute
+                  exact
+                  path="/tasks"
+                  authorized={this.state.user}
+                  redirect="/task"
+                  render={(props) => (
+                    <ListTasks {...props} user={this.state.user} />
+                  )}
+                />
 
-              {/* Route /task is here only temporarily */}
-              <ProtectedRoute
-                exact
-                path="/dashboard"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <Dashboard {...props} user={this.state.user} />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/onboarding"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <Onboarding {...props} user={this.state.user} />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/onboarding/create/:id"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <CreateOnboarding {...props} user={this.state.user} />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/corp/settings"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <OrgSettings {...props} user={this.state.user} />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/corp/user/:id"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <Account {...props} user={this.state.user} />
-                )}
-              />
+                {/* Route /task is here only temporarily */}
+                <ProtectedRoute
+                  exact
+                  path="/dashboard"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <Dashboard {...props} user={this.state.user} />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/onboarding"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <Onboarding {...props} user={this.state.user} />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/onboarding/create/:id"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <CreateOnboarding
+                      {...props}
+                      user={this.state.user}
+                    />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/corp/settings"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <OrgSettings {...props} user={this.state.user} />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/corp/user/:id"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <Account {...props} user={this.state.user} />
+                  )}
+                />
 
-              <ProtectedRoute
-                exact
-                path="/task/create"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <CreateTask {...props} user={this.state.user} />
-                )}
-              />
+                <ProtectedRoute
+                  exact
+                  path="/task/create"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <CreateTask {...props} user={this.state.user} />
+                  )}
+                />
 
-              <ProtectedRoute
-                exact
-                path="/auth/signup"
-                authorized={!this.state.user}
-                redirect="/dashboard"
-                render={(props) => (
-                  <SignUp
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/auth/signin"
-                authorized={!this.state.user}
-                redirect="/dashboard"
-                render={(props) => (
-                  <LogIn
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
-                )}
-              />
-              <ProtectedRoute
-                authorized={!this.state.user}
-                path="/welcome"
-                redirect="/dashboard"
-                render={(props) => (
-                  <Welcome
-                    {...props}
-                    onUserChange={this.handleUserChange}
-                  />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/tasks/:id"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <SingleTask {...props} user={this.state.user} />
-                )}
-              />
-              <ProtectedRoute
-                exact
-                path="/auth/signout"
-                authorized={this.state.user}
-                redirect="/auth/signin"
-                render={(props) => (
-                  <SignOut
-                    {...props}
-                    user={this.state.user}
-                    onSignOut={this.handleSignOut}
-                  />
-                )}
-              />
-            </Switch>
+                <ProtectedRoute
+                  exact
+                  path="/auth/signup"
+                  authorized={!this.state.user}
+                  redirect="/dashboard"
+                  render={(props) => (
+                    <SignUp
+                      {...props}
+                      onUserChange={this.handleUserChange}
+                    />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/auth/signin"
+                  authorized={!this.state.user}
+                  redirect="/dashboard"
+                  render={(props) => (
+                    <LogIn
+                      {...props}
+                      onUserChange={this.handleUserChange}
+                    />
+                  )}
+                />
+                <ProtectedRoute
+                  authorized={!this.state.user}
+                  path="/welcome"
+                  redirect="/dashboard"
+                  render={(props) => (
+                    <Welcome
+                      {...props}
+                      onUserChange={this.handleUserChange}
+                    />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/tasks/:id"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <SingleTask {...props} user={this.state.user} />
+                  )}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/auth/signout"
+                  authorized={this.state.user}
+                  redirect="/auth/signin"
+                  render={(props) => (
+                    <SignOut
+                      {...props}
+                      user={this.state.user}
+                      onSignOut={this.handleSignOut}
+                    />
+                  )}
+                />
+              </Switch>
+            </main>
           )}
         </BrowserRouter>
       </>

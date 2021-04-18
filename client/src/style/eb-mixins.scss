@@ -1,0 +1,12 @@
+// Headlines
+@mixin headline-xl {
+  font-size: $text-size-xl;
+}
+
+@mixin headline-l {
+  font-size: $text-size-l;
+}
+
+@mixin headline-m {
+  font-size: $text-size-m;
+}
