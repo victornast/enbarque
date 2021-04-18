@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Greeting from "./../dashboard/Greeting";
 import BacklogList from "./BacklogList";
+import WeekView from "./WeekView";
 import { getProcess } from "./../../services/onboarding";
 
 function OnboardeeDashboard({ user }) {
@@ -15,6 +16,17 @@ function OnboardeeDashboard({ user }) {
     fetchProcess(user._id);
   }, []);
 
+  let weekViews;
+  if (process) {
+    console.log(process.amountOfDays);
+    const amountOfWeeks = Math.ceil(process.amountOfDays / 5);
+    weekViews = () => {
+      for (let n = 0; n < amountOfWeeks; n++) {
+        console.log("Week", n + 1);
+        return <WeekView process={process} week={n + 1} />;
+      }
+    };
+  }
   return (
     <>
       <Greeting user={user} />
@@ -48,6 +60,7 @@ function OnboardeeDashboard({ user }) {
               Calendar View of the weeks planned for the onboarding and the
               topics that should be followed each day.
             </p>
+            {weekViews()}
           </section>
           <section>
             <h2>Onboarding Backlog</h2>
