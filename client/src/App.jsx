@@ -49,23 +49,31 @@ class App extends Component {
     return (
       <>
         <BrowserRouter>
-          <nav>
-            {(this.state.user && (
-              <>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/task/create">Create Task</Link>
-                <Link to={`/corp/user/${this.state.user._id}`}>
-                  Account
-                </Link>
-                <button onClick={this.handleSignOut}>Sign Out</button>
-              </>
-            )) || (
-              <>
-                <Link to="/auth/signin">Sign In</Link>
-                <Link to="/auth/signup">Sign Up</Link>
-              </>
-            )}
-          </nav>
+          <header className="enbarque__header eb-header">
+            <Link className="eb-header__logo" to="/">
+              <h1 className="eb-logo eb-logo--standalone">
+                <span className="sr-only">enbarque</span>
+                <img
+                  className="eb-logo__media"
+                  src="/enbarque_logo.svg"
+                  alt="enbarque Logo"
+                  height="55px"
+                />
+              </h1>
+            </Link>
+            <nav>
+              {this.state.user && (
+                <>
+                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/task/create">Create Task</Link>
+                  <Link to={`/corp/user/${this.state.user._id}`}>
+                    Account
+                  </Link>
+                  <button onClick={this.handleSignOut}>Sign Out</button>
+                </>
+              )}
+            </nav>
+          </header>
           {/* <Navbar user={this.state.user} /> */}
           {this.state.loaded && (
             <main>
@@ -208,6 +216,15 @@ class App extends Component {
               </Switch>
             </main>
           )}
+          <footer>
+            <p>
+              <small>
+                ©2021 Programming &amp; Design by Harumi Terayama, Katja
+                Maasch, Matías Puletti &amp; Victor Nastasa
+              </small>
+            </p>
+            <p>3rd Ironhack Project</p>
+          </footer>
         </BrowserRouter>
       </>
     );
