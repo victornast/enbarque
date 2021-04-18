@@ -20,3 +20,9 @@ export const getProcess = async (id) => {
     return console.log("There was no onboarding process found with this user");
   }
 };
+
+export const editProcess = async (processId, data) => {
+  const response = await api.patch(`/onboarding/${processId}`, data);
+  console.log("response", response);
+  return response.data.updatedProcess;
+};

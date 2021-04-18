@@ -73,8 +73,10 @@ router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id; // it's the user id and not the orgId
     console.log(id);
-    const process = await OnboardingProcess.findOne({ onboardee: id });
-    console.log('Listing an onboarding processes.', process);
+    const process = await OnboardingProcess.findOne({ onboardee: id }).populate(
+      'unscheduledTasks'
+    );
+    console.log('Found an onboarding process.', process);
     res.json({ status: 'success', process });
   } catch (error) {
     next(error);
@@ -90,4 +92,17 @@ router.patch('/:processId/task/:taskId', async (req, res, next) => {
   }
 });
 
+router.patch('/:processId', async (req, res, next) => {
+  try {
+    const id = req.params.processId;
+    const data = req.body;
+    console.log('Updating the process');
+    const updatedProcess = await OnboardingProcess.findByIdAndUpdate(id, data, {
+      new: true
+    }).populate('unscheduledTasks');
+    res.json({ updatedProcess });
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
