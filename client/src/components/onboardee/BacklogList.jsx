@@ -2,6 +2,8 @@ import React from 'react';
 import BacklogTask from './BacklogTask';
 import { editProcess } from './../../services/onboarding';
 
+import './BacklogList.scss';
+
 function BacklogList({ process, onUpdate }) {
   const backlogList = process.unscheduledTasks;
   console.log(backlogList);
@@ -18,16 +20,18 @@ function BacklogList({ process, onUpdate }) {
     onUpdate(newProcess);
   };
   return (
-    <div>
+    <ul className="backlog-list">
       {!!backlogList.length &&
         backlogList.map((task) => (
-          <BacklogTask
-            key={task._id}
-            task={task}
-            onDelete={() => handleDeleteTask(process._id, task._id)}
-          />
+          <li className="backlog-list__item">
+            <BacklogTask
+              key={task._id}
+              task={task}
+              onDelete={() => handleDeleteTask(process._id, task._id)}
+            />
+          </li>
         ))}
-    </div>
+    </ul>
   );
 }
 

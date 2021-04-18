@@ -1,0 +1,10 @@
+.backlog-list {
+  list-style: none;
+  padding: 0;
+
+  &__item {
+    &:not(:first-child) {
+      margin-top: 0.5em;
+    }
+  }
+}
