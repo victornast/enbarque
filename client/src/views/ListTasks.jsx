@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { findTasks } from './../services/task';
 import './../ListTasks.scss';
-import SingleTask from './../views/SingleTask';
 
 class ListTasks extends Component {
   constructor(props) {

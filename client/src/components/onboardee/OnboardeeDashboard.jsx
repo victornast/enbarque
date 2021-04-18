@@ -15,7 +15,7 @@ function OnboardeeDashboard({ user }) {
       setProcess(singleProcess);
     };
     fetchProcess(user._id);
-  }, []);
+  }, [user._id]);
 
   return (
     <article className="onboardee-dashboard">
