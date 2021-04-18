@@ -4,6 +4,7 @@ import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
 
 // import Navbar from './components/Navbar/Navbar';
+import Homepage from './views/Homepage';
 import Dashboard from './views/Dashboard';
 import Onboarding from './views/Onboarding';
 
@@ -81,6 +82,13 @@ class App extends Component {
                 />
 
                 {/* Route /task is here only temporarily */}
+                <ProtectedRoute
+                  exact
+                  path="/"
+                  authorized={!this.state.user}
+                  redirect="/dashboard"
+                  component={Homepage}
+                />
                 <ProtectedRoute
                   exact
                   path="/dashboard"
