@@ -15,7 +15,7 @@ function Greeting({ user }) {
         </span>
       </h2>
       {user.role.accessLevel === 1 && (
-        <p className="greeting__text">
+        <p className="greeting__intro">
           We are very happy to welcome you at XXX. Here is an overview
           of your onboarding plan for the next few weeks. Please
           approach your technical mentor for adjustments requests and

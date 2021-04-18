@@ -1,6 +1,12 @@
 @import './../../style/eb-variables';
 @import './../../style/eb-mixins';
 
+.greeting {
+  &__intro {
+    font-style: italic;
+  }
+}
+
 .greeting-title {
   @include headline-l;
   display: flex;
