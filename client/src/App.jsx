@@ -3,7 +3,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
 
-import './App.scss';
 // import Navbar from './components/Navbar/Navbar';
 import Dashboard from './views/Dashboard';
 import Onboarding from './views/Onboarding';
@@ -54,7 +53,9 @@ class App extends Component {
               <>
                 <Link to="/dashboard">Dashboard</Link>
                 <Link to="/task/create">Create Task</Link>
-                <Link to={`/corp/user/${this.state.user._id}`}>Account</Link>
+                <Link to={`/corp/user/${this.state.user._id}`}>
+                  Account
+                </Link>
                 <button onClick={this.handleSignOut}>Sign Out</button>
               </>
             )) || (
@@ -141,7 +142,10 @@ class App extends Component {
                 authorized={!this.state.user}
                 redirect="/dashboard"
                 render={(props) => (
-                  <SignUp {...props} onUserChange={this.handleUserChange} />
+                  <SignUp
+                    {...props}
+                    onUserChange={this.handleUserChange}
+                  />
                 )}
               />
               <ProtectedRoute
@@ -150,7 +154,10 @@ class App extends Component {
                 authorized={!this.state.user}
                 redirect="/dashboard"
                 render={(props) => (
-                  <LogIn {...props} onUserChange={this.handleUserChange} />
+                  <LogIn
+                    {...props}
+                    onUserChange={this.handleUserChange}
+                  />
                 )}
               />
               <ProtectedRoute
@@ -158,7 +165,10 @@ class App extends Component {
                 path="/welcome"
                 redirect="/dashboard"
                 render={(props) => (
-                  <Welcome {...props} onUserChange={this.handleUserChange} />
+                  <Welcome
+                    {...props}
+                    onUserChange={this.handleUserChange}
+                  />
                 )}
               />
               <ProtectedRoute
