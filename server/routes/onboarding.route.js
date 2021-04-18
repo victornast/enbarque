@@ -73,9 +73,9 @@ router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id; // it's the user id and not the orgId
     console.log(id);
-    const process = await OnboardingProcess.findOne({ onboardee: id }).populate(
-      'unscheduledTasks'
-    );
+    const process = await OnboardingProcess.findOne({ onboardee: id })
+      .populate('unscheduledTasks')
+      .populate('scheduledTasks.task');
     console.log('Found an onboarding process.', process);
     res.json({ status: 'success', process });
   } catch (error) {
