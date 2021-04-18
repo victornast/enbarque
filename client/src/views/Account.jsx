@@ -11,7 +11,8 @@ class Account extends Component {
 
   async componentDidMount() {
     const user = await loadUser(this.props.match.params.id);
-    this.setState(user);
+    console.log(user);
+    this.setState({ user });
   }
 
   render() {
@@ -40,17 +41,18 @@ class Account extends Component {
                   </p>
                   <p>
                     <span className="text">Organization:</span>{" "}
-                    {user.organization}
+                    {user.organization.name}
                   </p>
                 </div>
                 <div className="column">
                   {" "}
                   <p>
                     {" "}
-                    <span className="text">Position: </span> {user.position}
+                    <span className="text">Position: </span>{" "}
+                    {user.position.name}
                   </p>
                   <p>
-                    <span className="text">Level: </span> {user.level}
+                    <span className="text">Level: </span> {user.level.name}
                   </p>
                   <p>
                     {" "}
