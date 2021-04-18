@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import Greeting from "./../dashboard/Greeting";
-import BacklogList from "./BacklogList";
+import Greeting from './../dashboard/Greeting';
+import BacklogList from './BacklogList';
 import WeekView from "./WeekView";
-import { getProcess } from "./../../services/onboarding";
+import { getProcess } from './../../services/onboarding';
+
+import './OnboardeeDashboard.scss';
 
 function OnboardeeDashboard({ user }) {
   const [process, setProcess] = useState(null);
@@ -14,7 +16,7 @@ function OnboardeeDashboard({ user }) {
       setProcess(singleProcess);
     };
     fetchProcess(user._id);
-  }, []);
+  }, [user._id]);
 
   let weekViews;
   if (process) {
@@ -28,62 +30,74 @@ function OnboardeeDashboard({ user }) {
     };
   }
   return (
-    <>
+    <article className="onboardee-dashboard">
       <Greeting user={user} />
       {process && (
         <>
-          <section>
-            <p>
-              We are very happy to welcome you at XXX. Here is an overview of
-              your onboarding plan for the next few weeks. Please approach your
-              technical mentor for adjustments requests and use the feedback
-              formular to send us suggestions regarding the process.
+          <section className="onboardee-dashboard__section onboardee-dashboard-section">
+            <h2 className="onboardee-dashboard-section__headline">
+              Contact Persons
+            </h2>
+            <p className="onboardee-dashboard-section__intro">
+              Here is an overview about your main contact persons during
+              your onboarding. Of course you can always reach out to
+              other colleagues as well when you feel stuck. Check our
+              team channel on slack.
             </p>
-          </section>
-          <section>
-            <h2>Contact Persons</h2>
-            <p>
-              Here is an overview about your main contact persons during your
-              onboarding. Of course you can always reach out to other colleagues
-              as well when you feel stuck. Check our team channel on slack.
-            </p>
-            <div>
-              Role Card: <div>User Card</div>
-            </div>
-            <div>
-              Role Card: <div>User Card</div>
+            <div className="onboardee-dashboard-section__body">
+              <p>Include here the role card component</p>
+              <div>
+                Role Card: <div>User Card</div>
+              </div>
+              <div>
+                Role Card: <div>User Card</div>
+              </div>
             </div>
           </section>
-          <section>
-            <h2>Onboarding Schedule</h2>
-            <p>
-              Calendar View of the weeks planned for the onboarding and the
-              topics that should be followed each day.
+          <section className="onboardee-dashboard__section onboardee-dashboard-section">
+            <h2 className="onboardee-dashboard-section__headline">
+              Onboarding Schedule
+            </h2>
+            <p className="onboardee-dashboard-section__intro">
+              Calendar View of the weeks planned for the onboarding and
+              the topics that should be followed each day.
             </p>
-            {weekViews()}
+            <div className="onboardee-dashboard-section__body">
+              <p>Include here the calendar component</p>
+              {weekViews()}
+            </div>
           </section>
-          <section>
-            <h2>Onboarding Backlog</h2>
-            <p>
-              Topics that couldn't be covered during the onboarding and should
-              be approached as soon as possible in parallel with the projects,
-              as part of the personal development plans.
+          <section className="onboardee-dashboard__section onboardee-dashboard-section">
+            <h2 className="onboardee-dashboard-section__headline">
+              Onboarding Backlog
+            </h2>
+            <p className="onboardee-dashboard-section__intro">
+              Topics that couldn't be covered during the onboarding and
+              should be approached as soon as possible in parallel with
+              the projects, as part of the personal development plans.
             </p>
-            <BacklogList
-              process={process}
-              onUpdate={(newProcess) => setProcess(newProcess)}
-            />
+            <div className="onboardee-dashboard-section__body">
+              <BacklogList
+                process={process}
+                onUpdate={(newProcess) => setProcess(newProcess)}
+              />
+            </div>
           </section>
-          <section>
-            <h2>Feedback Notes</h2>
-            <p>
-              Help us improve the onboarding process by adding here feedback
-              notes and optimization suggestions:
+          <section className="onboardee-dashboard__section onboardee-dashboard-section">
+            <h2 className="onboardee-dashboard-section__headline">
+              Feedback Notes
+            </h2>
+            <p className="onboardee-dashboard-section__intro">
+              Help us improve the onboarding process by adding here
+              feedback notes and optimization suggestions:
             </p>
+            <div className="onboardee-dashboard-section__body">
+              <p>Include here the feedback component</p>
+            </div>
           </section>
         </>
       )}
-    </>
+    </article>
   );
 }
 

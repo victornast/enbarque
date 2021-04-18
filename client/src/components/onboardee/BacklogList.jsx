@@ -1,31 +1,37 @@
-import React from "react";
-import SingleBacklogTask from "./SingleBacklogTask";
-import { editProcess } from "./../../services/onboarding";
+import React from 'react';
+import BacklogTask from './BacklogTask';
+import { editProcess } from './../../services/onboarding';
+
+import './BacklogList.scss';
 
 function BacklogList({ process, onUpdate }) {
   const backlogList = process.unscheduledTasks;
   console.log(backlogList);
 
   const handleDeleteTask = async (processId, taskId) => {
-    const newList = backlogList.filter((backlog) => backlog._id !== taskId);
+    const newList = backlogList.filter(
+      (backlog) => backlog._id !== taskId
+    );
     const data = {
-      unscheduledTasks: [...newList],
+      unscheduledTasks: [...newList]
     };
     const newProcess = await editProcess(processId, data);
     console.log(newProcess);
     onUpdate(newProcess);
   };
   return (
-    <div>
+    <ul className="backlog-list">
       {!!backlogList.length &&
         backlogList.map((task) => (
-          <SingleBacklogTask
-            key={task._id}
-            task={task}
-            onDelete={() => handleDeleteTask(process._id, task._id)}
-          />
+          <li className="backlog-list__item">
+            <BacklogTask
+              key={task._id}
+              task={task}
+              onDelete={() => handleDeleteTask(process._id, task._id)}
+            />
+          </li>
         ))}
-    </div>
+    </ul>
   );
 }
 

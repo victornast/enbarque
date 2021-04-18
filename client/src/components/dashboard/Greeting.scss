@@ -1,0 +1,21 @@
+@import './../../style/eb-variables';
+@import './../../style/eb-mixins';
+
+.greeting {
+  &__intro {
+    font-style: italic;
+  }
+}
+
+.greeting-title {
+  @include headline-l;
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    flex: 0 0 auto;
+    width: auto;
+    height: 1.5em;
+    margin-right: 0.25em;
+  }
+}

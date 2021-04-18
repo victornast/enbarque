@@ -1,0 +1,58 @@
+* {
+  &,
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  max-width: 64em;
+  padding: 0 1em;
+  margin: 0 auto;
+  line-height: 1.5;
+  font-family: $font-primary;
+  background-color: $color-primary-light;
+  color: $color-primary-dark;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+small {
+  font-size: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 1em 0 0.5em;
+}
+
+// Table Normalizing
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+}
+
+th,
+td {
+  padding: 0.2em 1em;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
