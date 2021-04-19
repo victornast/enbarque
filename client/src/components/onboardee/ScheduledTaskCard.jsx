@@ -6,7 +6,7 @@ const ScheduledTaskCard = (task) => {
   return (
     <div>
       <Link to={`/tasks/${task.task.task._id}`}>
-        <h5>{task.task.task.headline}</h5>
+        <h5 className="task-card">{task.task.task.headline}</h5>
       </Link>
     </div>
   );
