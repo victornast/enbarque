@@ -9,6 +9,7 @@
 
 @mixin headline-m {
   font-size: $text-size-m;
+  font-weight: 600;
 }
 
 @mixin headline-s {
