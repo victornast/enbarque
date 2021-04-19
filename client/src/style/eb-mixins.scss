@@ -10,3 +10,8 @@
 @mixin headline-m {
   font-size: $text-size-m;
 }
+
+@mixin headline-s {
+  font-weight: 600;
+  font-size: $text-size-s;
+}

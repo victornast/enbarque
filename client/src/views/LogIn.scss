@@ -1,0 +1,9 @@
+.eb-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__form {
+    width: clamp(10rem, 50vw, 25rem);
+  }
+}

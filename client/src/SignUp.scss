@@ -1,9 +1,5 @@
 $butteryellow: #ffd275;
 
-form {
-  margin-left: 4rem;
-}
-
 .organisationAndAdminContainer {
   display: flex;
   flex-direction: row;
@@ -27,24 +23,6 @@ form {
 .admin-info {
   margin-left: 2rem;
   width: 60vw;
-}
-
-button {
-  margin-top: 2rem;
-}
-
-label {
-  line-height: 3rem;
-  display: inline-block;
-  width: 15rem;
-}
-
-input {
-  border: solid 0.5px black;
-  border-radius: 25px;
-  padding: 0.2rem;
-  min-width: 10rem;
-  max-width: 15rem;
 }
 
 .submit {
