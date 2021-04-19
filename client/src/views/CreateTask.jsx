@@ -130,28 +130,28 @@ class CreateTask extends Component {
             required
             className="eb-form__input"
           >
-            <option value={1} name="duration" selected>
+            <option value="1" name="duration" selected>
               1h
             </option>
-            <option value={2} name="duration">
+            <option value="2" name="duration">
               2h
             </option>
-            <option value={3} name="duration">
+            <option value="3" name="duration">
               3h
             </option>
-            <option value={4} name="duration">
+            <option value="4" name="duration">
               half a day
             </option>
-            <option value={5} name="duration">
+            <option value="5" name="duration">
               5h
             </option>
-            <option value={6} name="duration">
+            <option value="6" name="duration">
               6h
             </option>
-            <option value={7} name="duration">
+            <option value="7" name="duration">
               7h
             </option>
-            <option value={8} name="duration">
+            <option value="8" name="duration">
               whole day
             </option>
           </select>
