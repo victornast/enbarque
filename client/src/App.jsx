@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import './App.scss';
+
 // import Navbar from './components/Navbar/Navbar';
 import Homepage from './views/Homepage';
 import Dashboard from './views/Dashboard';
@@ -15,7 +17,6 @@ import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
 import SignUp from './views/SignUp';
 import LogIn from './views/LogIn';
-import SignOut from './views/SignOut';
 import Welcome from './views/Welcome';
 import ListTasks from './views/ListTasks';
 import SingleTask from './views/SingleTask';
@@ -54,30 +55,44 @@ class App extends Component {
         <BrowserRouter>
           <header className="enbarque__header eb-header">
             <Link className="eb-header__logo" to="/">
-              <h1 className="eb-logo eb-logo--standalone">
+              <h1
+                className={
+                  (!this.state.user && 'eb-logo eb-logo--standalone') ||
+                  'eb-logo'
+                }
+              >
                 <span className="sr-only">enbarque</span>
                 <img
                   className="eb-logo__media"
                   src="/enbarque_logo.svg"
                   alt="enbarque Logo"
-                  height="55px"
                 />
               </h1>
             </Link>
-            <nav>
-              {this.state.user && (
-                <>
-                  <Link to="/dashboard">Dashboard</Link>
-                  <Link to="/tasks/create">Create Task</Link>
-                  <Link to={`/corp/user/${this.state.user._id}`}>Account</Link>
-                  <button onClick={this.handleSignOut}>Sign Out</button>
-                </>
-              )}
-            </nav>
+
+            {this.state.user && (
+              <nav className="eb-header__nav eb-nav">
+                <Link className="eb-nav__item" to="/dashboard">
+                  Dashboard
+                </Link>
+                <Link className="eb-nav__item" to="/tasks/create">
+                  Create Task
+                </Link>
+                <Link
+                  className="eb-nav__item"
+                  to={`/corp/user/${this.state.user._id}`}
+                >
+                  Account
+                </Link>
+                <button className="eb-nav__item" onClick={this.handleSignOut}>
+                  Sign Out
+                </button>
+              </nav>
+            )}
           </header>
           {/* <Navbar user={this.state.user} /> */}
           {this.state.loaded && (
-            <main>
+            <main className="enbarque__main">
               <Switch>
                 {/* Route /task is here only temporarily: */}
                 <ProtectedRoute
@@ -189,23 +204,10 @@ class App extends Component {
                     <SingleTask {...props} user={this.state.user} />
                   )}
                 />
-                <ProtectedRoute
-                  exact
-                  path="/auth/signout"
-                  authorized={this.state.user}
-                  redirect="/auth/signin"
-                  render={(props) => (
-                    <SignOut
-                      {...props}
-                      user={this.state.user}
-                      onSignOut={this.handleSignOut}
-                    />
-                  )}
-                />
               </Switch>
             </main>
           )}
-          <footer>
+          <footer className="enbarque__footer">
             <p>
               <small>
                 ©2021 Programming &amp; Design by Harumi Terayama, Katja Maasch,
