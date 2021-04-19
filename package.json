@@ -4,5 +4,9 @@
   "scripts": {
     "start": "cd server && npm run start",
     "prepare": "cd server && npm i"
+  },
+  "dependencies": {
+    "react-textarea-autosize": "^8.3.2",
+    "react-toastify": "^7.0.3"
   }
 }

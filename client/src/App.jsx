@@ -2,6 +2,8 @@ import { BrowserRouter, Switch, Link } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import Navbar from './components/Navbar/Navbar';
 import Homepage from './views/Homepage';
@@ -47,7 +49,8 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
+        <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} />
         <BrowserRouter>
           <header className="enbarque__header eb-header">
             <Link className="eb-header__logo" to="/">
@@ -212,7 +215,7 @@ class App extends Component {
             <p>3rd Ironhack Project</p>
           </footer>
         </BrowserRouter>
-      </>
+      </React.Fragment>
     );
   }
 }

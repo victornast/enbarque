@@ -32,9 +32,9 @@ class ListTasks extends Component {
               <th>Duration</th>
             </tr>
           </thead>
-          {this.state.tasks.map((task) => {
-            return (
-              <tbody>
+          <tbody>
+            {this.state.tasks.map((task, key) => {
+              return (
                 <tr key={task._id}>
                   <td valign="top">
                     <Link
@@ -54,9 +54,9 @@ class ListTasks extends Component {
                       : task.duration / 60 + ' hours'}{' '}
                   </td>
                 </tr>
-              </tbody>
-            );
-          })}
+              );
+            })}
+          </tbody>
         </table>
 
         <p>{this.state.tasks.name}</p>
