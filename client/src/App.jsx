@@ -3,6 +3,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { signOut, verify } from './services/authentication';
 import React, { Component } from 'react';
 
+import './App.scss';
+
 // import Navbar from './components/Navbar/Navbar';
 import Homepage from './views/Homepage';
 import Dashboard from './views/Dashboard';
@@ -47,7 +49,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div className="enbarque">
         <BrowserRouter>
           <header className="enbarque__header eb-header">
             <Link className="eb-header__logo" to="/">
@@ -66,7 +68,9 @@ class App extends Component {
                 <>
                   <Link to="/dashboard">Dashboard</Link>
                   <Link to="/tasks/create">Create Task</Link>
-                  <Link to={`/corp/user/${this.state.user._id}`}>Account</Link>
+                  <Link to={`/corp/user/${this.state.user._id}`}>
+                    Account
+                  </Link>
                   <button onClick={this.handleSignOut}>Sign Out</button>
                 </>
               )}
@@ -74,7 +78,7 @@ class App extends Component {
           </header>
           {/* <Navbar user={this.state.user} /> */}
           {this.state.loaded && (
-            <main>
+            <main className="enbarque__main">
               <Switch>
                 {/* Route /task is here only temporarily: */}
                 <ProtectedRoute
@@ -119,7 +123,10 @@ class App extends Component {
                   authorized={this.state.user}
                   redirect="/auth/signin"
                   render={(props) => (
-                    <CreateOnboarding {...props} user={this.state.user} />
+                    <CreateOnboarding
+                      {...props}
+                      user={this.state.user}
+                    />
                   )}
                 />
                 <ProtectedRoute
@@ -157,7 +164,10 @@ class App extends Component {
                   authorized={!this.state.user}
                   redirect="/dashboard"
                   render={(props) => (
-                    <SignUp {...props} onUserChange={this.handleUserChange} />
+                    <SignUp
+                      {...props}
+                      onUserChange={this.handleUserChange}
+                    />
                   )}
                 />
                 <ProtectedRoute
@@ -166,7 +176,10 @@ class App extends Component {
                   authorized={!this.state.user}
                   redirect="/dashboard"
                   render={(props) => (
-                    <LogIn {...props} onUserChange={this.handleUserChange} />
+                    <LogIn
+                      {...props}
+                      onUserChange={this.handleUserChange}
+                    />
                   )}
                 />
                 <ProtectedRoute
@@ -174,7 +187,10 @@ class App extends Component {
                   path="/welcome"
                   redirect="/dashboard"
                   render={(props) => (
-                    <Welcome {...props} onUserChange={this.handleUserChange} />
+                    <Welcome
+                      {...props}
+                      onUserChange={this.handleUserChange}
+                    />
                   )}
                 />
                 <ProtectedRoute
@@ -202,17 +218,17 @@ class App extends Component {
               </Switch>
             </main>
           )}
-          <footer>
+          <footer className="enbarque__footer">
             <p>
               <small>
-                ©2021 Programming &amp; Design by Harumi Terayama, Katja Maasch,
-                Matías Puletti &amp; Victor Nastasa
+                ©2021 Programming &amp; Design by Harumi Terayama, Katja
+                Maasch, Matías Puletti &amp; Victor Nastasa
               </small>
             </p>
             <p>3rd Ironhack Project</p>
           </footer>
         </BrowserRouter>
-      </>
+      </div>
     );
   }
 }
