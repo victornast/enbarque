@@ -1,3 +1,6 @@
+@import './style/eb-variables';
+@import './style/eb-mixins';
+
 // (1) make the main area occupy full vertical space left between header and footer
 .enbarque {
   min-height: 100vh;
@@ -10,7 +13,8 @@
   }
 
   &__footer {
-    padding: 2em 0 1em;
+    @include headline-xs;
+    padding: 3em 0 1em;
     text-align: center;
   }
 }

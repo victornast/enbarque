@@ -13,6 +13,11 @@
 }
 
 @mixin headline-s {
-  font-weight: 600;
   font-size: $text-size-s;
+  font-weight: 600;
+}
+
+@mixin headline-xs {
+  font-size: $text-size-xs;
+  font-style: italic;
 }
