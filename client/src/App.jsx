@@ -65,10 +65,8 @@ class App extends Component {
               {this.state.user && (
                 <>
                   <Link to="/dashboard">Dashboard</Link>
-                  <Link to="/task/create">Create Task</Link>
-                  <Link to={`/corp/user/${this.state.user._id}`}>
-                    Account
-                  </Link>
+                  <Link to="/tasks/create">Create Task</Link>
+                  <Link to={`/corp/user/${this.state.user._id}`}>Account</Link>
                   <button onClick={this.handleSignOut}>Sign Out</button>
                 </>
               )}
@@ -83,7 +81,7 @@ class App extends Component {
                   exact
                   path="/tasks"
                   authorized={this.state.user}
-                  redirect="/task"
+                  redirect="/tasks"
                   render={(props) => (
                     <ListTasks {...props} user={this.state.user} />
                   )}
@@ -121,10 +119,7 @@ class App extends Component {
                   authorized={this.state.user}
                   redirect="/auth/signin"
                   render={(props) => (
-                    <CreateOnboarding
-                      {...props}
-                      user={this.state.user}
-                    />
+                    <CreateOnboarding {...props} user={this.state.user} />
                   )}
                 />
                 <ProtectedRoute
@@ -148,7 +143,7 @@ class App extends Component {
 
                 <ProtectedRoute
                   exact
-                  path="/task/create"
+                  path="/tasks/create"
                   authorized={this.state.user}
                   redirect="/auth/signin"
                   render={(props) => (
@@ -162,10 +157,7 @@ class App extends Component {
                   authorized={!this.state.user}
                   redirect="/dashboard"
                   render={(props) => (
-                    <SignUp
-                      {...props}
-                      onUserChange={this.handleUserChange}
-                    />
+                    <SignUp {...props} onUserChange={this.handleUserChange} />
                   )}
                 />
                 <ProtectedRoute
@@ -174,10 +166,7 @@ class App extends Component {
                   authorized={!this.state.user}
                   redirect="/dashboard"
                   render={(props) => (
-                    <LogIn
-                      {...props}
-                      onUserChange={this.handleUserChange}
-                    />
+                    <LogIn {...props} onUserChange={this.handleUserChange} />
                   )}
                 />
                 <ProtectedRoute
@@ -185,10 +174,7 @@ class App extends Component {
                   path="/welcome"
                   redirect="/dashboard"
                   render={(props) => (
-                    <Welcome
-                      {...props}
-                      onUserChange={this.handleUserChange}
-                    />
+                    <Welcome {...props} onUserChange={this.handleUserChange} />
                   )}
                 />
                 <ProtectedRoute
@@ -219,8 +205,8 @@ class App extends Component {
           <footer>
             <p>
               <small>
-                ©2021 Programming &amp; Design by Harumi Terayama, Katja
-                Maasch, Matías Puletti &amp; Victor Nastasa
+                ©2021 Programming &amp; Design by Harumi Terayama, Katja Maasch,
+                Matías Puletti &amp; Victor Nastasa
               </small>
             </p>
             <p>3rd Ironhack Project</p>

@@ -9,8 +9,7 @@ const Position = require('../models/position.model');
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('Listing all tasks.');
-    const allTasks = await Task.find()
+    const allTasks = await Task.find({ organization: req.user.organization })
       .populate('organization')
       .populate('position');
     res.json({ allTasks });
