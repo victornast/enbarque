@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { signIn } from './../services/authentication';
 
+import './LogIn.scss';
+
 class LogIn extends Component {
   state = {
     email: '',
@@ -24,12 +26,15 @@ class LogIn extends Component {
 
   render() {
     return (
-      <main>
-        <header>
-          <h1>Log In</h1>
-        </header>
-        <form onSubmit={this.handleFormSubmission}>
-          <label htmlFor="email-input">Email</label>
+      <article className="eb-login">
+        <h2 className="eb-login__headline">Log In</h2>
+        <form
+          className="eb-login__form eb-form"
+          onSubmit={this.handleFormSubmission}
+        >
+          <label className="eb-form__label" htmlFor="email-input">
+            Email
+          </label>
           <input
             id="email-input"
             type="email"
@@ -37,9 +42,12 @@ class LogIn extends Component {
             name="email"
             value={this.state.email}
             onChange={this.handleInputChange}
+            className="eb-form__input"
           />
 
-          <label htmlFor="password-input">Password</label>
+          <label className="eb-form__label" htmlFor="password-input">
+            Password
+          </label>
           <input
             id="password-input"
             type="password"
@@ -47,11 +55,14 @@ class LogIn extends Component {
             name="password"
             value={this.state.password}
             onChange={this.handleInputChange}
+            className="eb-form__input"
           />
 
-          <button>Log In</button>
+          <button className="eb-form__action eb-button eb-button--primary">
+            Log In
+          </button>
         </form>
-      </main>
+      </article>
     );
   }
 }
