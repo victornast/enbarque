@@ -23,6 +23,7 @@
   font-size: 1.4em;
   font-weight: 300;
 }
+
 .eb-signin-up {
   @media (min-width: 37.5em) {
     display: flex;
@@ -30,8 +31,12 @@
   }
 
   &__action {
-    display: block;
     min-width: 15em;
+
+    // Specificity boost to css order
+    &.eb-signin-up__action {
+      display: block;
+    }
 
     &:not(:first-child) {
       margin-top: 1.5rem;
