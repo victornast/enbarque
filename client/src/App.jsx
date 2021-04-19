@@ -15,7 +15,6 @@ import OrgSettings from './views/OrgSettings';
 import Account from './views/Account';
 import SignUp from './views/SignUp';
 import LogIn from './views/LogIn';
-import SignOut from './views/SignOut';
 import Welcome from './views/Welcome';
 import ListTasks from './views/ListTasks';
 import SingleTask from './views/SingleTask';
@@ -215,19 +214,6 @@ class App extends Component {
                   redirect="/auth/signin"
                   render={(props) => (
                     <SingleTask {...props} user={this.state.user} />
-                  )}
-                />
-                <ProtectedRoute
-                  exact
-                  path="/auth/signout"
-                  authorized={this.state.user}
-                  redirect="/auth/signin"
-                  render={(props) => (
-                    <SignOut
-                      {...props}
-                      user={this.state.user}
-                      onSignOut={this.handleSignOut}
-                    />
                   )}
                 />
               </Switch>

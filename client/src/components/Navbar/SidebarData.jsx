@@ -39,11 +39,5 @@ export const generateSidebarData = (user) => [
     path: '/auth/signin',
     icon: <FiIcons.FiLogIn />,
     className: 'nav-text'
-  },
-  {
-    title: 'Sign Out',
-    path: '/auth/signout',
-    icon: <CgIcons.CgLogOut />,
-    className: 'nav-text'
   }
 ];
