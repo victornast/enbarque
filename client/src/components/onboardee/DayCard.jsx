@@ -18,7 +18,7 @@ export class DayCard extends Component {
         <h4 className="day-card__OBday">Day {this.props.nDay}</h4>
         <h3 className="day-card__date">{displayDate}</h3>
         <div className="day-card__tasks">
-          {scheduledTasks &&
+          {!!taskOfTheDay &&
             taskOfTheDay.map((task) => (
               <ScheduledTaskCard key={task.task._id} task={task} />
             ))}

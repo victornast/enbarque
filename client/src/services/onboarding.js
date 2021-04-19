@@ -26,3 +26,11 @@ export const editProcess = async (processId, data) => {
   console.log("response", response);
   return response.data.updatedProcess;
 };
+
+export const scheduleTask = async (processId, taskId, date) => {
+  const data = {
+    task: taskId,
+    startingTimeSlot: date,
+  };
+  const response = await api.fetch(`/onboarding/${processId}`, data);
+};

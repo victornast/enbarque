@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Greeting from './../dashboard/Greeting';
-import BacklogList from './BacklogList';
+import Greeting from "./../dashboard/Greeting";
+import BacklogList from "./BacklogList";
 import WeekView from "./WeekView";
-import { getProcess } from './../../services/onboarding';
+import { getProcess } from "./../../services/onboarding";
 
-import './OnboardeeDashboard.scss';
+import "./OnboardeeDashboard.scss";
 
 function OnboardeeDashboard({ user }) {
   const [process, setProcess] = useState(null);
@@ -39,10 +39,9 @@ function OnboardeeDashboard({ user }) {
               Contact Persons
             </h2>
             <p className="onboardee-dashboard-section__intro">
-              Here is an overview about your main contact persons during
-              your onboarding. Of course you can always reach out to
-              other colleagues as well when you feel stuck. Check our
-              team channel on slack.
+              Here is an overview about your main contact persons during your
+              onboarding. Of course you can always reach out to other colleagues
+              as well when you feel stuck. Check our team channel on slack.
             </p>
             <div className="onboardee-dashboard-section__body">
               <p>Include here the role card component</p>
@@ -59,8 +58,8 @@ function OnboardeeDashboard({ user }) {
               Onboarding Schedule
             </h2>
             <p className="onboardee-dashboard-section__intro">
-              Calendar View of the weeks planned for the onboarding and
-              the topics that should be followed each day.
+              Calendar View of the weeks planned for the onboarding and the
+              topics that should be followed each day.
             </p>
             <div className="onboardee-dashboard-section__body">
               <p>Include here the calendar component</p>
@@ -72,9 +71,9 @@ function OnboardeeDashboard({ user }) {
               Onboarding Backlog
             </h2>
             <p className="onboardee-dashboard-section__intro">
-              Topics that couldn't be covered during the onboarding and
-              should be approached as soon as possible in parallel with
-              the projects, as part of the personal development plans.
+              Topics that couldn't be covered during the onboarding and should
+              be approached as soon as possible in parallel with the projects,
+              as part of the personal development plans.
             </p>
             <div className="onboardee-dashboard-section__body">
               <BacklogList
@@ -88,8 +87,8 @@ function OnboardeeDashboard({ user }) {
               Feedback Notes
             </h2>
             <p className="onboardee-dashboard-section__intro">
-              Help us improve the onboarding process by adding here
-              feedback notes and optimization suggestions:
+              Help us improve the onboarding process by adding here feedback
+              notes and optimization suggestions:
             </p>
             <div className="onboardee-dashboard-section__body">
               <p>Include here the feedback component</p>
