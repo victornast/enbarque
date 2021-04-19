@@ -31,7 +31,7 @@ class SingleTask extends Component {
   };
 
   eraseTask = async () => {
-    const apiCall = await deleteTask(this.state.task._id);
+    await deleteTask(this.state.task._id);
     // hier: success auf true setzen, dann redirect to ....
     // console.log('apiCall: ', apiCall);
   };
