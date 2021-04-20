@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Greeting from './../dashboard/Greeting';
 import BacklogList from './BacklogList';
-import WeekView from "./WeekView";
+import WeekView from './WeekView';
 import { getProcess } from './../../services/onboarding';
 
 import './OnboardeeDashboard.scss';
@@ -24,16 +24,16 @@ function OnboardeeDashboard({ user }) {
     const amountOfWeeks = Math.ceil(process.amountOfDays / 5);
     weekViews = () => {
       for (let n = 0; n < amountOfWeeks; n++) {
-        console.log("Week", n + 1);
+        console.log('Week', n + 1);
         return <WeekView process={process} week={n + 1} />;
       }
     };
   }
   return (
     <article className="onboardee-dashboard">
-      <Greeting user={user} />
       {process && (
         <>
+          <Greeting user={user} corp={process.organization.name} />
           <section className="onboardee-dashboard__section onboardee-dashboard-section">
             <h2 className="onboardee-dashboard-section__headline">
               Contact Persons
