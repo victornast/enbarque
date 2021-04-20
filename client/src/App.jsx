@@ -127,7 +127,7 @@ class App extends Component {
                 />
                 <ProtectedRoute
                   exact
-                  path="/onboarding"
+                  path="/onboarding/:id"
                   authorized={this.state.user}
                   redirect="/auth/signin"
                   render={(props) => (

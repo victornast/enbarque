@@ -21,7 +21,7 @@ const EmployeeCardSmall = ({ employee, plan }) => {
         {(employee.role.name === 'Onboardee' && plan && (
           <Link
             className="eb-button eb-button--secondary eb-button--compact"
-            to={`/onboarding/${plan._id}`}
+            to={`/onboarding/${employee._id}`}
           >
             Edit OnB Plan
           </Link>
