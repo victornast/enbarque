@@ -27,24 +27,26 @@ const BacklogTask = ({ process, task, onDelete, onUpdate }) => {
     <div className="backlog-task">
       <p className="backlog-task__name">{task.headline}</p>
       {(pickerDisplay && (
-        <>
+        <div className="time-picker__wrapper">
           <TimePicker
             onClick={handleScheduleTask}
             onDateChange={(date) => setPickedDate(date)}
           />
-          <button
-            onClick={handleScheduleTask}
-            className="backlog-task__action eb-button eb-button--primary"
-          >
-            Save
-          </button>
-          <button
-            onClick={() => setPickerDisplay(!pickerDisplay)}
-            className="backlog-task__action eb-button eb-button--secondary"
-          >
-            Cancel
-          </button>
-        </>
+          <div className="time-picker__button-group">
+            <button
+              onClick={handleScheduleTask}
+              className="backlog-task__action eb-button eb-button--primary"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setPickerDisplay(!pickerDisplay)}
+              className="backlog-task__action eb-button eb-button--secondary"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       )) || (
         <>
           <button
