@@ -75,8 +75,8 @@ class App extends Component {
                 <Link className="eb-nav__item" to="/dashboard">
                   Dashboard
                 </Link>
-                <Link className="eb-nav__item" to="/tasks/create">
-                  Create Task
+                <Link className="eb-nav__item" to="/tasks">
+                  View Tasks
                 </Link>
                 <Link
                   className="eb-nav__item"

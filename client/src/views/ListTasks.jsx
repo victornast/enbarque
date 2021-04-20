@@ -24,6 +24,7 @@ class ListTasks extends Component {
     return this.state.loaded ? (
       <React.Fragment>
         <h1>All tasks</h1>
+        <Link to="/tasks/create">Create New Task</Link>
         <table>
           <thead className="coloredColumn">
             <tr>
