@@ -24,7 +24,6 @@ const EmployeeList = ({ employees, user, plans }) => {
             <span>Name</span>
             <span>Position</span>
             <span>Level</span>
-            <span>Onboarding role</span>
             <span>Onboarding plan</span>
           </div>
         </div>

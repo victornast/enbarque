@@ -18,31 +18,28 @@ const EmployeeCardSmall = ({ employee, plan }) => {
           'n/a'}
       </span>
       <span>
-        {(employee.role && <span>{employee.role.name}</span>) || 'n/a'}
-      </span>
-      <span>
         {(employee.role.name === 'Onboardee' && plan && (
           <Link
-            className="table__btn--assign"
+            className="eb-button eb-button--secondary eb-button--compact"
             to={`/onboarding/${plan._id}`}
           >
-            Edit
+            Edit OnB Plan
           </Link>
         )) ||
           (employee.role.name === 'Onboardee' && !plan && (
             <Link
-              className="table__btn--assign"
+              className="eb-button eb-button--primary eb-button--compact"
               to={{
                 pathname: `/onboarding/create/${employee._id}`,
                 state: { onboardee: employee }
               }}
             >
-              Create
+              Create OnB Plan
             </Link>
           )) ||
           (employee.role.name === 'Mentor' && (
             <Link
-              className="table__btn--edit"
+              className="eb-button eb-button--secondary eb-button--compact"
               to={`/onboarding/mentorship/${employee._id}}`}
             >
               Edit
