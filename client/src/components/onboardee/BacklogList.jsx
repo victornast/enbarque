@@ -4,7 +4,7 @@ import { editProcess } from './../../services/onboarding';
 
 import './BacklogList.scss';
 
-function BacklogList({ process, onUpdate }) {
+function BacklogList({ process, onUpdate, updateViewTask }) {
   const backlogList = process.unscheduledTasks;
   console.log(backlogList);
 
@@ -34,6 +34,7 @@ function BacklogList({ process, onUpdate }) {
               task={task}
               onDelete={() => handleDeleteTask(process._id, task._id)}
               onUpdate={(process) => handleUpdate(process)}
+              updateViewTask={updateViewTask}
             />
           </li>
         ))}

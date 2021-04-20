@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Greeting from './../dashboard/Greeting';
+import TaskDetail from './../dashboard/TaskDetail';
 import BacklogList from './BacklogList';
 import WeekView from './WeekView';
 import { getProcess } from './../../services/onboarding';
@@ -10,7 +11,7 @@ import './OnboardeeDashboard.scss';
 function OnboardeeDashboard({ user }) {
   const [process, setProcess] = useState(null);
   const [activeTask, setActiveTask] = useState(false);
-  const [activeTaskId, setActiveTaskId] = useState(null);
+  const [activeTaskObj, setActiveTaskObj] = useState(null);
 
   useEffect(() => {
     const fetchProcess = async (id) => {
@@ -31,9 +32,28 @@ function OnboardeeDashboard({ user }) {
       }
     };
   }
+
+  const updateBacklogViewTask = (id) => {
+    const task = process.unscheduledTasks.find(
+      (task) => task._id === id
+    );
+    if (task) {
+      setActiveTaskObj(task);
+      setActiveTask(true);
+    } else {
+      setActiveTask(false);
+    }
+    console.log(activeTask);
+  };
+
   return (
     <article className="onboardee-dashboard">
-      {(activeTask && <div>ActiveTask</div>) ||
+      {(activeTask && (
+        <TaskDetail
+          task={activeTaskObj}
+          onClose={updateBacklogViewTask}
+        />
+      )) ||
         (process && (
           <>
             <Greeting user={user} corp={process.organization.name} />
@@ -84,6 +104,7 @@ function OnboardeeDashboard({ user }) {
                 <BacklogList
                   process={process}
                   onUpdate={(newProcess) => setProcess(newProcess)}
+                  updateViewTask={updateBacklogViewTask}
                 />
               </div>
             </section>
