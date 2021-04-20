@@ -9,6 +9,8 @@ import './OnboardeeDashboard.scss';
 
 function OnboardeeDashboard({ user }) {
   const [process, setProcess] = useState(null);
+  const [activeTask, setActiveTask] = useState(false);
+  const [activeTaskId, setActiveTaskId] = useState(null);
 
   useEffect(() => {
     const fetchProcess = async (id) => {
@@ -31,72 +33,74 @@ function OnboardeeDashboard({ user }) {
   }
   return (
     <article className="onboardee-dashboard">
-      {process && (
-        <>
-          <Greeting user={user} corp={process.organization.name} />
-          <section className="onboardee-dashboard__section onboardee-dashboard-section">
-            <h2 className="onboardee-dashboard-section__headline">
-              Contact Persons
-            </h2>
-            <p className="onboardee-dashboard-section__intro">
-              Here is an overview about your main contact persons during
-              your onboarding. Of course you can always reach out to
-              other colleagues as well when you feel stuck. Check our
-              team channel on slack.
-            </p>
-            <div className="onboardee-dashboard-section__body">
-              <p>Include here the role card component</p>
-              <div>
-                Role Card: <div>User Card</div>
+      {(activeTask && <div>ActiveTask</div>) ||
+        (process && (
+          <>
+            <Greeting user={user} corp={process.organization.name} />
+            <section className="onboardee-dashboard__section onboardee-dashboard-section">
+              <h2 className="onboardee-dashboard-section__headline">
+                Contact Persons
+              </h2>
+              <p className="onboardee-dashboard-section__intro">
+                Here is an overview about your main contact persons
+                during your onboarding. Of course you can always reach
+                out to other colleagues as well when you feel stuck.
+                Check our team channel on slack.
+              </p>
+              <div className="onboardee-dashboard-section__body">
+                <p>Include here the role card component</p>
+                <div>
+                  Role Card: <div>User Card</div>
+                </div>
+                <div>
+                  Role Card: <div>User Card</div>
+                </div>
               </div>
-              <div>
-                Role Card: <div>User Card</div>
+            </section>
+            <section className="onboardee-dashboard__section onboardee-dashboard-section">
+              <h2 className="onboardee-dashboard-section__headline">
+                Onboarding Schedule
+              </h2>
+              <p className="onboardee-dashboard-section__intro">
+                Calendar View of the weeks planned for the onboarding
+                and the topics that should be followed each day.
+              </p>
+              <div className="onboardee-dashboard-section__body">
+                <p>Include here the calendar component</p>
+                {weekViews()}
               </div>
-            </div>
-          </section>
-          <section className="onboardee-dashboard__section onboardee-dashboard-section">
-            <h2 className="onboardee-dashboard-section__headline">
-              Onboarding Schedule
-            </h2>
-            <p className="onboardee-dashboard-section__intro">
-              Calendar View of the weeks planned for the onboarding and
-              the topics that should be followed each day.
-            </p>
-            <div className="onboardee-dashboard-section__body">
-              <p>Include here the calendar component</p>
-              {weekViews()}
-            </div>
-          </section>
-          <section className="onboardee-dashboard__section onboardee-dashboard-section">
-            <h2 className="onboardee-dashboard-section__headline">
-              Onboarding Backlog
-            </h2>
-            <p className="onboardee-dashboard-section__intro">
-              Topics that couldn't be covered during the onboarding and
-              should be approached as soon as possible in parallel with
-              the projects, as part of the personal development plans.
-            </p>
-            <div className="onboardee-dashboard-section__body">
-              <BacklogList
-                process={process}
-                onUpdate={(newProcess) => setProcess(newProcess)}
-              />
-            </div>
-          </section>
-          <section className="onboardee-dashboard__section onboardee-dashboard-section">
-            <h2 className="onboardee-dashboard-section__headline">
-              Feedback Notes
-            </h2>
-            <p className="onboardee-dashboard-section__intro">
-              Help us improve the onboarding process by adding here
-              feedback notes and optimization suggestions:
-            </p>
-            <div className="onboardee-dashboard-section__body">
-              <p>Include here the feedback component</p>
-            </div>
-          </section>
-        </>
-      )}
+            </section>
+            <section className="onboardee-dashboard__section onboardee-dashboard-section">
+              <h2 className="onboardee-dashboard-section__headline">
+                Onboarding Backlog
+              </h2>
+              <p className="onboardee-dashboard-section__intro">
+                Topics that couldn't be covered during the onboarding
+                and should be approached as soon as possible in parallel
+                with the projects, as part of the personal development
+                plans.
+              </p>
+              <div className="onboardee-dashboard-section__body">
+                <BacklogList
+                  process={process}
+                  onUpdate={(newProcess) => setProcess(newProcess)}
+                />
+              </div>
+            </section>
+            <section className="onboardee-dashboard__section onboardee-dashboard-section">
+              <h2 className="onboardee-dashboard-section__headline">
+                Feedback Notes
+              </h2>
+              <p className="onboardee-dashboard-section__intro">
+                Help us improve the onboarding process by adding here
+                feedback notes and optimization suggestions:
+              </p>
+              <div className="onboardee-dashboard-section__body">
+                <p>Include here the feedback component</p>
+              </div>
+            </section>
+          </>
+        ))}
     </article>
   );
 }
