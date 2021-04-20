@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import "./BacklogTask.scss";
-import ScheduledTaskCard from "./ScheduledTaskCard";
-import TimePicker from "./TimePicker";
-import { scheduleTask } from "./../../services/onboarding";
+import React, { useState } from 'react';
+import './BacklogTask.scss';
+import TimePicker from './TimePicker';
+import { scheduleTask } from './../../services/onboarding';
 
-const BacklogTask = ({ process, task, onDelete, onUpdate }) => {
+const BacklogTask = ({
+  process,
+  task,
+  onDelete,
+  onUpdate,
+  updateViewTask
+}) => {
   const [pickerDisplay, setPickerDisplay] = useState(false);
   const [pickedDate, setPickedDate] = useState(null);
 
@@ -25,7 +30,12 @@ const BacklogTask = ({ process, task, onDelete, onUpdate }) => {
 
   return (
     <div className="backlog-task">
-      <p className="backlog-task__name">{task.headline}</p>
+      <p
+        onClick={() => updateViewTask(task._id)}
+        className="backlog-task__name"
+      >
+        {task.headline}
+      </p>
       {(pickerDisplay && (
         <div className="time-picker__wrapper">
           <TimePicker

@@ -76,7 +76,8 @@ router.get('/:id', async (req, res, next) => {
     console.log(id);
     const process = await OnboardingProcess.findOne({ onboardee: id })
       .populate('unscheduledTasks')
-      .populate('scheduledTasks.task');
+      .populate('scheduledTasks.task')
+      .populate('organization');
     console.log('Found an onboarding process.', process);
     res.json({ status: 'success', process });
   } catch (error) {
