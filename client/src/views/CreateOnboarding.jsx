@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { findUsers } from "../services/organization";
-import { createOnboarding } from "../services/onboarding";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { findUsers } from '../services/organization';
+import { createOnboarding } from '../services/onboarding';
 
-function CreateOnboarding({ user }) {
+function CreateOnboarding({ user, history }) {
   const location = useLocation();
   const onboardee = location.state?.onboardee;
 
   // console.log(onboardee);
   const today = new Date();
-  const [startDate, setStartDate] = useState(today.toJSON().slice(0, 10));
+  const [startDate, setStartDate] = useState(
+    today.toJSON().slice(0, 10)
+  );
   const [amountOfDays, setAmountOfDays] = useState(5);
   //const [onboardee, setOnboardee] = useState(null);
   const [mentor, setMentor] = useState(user._id);
@@ -29,9 +31,10 @@ function CreateOnboarding({ user }) {
       onboardee: onboardee,
       mentor,
       startDate,
-      amountOfDays,
+      amountOfDays
     };
     const res = await createOnboarding(data);
+    history.push(`/onboarding/${res.onboardee}`);
     console.log(res);
   };
 

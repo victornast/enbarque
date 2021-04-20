@@ -75,8 +75,8 @@ class App extends Component {
                 <Link className="eb-nav__item" to="/dashboard">
                   Dashboard
                 </Link>
-                <Link className="eb-nav__item" to="/tasks/create">
-                  Create Task
+                <Link className="eb-nav__item" to="/tasks">
+                  View Tasks
                 </Link>
                 <Link
                   className="eb-nav__item"
@@ -127,7 +127,7 @@ class App extends Component {
                 />
                 <ProtectedRoute
                   exact
-                  path="/onboarding"
+                  path="/onboarding/:id"
                   authorized={this.state.user}
                   redirect="/auth/signin"
                   render={(props) => (
