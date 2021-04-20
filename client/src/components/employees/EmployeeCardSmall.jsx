@@ -5,7 +5,7 @@ const EmployeeCardSmall = ({ employee, plan }) => {
   return (
     <div className="table__row">
       <span>
-        <Link to={`/corp/user/${employee._id}`}>
+        <Link className="eb-link" to={`/corp/user/${employee._id}`}>
           {employee.firstName} {employee.lastName}
         </Link>
       </span>
