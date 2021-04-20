@@ -4,5 +4,6 @@
   "scripts": {
     "start": "cd server && npm run start",
     "prepare": "cd server && npm i"
-  }
+  },
+  "dependencies": {}
 }

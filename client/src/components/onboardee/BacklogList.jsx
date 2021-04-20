@@ -19,14 +19,21 @@ function BacklogList({ process, onUpdate }) {
     console.log(newProcess);
     onUpdate(newProcess);
   };
+
+  const handleUpdate = (process) => {
+    onUpdate(process);
+  };
+
   return (
     <ul className="backlog-list">
       {!!backlogList.length &&
         backlogList.map((task) => (
           <li key={task._id} className="backlog-list__item">
             <BacklogTask
+              process={process}
               task={task}
               onDelete={() => handleDeleteTask(process._id, task._id)}
+              onUpdate={(process) => handleUpdate(process)}
             />
           </li>
         ))}

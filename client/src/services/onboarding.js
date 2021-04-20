@@ -26,3 +26,13 @@ export const editProcess = async (processId, data) => {
   console.log("response", response);
   return response.data.updatedProcess;
 };
+
+export const scheduleTask = async (processId, taskId, date, newBacklogList) => {
+  const data = {
+    scheduledTasks: { task: taskId, startingTimeSlot: date },
+    unscheduledTasks: newBacklogList,
+  };
+  const response = await api.patch(`/onboarding/${processId}`, data);
+  console.log("client side response:", response.data.updatedProcess);
+  return response.data.updatedProcess;
+};

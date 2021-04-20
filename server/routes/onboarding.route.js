@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const { update } = require('../models/onboardingProcess.model');
 const router = new express.Router();
 //const routeGuard = require('../middleware/route-guard');
 
@@ -97,10 +98,28 @@ router.patch('/:processId', async (req, res, next) => {
   try {
     const id = req.params.processId;
     const data = req.body;
-    console.log('Updating the process');
-    const updatedProcess = await OnboardingProcess.findByIdAndUpdate(id, data, {
-      new: true
-    }).populate('unscheduledTasks');
+    let updatedProcess;
+    if (data.scheduledTasks) {
+      console.log('Scheduling a task');
+      updatedProcess = await OnboardingProcess.findByIdAndUpdate(
+        id,
+        {
+          $push: {
+            scheduledTasks: data.scheduledTasks
+          },
+          unscheduledTasks: data.unscheduledTasks
+        },
+        { new: true }
+      )
+        .populate('unscheduledTasks')
+        .populate('scheduledTasks.task');
+      console.log('new scheduled tasks:', updatedProcess);
+    } else {
+      console.log('Updating the process');
+      updatedProcess = await OnboardingProcess.findByIdAndUpdate(id, data, {
+        new: true
+      }).populate('unscheduledTasks');
+    }
     res.json({ updatedProcess });
   } catch (error) {
     next(error);
