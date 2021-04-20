@@ -1,7 +1,9 @@
 import { loadTask } from './../services/task';
+import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { deleteTask } from './../services/task';
 import EditTask from './../components/forms/EditTask';
+import { toast } from 'react-toastify';
 import './../SingleTask.scss';
 // import { useLocation } from 'react-router-dom';
 
@@ -31,16 +33,31 @@ class SingleTask extends Component {
   };
 
   eraseTask = async () => {
-    const apiCall = await deleteTask(this.state.task._id);
+    await deleteTask(this.state.task._id);
+    if (this.state.task._id)
+    this.setState({
+      success: false
+    });
+    this.notify('Task deleted!');
+
     // hier: success auf true setzen, dann redirect to ....
-    // console.log('apiCall: ', apiCall);
+  };
+
+  notify = (message, type) => {
+    toast.configure({
+      autoClose: 2000,
+      draggable: false,
+      position: 'bottom-right'
+    });
+    toast.error(message);
   };
 
   render() {
     console.log('this.state.task', this.state.task);
     //console.log('this.props.location: ', this.props.location);
-
-    return this.state.loaded ? (
+    return this.state.success ? (
+      <Redirect to="/tasks" />
+    ) : this.state.loaded ? (
       <React.Fragment>
         <h1> {this.state.task.headline}</h1>
         <h3>{this.state.task.description}</h3>
