@@ -17,6 +17,11 @@ function BacklogList({ process, onUpdate }) {
     console.log(newProcess);
     onUpdate(newProcess);
   };
+
+  const handleUpdate = (process) => {
+    onUpdate(process);
+  };
+
   return (
     <ul className="backlog-list">
       {!!backlogList.length &&
@@ -26,6 +31,7 @@ function BacklogList({ process, onUpdate }) {
               process={process}
               task={task}
               onDelete={() => handleDeleteTask(process._id, task._id)}
+              onUpdate={(process) => handleUpdate(process)}
             />
           </li>
         ))}
