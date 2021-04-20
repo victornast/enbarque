@@ -28,10 +28,32 @@ function OnboardeeDashboard({ user }) {
     weekViews = () => {
       for (let n = 0; n < amountOfWeeks; n++) {
         console.log('Week', n + 1);
-        return <WeekView process={process} week={n + 1} />;
+        return (
+          <WeekView
+            process={process}
+            week={n + 1}
+            updateViewTask={updateScheduledViewTask}
+          />
+        );
       }
     };
   }
+
+  const updateScheduledViewTask = (id) => {
+    console.log('Running:', id);
+    console.log('Process:', process.scheduledTasks);
+    const task = process.scheduledTasks.find(
+      (task) => task.task && task.task._id === id
+    );
+
+    console.log('Task:', task);
+    if (task) {
+      setActiveTaskObj(task.task);
+      setActiveTask(true);
+    } else {
+      setActiveTask(false);
+    }
+  };
 
   const updateBacklogViewTask = (id) => {
     const task = process.unscheduledTasks.find(
@@ -43,7 +65,6 @@ function OnboardeeDashboard({ user }) {
     } else {
       setActiveTask(false);
     }
-    console.log(activeTask);
   };
 
   return (

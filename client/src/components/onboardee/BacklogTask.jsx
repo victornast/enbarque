@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './BacklogTask.scss';
-import ScheduledTaskCard from './ScheduledTaskCard';
 import TimePicker from './TimePicker';
 import { scheduleTask } from './../../services/onboarding';
 
