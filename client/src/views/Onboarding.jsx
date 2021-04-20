@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Onboarding() {
-  return (
-    <div className="onboarding">
-      <h1>Onboarding</h1>
-    </div>
-  );
+import { loadUser } from './../services/user';
+
+import OnboardeeDashboard from './../components/onboardee/OnboardeeDashboard';
+
+function Onboarding(props) {
+  const [onboardee, setOnboardee] = useState(null);
+
+  const userId = props.match.params.id;
+
+  useEffect(() => {
+    async function getUser(id) {
+      const onboardee = await loadUser(id);
+      setOnboardee(onboardee);
+    }
+    getUser(userId);
+  }, [userId]);
+
+  return <>{onboardee && <OnboardeeDashboard user={onboardee} />}</>;
 }
 
 export default Onboarding;
