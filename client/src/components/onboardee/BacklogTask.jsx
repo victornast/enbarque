@@ -7,11 +7,10 @@ import { scheduleTask } from "./../../services/onboarding";
 const BacklogTask = ({ process, task, onDelete, onUpdate }) => {
   const [pickerDisplay, setPickerDisplay] = useState(false);
   const [pickedDate, setPickedDate] = useState(null);
-  const [backlogList, setBacklogList] = useState(process.unscheduledTasks);
 
   const handleScheduleTask = async () => {
-    const newBacklogList = backlogList.filter(
-      (backlog) => backlog._id === task._id
+    const newBacklogList = process.unscheduledTasks.filter(
+      (backlog) => backlog._id !== task._id
     );
     const updatedProcess = await scheduleTask(
       process._id,
@@ -21,6 +20,7 @@ const BacklogTask = ({ process, task, onDelete, onUpdate }) => {
     );
     console.log(updatedProcess);
     onUpdate(updatedProcess);
+    setPickerDisplay(!pickerDisplay);
   };
 
   return (
