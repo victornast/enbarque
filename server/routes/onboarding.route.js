@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const { update } = require('../models/onboardingProcess.model');
 const router = new express.Router();
 const routeGuard = require('../middleware/route-guard');
 
@@ -14,9 +13,7 @@ router.get('/', async (req, res, next) => {
     const onboardingProcessPlans = await OnboardingProcess.find({
       organization: orgId
     });
-    //console.log('Listing all onboarding processes.');
-    //console.log(onboardingProcessPlans);
-    res.json({ status: 'success', onboardingProcessPlans });
+    res.json({ onboardingProcessPlans });
   } catch (error) {
     next(error);
   }

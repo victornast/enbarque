@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { findTasks } from "../../services/task";
-import TaskItem from "./TaskItem";
-import { addBacklogTask } from "./../../services/onboarding";
+import React, { useState, useEffect } from 'react';
+import { findTasks } from '../../services/task';
+import TaskItem from './TaskItem';
+import { addBacklogTask } from './../../services/onboarding';
 
 const TaskListGroup = ({ user, onUpdate, process }) => {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +12,9 @@ const TaskListGroup = ({ user, onUpdate, process }) => {
       const allTasks = await findTasks();
       // console.log(allTasks);
       const allTasksIds = allTasks.map((task) => task._id);
-      const backlogTasksIds = process.unscheduledTasks.map((task) => task._id);
+      const backlogTasksIds = process.unscheduledTasks.map(
+        (task) => task._id
+      );
       // console.log(backlogTasksIds);
       // console.log(allTasksIds);
       const tasksIds = [];
@@ -37,7 +39,10 @@ const TaskListGroup = ({ user, onUpdate, process }) => {
 
   const addTask = async (task) => {
     const newProcess = await addBacklogTask(process._id, task);
-    console.log("Added Task to Backlog list", newProcess.unscheduledTasks);
+    console.log(
+      'Added Task to Backlog list',
+      newProcess.unscheduledTasks
+    );
     onUpdate(newProcess);
   };
 
@@ -45,9 +50,15 @@ const TaskListGroup = ({ user, onUpdate, process }) => {
     <div>
       {loaded
         ? tasks.map((task) => {
-            return <TaskItem onAddTask={addTask} task={task} />;
+            return (
+              <TaskItem
+                key={task._id}
+                onAddTask={addTask}
+                task={task}
+              />
+            );
           })
-        : ""}
+        : ''}
     </div>
   );
 };

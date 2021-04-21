@@ -7,47 +7,37 @@ function CreateOnboarding({ user, history }) {
   const location = useLocation();
   const onboardee = location.state?.onboardee;
 
-  // console.log(onboardee);
   const today = new Date();
   const [startDate, setStartDate] = useState(
     today.toJSON().slice(0, 10)
   );
   const [amountOfDays, setAmountOfDays] = useState(5);
-  //const [onboardee, setOnboardee] = useState(null);
   const [mentor, setMentor] = useState(null);
   const [mentorsList, setMentorsList] = useState([]);
 
   useEffect(() => {
-    // async function getApi() {
-    //   const users = await findUsers();
-    //   setUsersList(users);
-    // }
     async function getMentorList(positionId) {
       const usersWithSamePosition = await findMentors(positionId);
-      console.log(usersWithSamePosition);
       const mentors = usersWithSamePosition.filter(
         (user) => user.level.level > onboardee.level.level
       );
-      console.log(mentors);
       setMentorsList(mentors);
+      Boolean(mentors) && setMentor(mentors[0]);
     }
-    // getApi();
+
     getMentorList(onboardee.position._id);
   }, [onboardee.level.level, onboardee.position._id]);
-  console.log('onboardee position id:', onboardee.position._id);
-  console.log('onboardee level:', onboardee.level.level);
 
   const handleFormSubmission = async (event) => {
     event.preventDefault();
     const data = {
-      onboardee: onboardee,
-      mentor,
+      onboardee,
+      mentor: mentor._id,
       startDate,
       amountOfDays
     };
     const res = await createOnboarding(data);
     history.push(`/onboarding/${res.onboardee}`);
-    console.log(res);
   };
 
   return (
@@ -78,27 +68,28 @@ function CreateOnboarding({ user, history }) {
         </label>
         {(!!mentorsList.length && (
           <select
-            name="onboardee"
+            name="mentor"
             id="input-onboardee"
-            value={mentor}
             onChange={(e) => setMentor(e.target.value)}
             className="eb-form__input"
           >
             {mentorsList.map((mentor) => (
               <option key={mentor._id} value={mentor._id}>
-                {mentor.firstName}
+                {mentor.firstName + ' ' + mentor.lastName}
               </option>
             ))}
           </select>
         )) || (
           <select
-            name="onboardee"
+            name="mentor"
             id="input-onboardee"
-            value={mentor}
+            value={user._id}
             onChange={(e) => setMentor(e.target.value)}
             className="eb-form__input"
           >
-            <option value={user._id}>{user.firstName}</option>
+            <option value={user._id}>
+              {user.firstName + ' ' + user.lastName}
+            </option>
           </select>
         )}
 
