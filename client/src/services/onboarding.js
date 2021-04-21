@@ -44,3 +44,8 @@ export const addBacklogTask = async (processId, taskId) => {
   );
   return response.data.updatedProcess;
 };
+
+export const changeTaskStatus = async (processId, taskId) => {
+  const response = await api.patch(`/onboarding/${processId}/status/${taskId}`);
+  return response.data.updatedProcess;
+};

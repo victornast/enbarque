@@ -4,7 +4,7 @@ import Greeting from "./../dashboard/Greeting";
 import TaskDetail from "./../dashboard/TaskDetail";
 import BacklogList from "./BacklogList";
 import WeekView from "./WeekView";
-import { getProcess } from "./../../services/onboarding";
+import { getProcess, changeTaskStatus } from "./../../services/onboarding";
 
 import "./OnboardeeDashboard.scss";
 
@@ -65,10 +65,20 @@ function OnboardeeDashboard({ user }) {
     }
   };
 
+  const handleStatusChange = async (process, task) => {
+    // console.log(task);
+    const updatedProcess = await changeTaskStatus(process._id, task._id);
+    console.log(updatedProcess);
+  };
+
   return (
     <article className="onboardee-dashboard">
       {(activeTask && (
-        <TaskDetail task={activeTaskObj} onClose={updateBacklogViewTask} />
+        <TaskDetail
+          task={activeTaskObj}
+          onClose={updateBacklogViewTask}
+          onStatusChange={() => handleStatusChange(activeTaskObj)}
+        />
       )) ||
         (process && (
           <>
