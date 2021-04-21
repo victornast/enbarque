@@ -21,22 +21,13 @@ function OnboardeeDashboard({ user }) {
     fetchProcess(user._id);
   }, [user._id]);
 
-  let weekViews;
+  const weekNumbers = [];
   if (process) {
     console.log(process.amountOfDays);
     const amountOfWeeks = Math.ceil(process.amountOfDays / 5);
-    weekViews = () => {
-      for (let n = 0; n < amountOfWeeks; n++) {
-        console.log("Week", n + 1);
-        return (
-          <WeekView
-            process={process}
-            week={n + 1}
-            updateViewTask={updateScheduledViewTask}
-          />
-        );
-      }
-    };
+    for (let n = 1; n <= amountOfWeeks; n++) {
+      weekNumbers.push(n);
+    }
   }
 
   const updateScheduledViewTask = (id) => {
@@ -116,7 +107,13 @@ function OnboardeeDashboard({ user }) {
               </p>
               <div className="onboardee-dashboard-section__body">
                 <p>Include here the calendar component</p>
-                {weekViews()}
+                {weekNumbers.map((n) => (
+                  <WeekView
+                    process={process}
+                    week={n}
+                    updateViewTask={updateScheduledViewTask}
+                  />
+                ))}
               </div>
             </section>
             <section className="onboardee-dashboard__section onboardee-dashboard-section">
