@@ -5,7 +5,7 @@ import Greeting from './../dashboard/Greeting';
 import BacklogList from './BacklogList';
 import WeekView from './WeekView';
 import { getProcess } from './../../services/onboarding';
-import { loadUser } from './../../services/user';
+import * as AiIcons from 'react-icons/ai';
 
 // import { getPositionOptions } from './../../services/userOptions';
 
@@ -13,7 +13,6 @@ import './OnboardeeDashboard.scss';
 
 function OnboardeeDashboard({ user }) {
   const [process, setProcess] = useState(null);
-  const [position, setPosition] = useState(null);
 
   useEffect(() => {
     const fetchProcess = async (id) => {
@@ -21,14 +20,6 @@ function OnboardeeDashboard({ user }) {
       setProcess(singleProcess);
     };
     fetchProcess(user._id);
-  }, [user._id]);
-
-  useEffect(() => {
-    const fetchPosition = async (id) => {
-      const singlePosition = await loadUser(id);
-      setPosition(singlePosition);
-    };
-    fetchPosition(user._id);
   }, [user._id]);
 
   let weekViews;
@@ -42,6 +33,7 @@ function OnboardeeDashboard({ user }) {
       }
     };
   }
+
   return (
     <article className="onboardee-dashboard">
       <Greeting user={user} />
@@ -56,27 +48,49 @@ function OnboardeeDashboard({ user }) {
               onboarding. Of course you can always reach out to other colleagues
               as well when you feel stuck. Check our team channel on slack.
             </p>
+            <p></p>
             <div className="onboardee-dashboard-section__body">
               <CardDeck>
                 <Card border="warning">
                   <Card.Header user={user} className="font-weight-bold">
-                    Your Onboarding Mentor:
+                    <img
+                      src={process.manager.avatar}
+                      alt="avatar"
+                      className="avatar"
+                    />{' '}
+                    &nbsp; Your Onboarding Mentor: {process.mentor.firstName}{' '}
+                    {process.mentor.lastName}
                   </Card.Header>
                   <Card.Body>
                     <Card.Text>
-                      Will guide and support you through your onboarding process
-                      and help you find answers to your technical questions.
+                      {process.manager.firstName} will guide and support you
+                      through your onboarding process and answer any technical
+                      questions.
+                    </Card.Text>
+                    <br />
+                    <Card.Text>
+                      <AiIcons.AiOutlineMail /> {process.mentor.email}
                     </Card.Text>
                   </Card.Body>
                 </Card>
                 <Card border="warning">
                   <Card.Header user={user} className="font-weight-bold">
-                    Your Engineering Manager:
+                    <img
+                      src={process.manager.avatar}
+                      alt="avatar"
+                      className="avatar"
+                    />{' '}
+                    &nbsp; Your Engineering Manager: {process.manager.firstName}{' '}
+                    {process.manager.lastName}
                   </Card.Header>
                   <Card.Body>
                     <Card.Text>
-                      Will provide you feedback and support you in your personal
-                      development path.
+                      {process.manager.firstName} will provide you feedback and
+                      support you in your personal development path.
+                    </Card.Text>
+                    <br />
+                    <Card.Text>
+                      <AiIcons.AiOutlineMail /> {process.manager.email}
                     </Card.Text>
                   </Card.Body>
                 </Card>
