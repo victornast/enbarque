@@ -51,22 +51,38 @@ function CreateOnboarding({ user, history }) {
   };
 
   return (
-    <>
-      <h1>Create New Onboarding Plan</h1>
-      {onboardee && (
-        <h3>
-          for {onboardee.firstName} {onboardee.lastName}
-        </h3>
-      )}
+    <article className="eb-create-onboarding">
+      <h2>Create Onboarding Plan</h2>
 
-      <form onSubmit={handleFormSubmission}>
-        <label htmlFor="input-mentor">Select Mentor:</label>
+      <form
+        className="eb-create-onboarding__form eb-form"
+        onSubmit={handleFormSubmission}
+      >
+        {onboardee && (
+          <>
+            <label className="eb-form__label" htmlFor="input-onboardee">
+              Onboardee:
+            </label>
+            <input
+              type="text"
+              id="input-onboardee"
+              value={onboardee.firstName + ' ' + onboardee.lastName}
+              readOnly
+              className="eb-form__input eb-form__input--readonly"
+            />
+          </>
+        )}
+
+        <label className="eb-form__label" htmlFor="input-mentor">
+          Select Mentor:
+        </label>
         {(!!mentorsList.length && (
           <select
             name="onboardee"
             id="input-onboardee"
             value={mentor}
             onChange={(e) => setMentor(e.target.value)}
+            className="eb-form__input"
           >
             {mentorsList.map((mentor) => (
               <option key={mentor._id} value={mentor._id}>
@@ -80,32 +96,41 @@ function CreateOnboarding({ user, history }) {
             id="input-onboardee"
             value={mentor}
             onChange={(e) => setMentor(e.target.value)}
+            className="eb-form__input"
           >
             <option value={user._id}>{user.firstName}</option>
           </select>
         )}
 
-        <label htmlFor="input-starting-date">Starting Date:</label>
+        <label className="eb-form__label" htmlFor="input-starting-date">
+          Starting Date:
+        </label>
         <input
           id="input-starting-date"
           type="date"
           name="startDate"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
+          className="eb-form__input"
         />
 
-        <label htmlFor="input-amount-days">Amount of Days:</label>
+        <label className="eb-form__label" htmlFor="input-amount-days">
+          Amount of Days:
+        </label>
         <input
           id="input-amount-days"
           type="number"
           name="amountOfDays"
           value={amountOfDays}
           onChange={(e) => setAmountOfDays(e.target.value)}
+          className="eb-form__input"
         />
 
-        <button>Create</button>
+        <button className="eb-form__action eb-button eb-button--primary">
+          Create
+        </button>
       </form>
-    </>
+    </article>
   );
 }
 
