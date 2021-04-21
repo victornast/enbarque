@@ -57,9 +57,11 @@ function OnboardeeDashboard({ user }) {
   };
 
   const handleStatusChange = async (task) => {
+    console.log(task);
     const taskToBeUpdated = process.scheduledTasks.find(
-      (scheduledTask) => scheduledTask.task._id === task._id
+      (scheduledTask) => scheduledTask.task._id === task.task._id
     );
+    console.log("task to be updated:", taskToBeUpdated);
     // taskToBeUpdated.taskStatus = "CLOSED";
     const updatedProcess = await changeTaskStatus(process._id, taskToBeUpdated);
     console.log(updatedProcess);
