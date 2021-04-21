@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
-import './Schedule.scss';
-import ScheduledTaskCard from './ScheduledTaskCard';
+import React, { Component } from "react";
+import "./Schedule.scss";
+import ScheduledTaskCard from "./ScheduledTaskCard";
 
 export class DayCard extends Component {
   render() {
     const scheduledTasks = this.props.process.scheduledTasks;
     const startDate = new Date(this.props.startDate);
-    const date = startDate.setDate(
-      startDate.getDate() + this.props.nDay - 1
-    );
+    const date = startDate.setDate(startDate.getDate() + this.props.nDay - 1);
     const displayDate = new Date(date).toDateString().slice(0, -4);
     const taskOfTheDay = scheduledTasks.filter(
       (task) =>
-        new Date(task.startingTimeSlot).getDate() ===
-        new Date(date).getDate()
+        new Date(task.startingTimeSlot).getDate() === new Date(date).getDate()
     );
-    console.log(taskOfTheDay);
+    // console.log(taskOfTheDay);
     return (
       <div className="day-card">
         <h4 className="day-card__OBday">Day {this.props.nDay}</h4>

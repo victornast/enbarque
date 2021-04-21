@@ -39,7 +39,7 @@ function OnboardeeDashboard({ user }) {
 
     console.log("Task:", task);
     if (task) {
-      setActiveTaskObj(task.task);
+      setActiveTaskObj(task);
       setActiveTask(true);
     } else {
       setActiveTask(false);
