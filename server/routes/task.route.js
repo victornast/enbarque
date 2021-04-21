@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
       .populate('organization')
       .populate('position');
     res.json({ allTasks });
-    // console.log('allTasks: ', allTasks);
+    console.log('allTasks: ', allTasks);
   } catch (error) {
     next(error);
   }

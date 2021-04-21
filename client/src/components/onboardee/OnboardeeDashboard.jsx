@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Greeting from './../dashboard/Greeting';
-import TaskDetail from './../dashboard/TaskDetail';
-import BacklogList from './BacklogList';
-import WeekView from './WeekView';
-import { getProcess } from './../../services/onboarding';
+import Greeting from "./../dashboard/Greeting";
+import TaskDetail from "./../dashboard/TaskDetail";
+import BacklogList from "./BacklogList";
+import WeekView from "./WeekView";
+import { getProcess } from "./../../services/onboarding";
 
-import './OnboardeeDashboard.scss';
+import "./OnboardeeDashboard.scss";
 
 function OnboardeeDashboard({ user }) {
   const [process, setProcess] = useState(null);
@@ -27,7 +27,7 @@ function OnboardeeDashboard({ user }) {
     const amountOfWeeks = Math.ceil(process.amountOfDays / 5);
     weekViews = () => {
       for (let n = 0; n < amountOfWeeks; n++) {
-        console.log('Week', n + 1);
+        console.log("Week", n + 1);
         return (
           <WeekView
             process={process}
@@ -40,13 +40,13 @@ function OnboardeeDashboard({ user }) {
   }
 
   const updateScheduledViewTask = (id) => {
-    console.log('Running:', id);
-    console.log('Process:', process.scheduledTasks);
+    console.log("Running:", id);
+    console.log("Process:", process.scheduledTasks);
     const task = process.scheduledTasks.find(
       (task) => task.task && task.task._id === id
     );
 
-    console.log('Task:', task);
+    console.log("Task:", task);
     if (task) {
       setActiveTaskObj(task.task);
       setActiveTask(true);
@@ -56,9 +56,7 @@ function OnboardeeDashboard({ user }) {
   };
 
   const updateBacklogViewTask = (id) => {
-    const task = process.unscheduledTasks.find(
-      (task) => task._id === id
-    );
+    const task = process.unscheduledTasks.find((task) => task._id === id);
     if (task) {
       setActiveTaskObj(task);
       setActiveTask(true);
@@ -70,10 +68,7 @@ function OnboardeeDashboard({ user }) {
   return (
     <article className="onboardee-dashboard">
       {(activeTask && (
-        <TaskDetail
-          task={activeTaskObj}
-          onClose={updateBacklogViewTask}
-        />
+        <TaskDetail task={activeTaskObj} onClose={updateBacklogViewTask} />
       )) ||
         (process && (
           <>
@@ -83,10 +78,10 @@ function OnboardeeDashboard({ user }) {
                 Contact Persons
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Here is an overview about your main contact persons
-                during your onboarding. Of course you can always reach
-                out to other colleagues as well when you feel stuck.
-                Check our team channel on slack.
+                Here is an overview about your main contact persons during your
+                onboarding. Of course you can always reach out to other
+                colleagues as well when you feel stuck. Check our team channel
+                on slack.
               </p>
               <div className="onboardee-dashboard-section__body">
                 <p>Include here the role card component</p>
@@ -103,8 +98,8 @@ function OnboardeeDashboard({ user }) {
                 Onboarding Schedule
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Calendar View of the weeks planned for the onboarding
-                and the topics that should be followed each day.
+                Calendar View of the weeks planned for the onboarding and the
+                topics that should be followed each day.
               </p>
               <div className="onboardee-dashboard-section__body">
                 <p>Include here the calendar component</p>
@@ -116,16 +111,16 @@ function OnboardeeDashboard({ user }) {
                 Onboarding Backlog
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Topics that couldn't be covered during the onboarding
-                and should be approached as soon as possible in parallel
-                with the projects, as part of the personal development
-                plans.
+                Topics that couldn't be covered during the onboarding and should
+                be approached as soon as possible in parallel with the projects,
+                as part of the personal development plans.
               </p>
               <div className="onboardee-dashboard-section__body">
                 <BacklogList
                   process={process}
                   onUpdate={(newProcess) => setProcess(newProcess)}
                   updateViewTask={updateBacklogViewTask}
+                  user={user}
                 />
               </div>
             </section>
@@ -134,8 +129,8 @@ function OnboardeeDashboard({ user }) {
                 Feedback Notes
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Help us improve the onboarding process by adding here
-                feedback notes and optimization suggestions:
+                Help us improve the onboarding process by adding here feedback
+                notes and optimization suggestions:
               </p>
               <div className="onboardee-dashboard-section__body">
                 <p>Include here the feedback component</p>
@@ -143,6 +138,7 @@ function OnboardeeDashboard({ user }) {
             </section>
           </>
         ))}
+      ||{" "}
     </article>
   );
 }
