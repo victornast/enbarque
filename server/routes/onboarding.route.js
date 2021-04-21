@@ -168,4 +168,17 @@ router.patch('/:processId/status', routeGuard, async (req, res, next) => {
     next(error);
   }
 });
+
+router.get('/:id/mentees', routeGuard, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const processes = await OnboardingProcess.find({ mentor: id }).populate(
+      'onboardee'
+    );
+    res.json({ processes });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
