@@ -33,6 +33,12 @@
     padding: 0.5em 0.7em;
     border: 1px solid $color-primary-dark;
     border-radius: 0.5rem;
+
+    &--readonly {
+      background-color: transparent;
+      border: 0;
+      font-weight: 600;
+    }
   }
 
   &__textarea {
