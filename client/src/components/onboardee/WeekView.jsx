@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import DayCard from './DayCard';
-import './Schedule.scss';
+import React, { Component } from "react";
+import DayCard from "./DayCard";
+import "./Schedule.scss";
 
 export class WeekView extends Component {
   render() {
