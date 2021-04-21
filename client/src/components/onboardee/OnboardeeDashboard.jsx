@@ -138,7 +138,6 @@ function OnboardeeDashboard({ user }) {
             </section>
           </>
         ))}
-      ||{" "}
     </article>
   );
 }

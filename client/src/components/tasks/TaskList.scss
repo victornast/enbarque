@@ -1,5 +1,25 @@
 $butteryellow: #ffd275;
 
+.task-item {
+  max-width: 30em;
+  margin: 0.5em auto 0 auto;
+  padding: 0.5em 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__headline {
+    margin: 0 1em 0 0;
+    font-size: 0.8em;
+    cursor: pointer;
+  }
+  &__duration {
+    margin: 0;
+    font-size: 0.7em;
+  }
+  &:hover {
+    background-color: #ffd17591;
+  }
+}
 table {
   margin-left: 6rem;
   box-shadow: 3px 3px 10px grey;

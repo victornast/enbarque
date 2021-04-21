@@ -3,7 +3,7 @@
 const express = require('express');
 const { update } = require('../models/onboardingProcess.model');
 const router = new express.Router();
-//const routeGuard = require('../middleware/route-guard');
+const routeGuard = require('../middleware/route-guard');
 
 const OnboardingProcess = require('../models/onboardingProcess.model');
 const Task = require('../models/task.model');
@@ -125,4 +125,31 @@ router.patch('/:processId', async (req, res, next) => {
     next(error);
   }
 });
+
+router.patch(
+  '/:processId/backlog/:taskId',
+  routeGuard,
+  async (req, res, next) => {
+    try {
+      const processId = req.params.processId;
+      const taskId = req.params.taskId;
+      const updatedProcess = await OnboardingProcess.findByIdAndUpdate(
+        processId,
+        {
+          $push: {
+            unscheduledTasks: taskId
+          }
+        },
+        { new: true }
+      )
+        .populate('unscheduledTasks')
+        .populate('scheduledTasks.task');
+      console.log(updatedProcess);
+      res.json({ updatedProcess });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 module.exports = router;

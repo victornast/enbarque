@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BacklogTask from "./BacklogTask";
 import { editProcess } from "./../../services/onboarding";
-import TaskList from "./../../components/tasks/TaskList";
+import TaskListGroup from "../tasks/TaskListGroup";
 import "./BacklogList.scss";
 
 function BacklogList({ process, onUpdate, updateViewTask, user }) {
@@ -41,9 +41,15 @@ function BacklogList({ process, onUpdate, updateViewTask, user }) {
           ))}
       </ul>
       <button onClick={() => setDisplayList(!displayList)}>
-        Add more tasks
+        {(displayList && "X") || "Add more tasks"}
       </button>
-      {displayList && <TaskList user={user} />}
+      {displayList && (
+        <TaskListGroup
+          process={process}
+          user={user}
+          onUpdate={(process) => handleUpdate(process)}
+        />
+      )}
     </div>
   );
 }
