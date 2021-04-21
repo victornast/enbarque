@@ -65,9 +65,12 @@ function OnboardeeDashboard({ user }) {
     }
   };
 
-  const handleStatusChange = async (process, task) => {
-    // console.log(task);
-    const updatedProcess = await changeTaskStatus(process._id, task._id);
+  const handleStatusChange = async (task) => {
+    const taskToBeUpdated = process.scheduledTasks.find(
+      (scheduledTask) => scheduledTask.task._id === task._id
+    );
+    // taskToBeUpdated.taskStatus = "CLOSED";
+    const updatedProcess = await changeTaskStatus(process._id, taskToBeUpdated);
     console.log(updatedProcess);
   };
 
@@ -77,7 +80,7 @@ function OnboardeeDashboard({ user }) {
         <TaskDetail
           task={activeTaskObj}
           onClose={updateBacklogViewTask}
-          onStatusChange={() => handleStatusChange(activeTaskObj)}
+          onStatusChange={(task) => handleStatusChange(task)}
         />
       )) ||
         (process && (

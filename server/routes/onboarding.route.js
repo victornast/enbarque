@@ -152,28 +152,23 @@ router.patch(
   }
 );
 
-router.patch(
-  '/:processId/status/:taskId',
-  routeGuard,
-  async (req, res, next) => {
-    try {
-      const processId = req.params.processId;
-      const taskId = req.params.taskId;
-      const updatedProcess = await OnboardingProcess.findOneAndUpdate(
-        { _id: processId, scheduledTasks: taskId },
-        {
-          $set: {
-            'scheduledTasks.$.status': 'CLOSED'
-          }
-        }
-      )
-        .populate('unscheduledTasks')
-        .populate('scheduledTasks.task');
-      console.log(updatedProcess);
-      res.json({ updatedProcess });
-    } catch (error) {
-      next(error);
-    }
+router.patch('/:processId/status', routeGuard, async (req, res, next) => {
+  try {
+    const processId = req.params.processId;
+    const task = req.body;
+    const updatedProcess = await OnboardingProcess.findOneAndUpdate(
+      { _id: processId, scheduledTasks: task },
+      {
+        $set: { 'scheduledTasks.$.taskStatus': 'CLOSED' }
+      },
+      { new: true }
+    )
+      .populate('unscheduledTasks')
+      .populate('scheduledTasks.task');
+    console.log(updatedProcess);
+    res.json({ updatedProcess });
+  } catch (error) {
+    next(error);
   }
-);
+});
 module.exports = router;

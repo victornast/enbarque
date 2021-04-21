@@ -5,7 +5,8 @@ function TaskDetail({ task, onClose, onStatusChange }) {
     <article>
       <h2>{task.headline}</h2>
       <p>{task.description}</p>
-      <button onClick={onStatusChange}>Mark as done!</button>
+      <span>{task.taskStatus}</span>
+      <button onClick={() => onStatusChange(task)}>Mark as done!</button>
       <button onClick={() => onClose(null)}>Close</button>
     </article>
   );
