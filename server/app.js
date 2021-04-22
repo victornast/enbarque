@@ -17,6 +17,7 @@ const userRouter = require('./routes/user.route');
 const organizationRouter = require('./routes/organization.route');
 const taskRouter = require('./routes/task.route');
 const onboardingRouter = require('./routes/onboarding.route');
+const feedbackRouter = require('./routes/feedback.route');
 
 const cors = require('cors');
 
@@ -58,6 +59,7 @@ app.use('/user', userRouter);
 app.use('/corp', organizationRouter);
 app.use('/tasks', taskRouter);
 app.use('/onboarding', onboardingRouter);
+app.use('/feedback', feedbackRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
