@@ -8,7 +8,8 @@ const BacklogTask = ({
   task,
   onDelete,
   onUpdate,
-  updateViewTask
+  updateViewTask,
+  seniorRole
 }) => {
   const [pickerDisplay, setPickerDisplay] = useState(false);
   const [pickedDate, setPickedDate] = useState(null);
@@ -57,22 +58,23 @@ const BacklogTask = ({
             </button>
           </div>
         </div>
-      )) || (
-        <>
-          <button
-            onClick={() => setPickerDisplay(!pickerDisplay)}
-            className="backlog-task__action eb-button eb-button--primary"
-          >
-            Schedule
-          </button>
-          <button
-            onClick={onDelete}
-            className="backlog-task__action eb-button eb-button--secondary"
-          >
-            Delete
-          </button>
-        </>
-      )}
+      )) ||
+        (seniorRole && (
+          <>
+            <button
+              onClick={() => setPickerDisplay(!pickerDisplay)}
+              className="backlog-task__action eb-button eb-button--primary"
+            >
+              Schedule
+            </button>
+            <button
+              onClick={onDelete}
+              className="backlog-task__action eb-button eb-button--secondary"
+            >
+              Delete
+            </button>
+          </>
+        ))}
     </div>
   );
 };

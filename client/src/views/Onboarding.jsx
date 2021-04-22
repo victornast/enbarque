@@ -17,7 +17,13 @@ function Onboarding(props) {
     getUser(userId);
   }, [userId]);
 
-  return <>{onboardee && <OnboardeeDashboard user={onboardee} />}</>;
+  return (
+    <>
+      {onboardee && (
+        <OnboardeeDashboard user={onboardee} seniorRole={props.user} />
+      )}
+    </>
+  );
 }
 
 export default Onboarding;
