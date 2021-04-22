@@ -7,11 +7,17 @@ function TaskDetail({ task, onClose, onStatusChange }) {
     onStatusChange(task);
   };
   return (
-    <article>
-      <h2>{task.task.headline}</h2>
-      <p>{task.task.description}</p>
-      <span>{status}</span>
-      <button onClick={handleClick}>Mark as done!</button>
+    <article className="task-detail">
+      <h2 className="task-detail__headline">{task.task.headline}</h2>
+      <p className="task-detail__description">{task.task.description}</p>
+      <div className="task-detail__status-wrapper">
+        Status:
+        <span className={"task-detail__status__" + status}> {status}</span>
+        {(status === "OPEN" && (
+          <button onClick={handleClick}>Mark as done!</button>
+        )) ||
+          ""}
+      </div>
       <button onClick={() => onClose(null)}>Close</button>
     </article>
   );

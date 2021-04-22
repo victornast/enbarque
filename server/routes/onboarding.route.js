@@ -154,7 +154,7 @@ router.patch('/:processId/status', routeGuard, async (req, res, next) => {
     const processId = req.params.processId;
     const task = req.body;
     const updatedProcess = await OnboardingProcess.findOneAndUpdate(
-      { _id: processId, scheduledTasks: task },
+      { _id: processId, 'scheduledTasks._id': task._id },
       {
         $set: { 'scheduledTasks.$.taskStatus': 'CLOSED' }
       },
