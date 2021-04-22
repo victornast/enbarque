@@ -12,7 +12,7 @@ const BacklogTask = ({
   seniorRole,
 }) => {
   const [pickerDisplay, setPickerDisplay] = useState(false);
-  const [pickedDate, setPickedDate] = useState(null);
+  const [pickedDate, setPickedDate] = useState(new Date());
 
   const handleScheduleTask = async () => {
     const newBacklogList = process.unscheduledTasks.filter(
@@ -25,8 +25,8 @@ const BacklogTask = ({
       newBacklogList
     );
     //console.log(updatedProcess);
-    onUpdate(updatedProcess);
     setPickerDisplay(!pickerDisplay);
+    onUpdate(updatedProcess);
   };
 
   return (

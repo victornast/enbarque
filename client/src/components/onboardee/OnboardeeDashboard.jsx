@@ -157,7 +157,7 @@ function OnboardeeDashboard({ user, seniorRole }) {
                 topics that should be followed each day.
               </p>
               <div className="onboardee-dashboard-section__body">
-                <p>Include here the calendar component</p>
+                {/* <p>Include here the calendar component</p> */}
                 {weekNumbers.map((n) => (
                   <WeekView
                     process={process}
