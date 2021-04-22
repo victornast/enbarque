@@ -25,42 +25,39 @@ router.get('/users', routeGuard, async (req, res, next) => {
 
 router.get('/users/:positionId', routeGuard, async (req, res, next) => {
   const positionId = req.params.positionId;
-  console.log(positionId);
-  // const levelId = req.params.levelId;
   const orgId = req.user.organization;
-  // console.log(orgId);
-  const mentors = await User.find({
-    $and: [
-      {
-        organization: orgId
-      },
-      {
-        position: positionId
-      }
-    ]
-  }).populate('level');
-  console.log(mentors);
-  res.json({ mentors: mentors });
+  try {
+    const mentors = await User.find({
+      $and: [
+        {
+          organization: orgId
+        },
+        {
+          position: positionId
+        }
+      ]
+    }).populate('level');
+    res.json({ mentors });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Get the levels set by the manager
-router.get('/levels', async (req, res, next) => {
+router.get('/levels', routeGuard, async (req, res, next) => {
   const id = req.user._id;
-  //console.log('levels', id);
   try {
     const user = await User.findById(id);
     const orgId = user.organization;
     const levels = await Level.find({ organization: orgId });
-    // console.log(levels);
     res.json({ levels });
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/roles', async (req, res, next) => {
+router.get('/roles', routeGuard, async (req, res, next) => {
   const id = req.user._id;
-  // console.log('roles', id);
   try {
     const user = await User.findById(id);
     const orgId = user.organization;
@@ -71,9 +68,8 @@ router.get('/roles', async (req, res, next) => {
   }
 });
 
-router.get('/positions', async (req, res, next) => {
+router.get('/positions', routeGuard, async (req, res, next) => {
   const id = req.user._id;
-  // console.log('positions', id);
   try {
     const user = await User.findById(id);
     const orgId = user.organization;

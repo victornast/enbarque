@@ -9,18 +9,17 @@ const Role = require('../models/role.model');
 const generatePassword = require('../utilities/generate-password');
 const sendEmail = require('../utilities/send-email');
 const bcryptjs = require('bcryptjs');
+const routeGuard = require('../middleware/route-guard');
 
 const router = new Router();
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', routeGuard, async (req, res, next) => {
   const { firstName, lastName, email, position, role, level } = req.body;
   const orgId = req.user.organization;
   const password = await generatePassword();
   const hash = await bcryptjs.hash(password, 10);
 
-  // Generate a secret token for the first time sign in
   const token = await generatePassword();
-  //const token = await bcryptjs.hash(randomStr, 10);
 
   try {
     const positionObject = await Position.findOne({
@@ -35,7 +34,6 @@ router.post('/create', async (req, res, next) => {
     const positionId = positionObject._id;
     const levelId = levelObject._id;
     const roleId = roleObject._id;
-    console.log(roleId, levelId, positionId);
     const newUser = await User.create({
       firstName,
       lastName,
@@ -47,7 +45,6 @@ router.post('/create', async (req, res, next) => {
       level: levelId,
       token
     });
-    console.log('Creating user');
     await sendEmail({
       receiver: process.env.EMAIL_ADDRESS,
       subject: 'Invitation to the Onboarding Dashboard!',
@@ -60,7 +57,7 @@ router.post('/create', async (req, res, next) => {
       <p>We are looking forward to welcoming you soon!</p>
       <p>${req.user.firstName} ${req.user.lastName}`
     });
-    res.json({ status: 'success', newUser });
+    res.json({ newUser });
   } catch (error) {
     next(error);
   }
@@ -69,9 +66,7 @@ router.post('/create', async (req, res, next) => {
 router.get('/welcome/:token', async (req, res, next) => {
   try {
     const token = req.params.token;
-    // console.log(token);
     const user = await User.findOne({ token: token });
-    // console.log(user);
     res.json({ user });
   } catch (error) {
     next(error);
@@ -81,9 +76,7 @@ router.get('/welcome/:token', async (req, res, next) => {
 router.patch('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
-    // console.log('user id', id);
     const data = req.body;
-    // console.log('in user route', data);
     if (req.body.password) {
       const hash = await bcryptjs.hash(req.body.password, 10);
       let user = await User.findByIdAndUpdate(
@@ -97,22 +90,20 @@ router.patch('/:id', async (req, res, next) => {
         { new: true }
       );
 
-      // console.log('Updating password of the user', user);
       req.session.userId = user._id;
 
-      res.json({ status: 'success', user });
+      res.json({ user });
     } else {
       const user = await User.findByIdAndUpdate(id, data);
-      console.log('Updating user');
 
-      res.json({ status: 'success', user });
+      res.json({ user });
     }
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', routeGuard, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id).populate([
       'role',
