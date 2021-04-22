@@ -34,18 +34,21 @@ const MenteeListItem = ({ mentee }) => {
   }
 
   return (
-    <div className="mentee-item">
-      <div className="mentee-item__name">
-        <Link className="eb-link" to={`/onboarding/${mentee._id}`}>
+    <Link className="eb-link no-decoration" to={`/onboarding/${mentee._id}`}>
+      <div className="mentee-item">
+        <div className="mentee-item__name">
           {mentee.firstName} {mentee.lastName}
-        </Link>
-      </div>
-      {process && (
-        <div className="mentee-item__status">
-          Status: {progress}% accomplished
         </div>
-      )}
-    </div>
+        {process && (
+          <div className="mentee-item__status">
+            <p className="mentee-item__status__text">Progress: {progress}%</p>
+            <progress value={progress} max="100">
+              {progress}%
+            </progress>
+          </div>
+        )}
+      </div>
+    </Link>
   );
 };
 
