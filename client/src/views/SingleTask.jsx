@@ -35,10 +35,10 @@ class SingleTask extends Component {
   eraseTask = async () => {
     await deleteTask(this.state.task._id);
     if (this.state.task._id)
-    this.setState({
-      success: false
-    });
-    this.notify('Task deleted!');
+      this.setState({
+        success: false
+      });
+    this.notify('Task deleted!', 'error');
 
     // hier: success auf true setzen, dann redirect to ....
   };
@@ -66,9 +66,9 @@ class SingleTask extends Component {
           <small>
             {' '}
             🕑 
-            {this.state.task.duration / 60 === 1
-              ? this.state.task.duration / 60 + ' hour'
-              : this.state.task.duration / 60 + ' hours'}{' '}
+            {this.state.task.duration / 1 === 1
+              ? this.state.task.duration + ' hour'
+              : this.state.task.duration + ' hours'}{' '}
           </small>
           <br />
           {this.state.task.position.map((task) => {

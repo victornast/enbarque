@@ -99,7 +99,7 @@ class EditTask extends Component {
     const response = await updateTask(this.state.id, formData);
     console.log('response: ', response);
     if (response.data.status === 'success') {
-      this.notify('Edit successful!', 'info');
+      this.notify('Edit successful!', 'success');
 
       setTimeout(() => {
         this.setState({ success: true });
@@ -124,7 +124,9 @@ class EditTask extends Component {
     toast.configure({
       autoClose: 3000,
       draggable: false,
-      position: 'bottom-right'
+      position: 'bottom-right',
+      closeOnClick: true,
+      pauseOnHover: true
     });
 
     if (type === 'info') {
@@ -161,7 +163,7 @@ class EditTask extends Component {
                 className="add-user-form__input"
               />
               <label className="add-user-form__lable" htmlFor="description">
-                Description
+                Positions
               </label>
               {/* <textarea
                     id="description"
@@ -218,36 +220,30 @@ class EditTask extends Component {
               <option value="" disabled>
                 Select...
               </option>
-              <option value="30" name="duration">
-                30min
-              </option>
-              <option value="60" name="duration">
+              <option value="1" name="duration" selected>
                 1h
               </option>
-              <option value="90" name="duration">
-                1h 30min
-              </option>
-              <option value="120" name="duration">
+              <option value="2" name="duration">
                 2h
               </option>
-              <option value="150" name="duration">
-                2h 30min
-              </option>
-              <option value="180" name="duration">
+              <option value="3" name="duration">
                 3h
               </option>
-              <option value="210" name="duration">
-                3h 30min
-              </option>
-              <option value="240" name="duration">
+              <option value="4" name="duration">
                 half a day
               </option>
-              <option value="480" name="duration">
+              <option value="5" name="duration">
+                5h
+              </option>
+              <option value="6" name="duration">
+                6h
+              </option>
+              <option value="7" name="duration">
+                7h
+              </option>
+              <option value="8" name="duration">
                 whole day
               </option>
-              {/* <option value="other" name="duration">
-                  specify time manually...
-                </option> */}
             </select>
 
             <div className="add-form-button-group">

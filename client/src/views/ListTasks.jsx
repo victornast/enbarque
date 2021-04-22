@@ -30,7 +30,7 @@ class ListTasks extends Component {
             <tr>
               <th>Headline</th>
               <th>Description</th>
-              <th>Duration</th>
+              <th>Suited Positions</th>
             </tr>
           </thead>
           <tbody>
@@ -49,11 +49,9 @@ class ListTasks extends Component {
                     </Link>
                   </td>
                   <td>{task.description}</td>
-                  <td valign="top">
-                    {task.duration / 60 === 1
-                      ? task.duration / 60 + ' hour'
-                      : task.duration / 60 + ' hours'}{' '}
-                  </td>
+                  {this.state.task.map((el) => {
+                    return <li>{el.position.name}</li>;
+                  })}
                 </tr>
               );
             })}
