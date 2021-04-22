@@ -101,6 +101,7 @@ router.post('/signin', (req, res, next) => {
   const { email, password } = req.body;
   User.findOne({ email })
     .populate('role')
+    .populate('position')
     .then((document) => {
       if (!document) {
         return Promise.reject(new Error("There's no user with that email."));

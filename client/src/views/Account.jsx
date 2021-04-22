@@ -33,8 +33,8 @@ class Account extends Component {
                 <div className="column">
                   {' '}
                   <p>
-                    <span className="text">Full name: </span>{' '}
-                    {user.firstName} {user.lastName}
+                    <span className="text">Full name: </span> {user.firstName}{' '}
+                    {user.lastName}
                   </p>
                   <p>
                     <span className="text">Email: </span> {user.email}
@@ -52,14 +52,13 @@ class Account extends Component {
                     {user.position.name}
                   </p>
                   <p>
-                    <span className="text">Level: </span>{' '}
-                    {user.level.name}
+                    <span className="text">Level: </span> {user.level.name}
                   </p>
                   <p>
                     {' '}
-                    <span className="text">Role: </span>{' '}
-                    {user.role.name}
+                    <span className="text">Role: </span> {user.role.name}
                   </p>
+                  <br />
                 </div>
               </div>
             </div>
