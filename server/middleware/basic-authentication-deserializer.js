@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
   if (userId) {
     User.findById(userId)
       .populate('role')
+      .populate('position')
       .then((user) => {
         req.user = user;
         next();

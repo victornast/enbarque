@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Card, CardDeck } from 'react-bootstrap';
 
 import Greeting from './../dashboard/Greeting';
 import OnboardingFeedback from './../dashboard/OnboardingFeedback';
 import TaskDetail from './../dashboard/TaskDetail';
 import BacklogList from './BacklogList';
 import WeekView from './WeekView';
-import {
-  getProcess,
-  changeTaskStatus
-} from './../../services/onboarding';
+import { getProcess, changeTaskStatus } from './../../services/onboarding';
+import * as AiIcons from 'react-icons/ai';
+
+// import { getPositionOptions } from './../../services/userOptions';
 
 import './OnboardeeDashboard.scss';
 
@@ -98,13 +99,51 @@ function OnboardeeDashboard({ user, seniorRole }) {
                 Check our team channel on slack.
               </p>
               <div className="onboardee-dashboard-section__body">
-                <p>Include here the role card component</p>
-                <div>
-                  Role Card: <div>User Card</div>
-                </div>
-                <div>
-                  Role Card: <div>User Card</div>
-                </div>
+              <CardDeck>
+                <Card border="warning">
+                  <Card.Header user={user} className="font-weight-bold">
+                    <img
+                      src={process.manager.avatar}
+                      alt="avatar"
+                      className="avatar"
+                    />{' '}
+                    &nbsp; Your Onboarding Mentor: {process.mentor.firstName}{' '}
+                    {process.mentor.lastName}
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      {process.manager.firstName} will guide and support you
+                      through your onboarding process and answer any technical
+                      questions.
+                    </Card.Text>
+                    <br />
+                    <Card.Text>
+                      <AiIcons.AiOutlineMail /> {process.mentor.email}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+                <Card border="warning">
+                  <Card.Header user={user} className="font-weight-bold">
+                    <img
+                      src={process.manager.avatar}
+                      alt="avatar"
+                      className="avatar"
+                    />{' '}
+                    &nbsp; Your Engineering Manager: {process.manager.firstName}{' '}
+                    {process.manager.lastName}
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      {process.manager.firstName} will provide you feedback and
+                      support you in your personal development path.
+                    </Card.Text>
+                    <br />
+                    <Card.Text>
+                      <AiIcons.AiOutlineMail /> {process.manager.email}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </CardDeck>
               </div>
             </section>
             <section className="onboardee-dashboard__section onboardee-dashboard-section">
