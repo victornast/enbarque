@@ -1,22 +1,30 @@
-import React, { useState } from "react";
-import BacklogTask from "./BacklogTask";
-import { editProcess } from "./../../services/onboarding";
-import TaskListGroup from "../tasks/TaskListGroup";
-import "./BacklogList.scss";
+import React, { useState } from 'react';
+import BacklogTask from './BacklogTask';
+import { editProcess } from './../../services/onboarding';
+import TaskListGroup from '../tasks/TaskListGroup';
+import './BacklogList.scss';
 
-function BacklogList({ process, onUpdate, updateViewTask, user }) {
+function BacklogList({
+  process,
+  onUpdate,
+  updateViewTask,
+  user,
+  seniorRole
+}) {
   const backlogList = process.unscheduledTasks;
-  console.log(backlogList);
+  //console.log(backlogList);
 
   const [displayList, setDisplayList] = useState(false);
 
   const handleDeleteTask = async (processId, taskId) => {
-    const newList = backlogList.filter((backlog) => backlog._id !== taskId);
+    const newList = backlogList.filter(
+      (backlog) => backlog._id !== taskId
+    );
     const data = {
-      unscheduledTasks: [...newList],
+      unscheduledTasks: [...newList]
     };
     const newProcess = await editProcess(processId, data);
-    console.log(newProcess);
+    //console.log(newProcess);
     onUpdate(newProcess);
   };
 
@@ -36,13 +44,16 @@ function BacklogList({ process, onUpdate, updateViewTask, user }) {
                 onDelete={() => handleDeleteTask(process._id, task._id)}
                 onUpdate={(process) => handleUpdate(process)}
                 updateViewTask={updateViewTask}
+                seniorRole={seniorRole}
               />
             </li>
           ))}
       </ul>
-      <button onClick={() => setDisplayList(!displayList)}>
-        {(displayList && "X") || "Add more tasks"}
-      </button>
+      {seniorRole && (
+        <button onClick={() => setDisplayList(!displayList)}>
+          {(displayList && 'X') || 'Add more tasks'}
+        </button>
+      )}
       {displayList && (
         <TaskListGroup
           process={process}

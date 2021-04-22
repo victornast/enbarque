@@ -15,7 +15,7 @@ class EditTask extends Component {
     checkboxes: {},
     duration: this.props.task.duration,
     id: this.props.task._id,
-    success: false
+    success: false,
   };
   async componentDidMount() {
     const position = await getPositionOptions();
@@ -24,18 +24,18 @@ class EditTask extends Component {
       checkboxes: position.reduce(
         (accumulator, item) => ({
           ...accumulator,
-          [item._id]: false
+          [item._id]: false,
         }),
         {}
       ),
-      loaded: true
+      loaded: true,
     });
   }
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -44,8 +44,8 @@ class EditTask extends Component {
     this.setState((prevState) => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
-      }
+        [name]: !prevState.checkboxes[name],
+      },
     }));
   };
 
@@ -54,8 +54,8 @@ class EditTask extends Component {
       this.setState((prevState) => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected
-        }
+          [checkbox]: isSelected,
+        },
       }));
     });
   };
@@ -67,7 +67,6 @@ class EditTask extends Component {
     event.preventDefault();
 
     const selectedCheckboxes = [];
-
     Object.keys(this.state.checkboxes)
       .filter((checkbox) => this.state.checkboxes[checkbox])
       .forEach((checkbox) => {
@@ -79,7 +78,7 @@ class EditTask extends Component {
       description: this.state.description,
       position: selectedCheckboxes,
       duration: this.state.duration,
-      id: this.state.id
+      id: this.state.id,
     };
     const response = await updateTask(this.state.id, formData);
 
@@ -89,13 +88,13 @@ class EditTask extends Component {
         this.setState({ success: true });
       }, 3000);
     } else {
-      this.notify('ERROR', 'error');
+      this.notify("ERROR", "error");
     }
   };
 
   handleSelectChange = (name, value) => {
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -107,7 +106,7 @@ class EditTask extends Component {
     toast.configure({
       autoClose: 3000,
       draggable: false,
-      position: 'bottom-right'
+      position: "bottom-right",
     });
 
     if (type === 'success') {

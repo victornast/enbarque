@@ -15,8 +15,10 @@ export class DayCard extends Component {
     // console.log(taskOfTheDay);
     return (
       <div className="day-card">
-        <h4 className="day-card__OBday">Day {this.props.nDay}</h4>
-        <h3 className="day-card__date">{displayDate}</h3>
+        <div className="day-card__header">
+          <h4 className="day-card__header__OBday">Day {this.props.nDay}</h4>
+          <h3 className="day-card__header__date">{displayDate}</h3>
+        </div>
         <div className="day-card__tasks">
           {!!taskOfTheDay &&
             taskOfTheDay.map(

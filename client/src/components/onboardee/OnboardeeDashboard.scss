@@ -14,3 +14,30 @@
     margin-top: 1em;
   }
 }
+
+.task-detail {
+  max-width: 70%;
+  margin: 0 auto;
+  &__description {
+    margin-bottom: 1em;
+  }
+  &__status-wrapper {
+    margin-bottom: 1em;
+    .task-detail__status__OPEN {
+      color: red;
+      margin-right: 1em;
+    }
+    .task-detail__status__CLOSED {
+      color: green;
+      margin-right: 1em;
+    }
+  }
+  .card__header {
+    background-color: #ffda00;
+  }
+}
+
+.avatar {
+  max-height: 30px;
+  max-width: 30px;
+}

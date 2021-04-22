@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getMenteeList } from "./../../services/onboarding";
 import MenteeListItem from "./MenteeListItem";
+import "./MentorDashboard.scss";
+import Greeting from "./../dashboard/Greeting";
 
 const MentorDashboard = ({ user }) => {
   const [menteeList, setMenteeList] = useState([]);
@@ -16,12 +18,15 @@ const MentorDashboard = ({ user }) => {
   }, [user._id]);
 
   return (
-    <div>
-      {!!menteeList &&
-        menteeList.map((mentee) => (
-          <MenteeListItem key={mentee._id} mentee={mentee} />
-        ))}
-    </div>
+    <>
+      <Greeting user={user} />
+      <div className="mentee-list">
+        {!!menteeList &&
+          menteeList.map((mentee) => (
+            <MenteeListItem key={mentee._id} mentee={mentee} />
+          ))}
+      </div>
+    </>
   );
 };
 

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { Card, CardDeck } from "react-bootstrap";
 
 import Greeting from "./../dashboard/Greeting";
+import OnboardingFeedback from "./../dashboard/OnboardingFeedback";
 import TaskDetail from "./../dashboard/TaskDetail";
 import BacklogList from "./BacklogList";
 import WeekView from "./WeekView";
 import { getProcess, changeTaskStatus } from "./../../services/onboarding";
+import * as AiIcons from "react-icons/ai";
+
+// import { getPositionOptions } from './../../services/userOptions';
 
 import "./OnboardeeDashboard.scss";
 
-function OnboardeeDashboard({ user }) {
+function OnboardeeDashboard({ user, seniorRole }) {
   const [process, setProcess] = useState(null);
   const [activeTask, setActiveTask] = useState(false);
   const [activeTaskObj, setActiveTaskObj] = useState(null);
@@ -23,7 +28,7 @@ function OnboardeeDashboard({ user }) {
 
   const weekNumbers = [];
   if (process) {
-    console.log(process.amountOfDays);
+    //console.log(process.amountOfDays);
     const amountOfWeeks = Math.ceil(process.amountOfDays / 5);
     for (let n = 1; n <= amountOfWeeks; n++) {
       weekNumbers.push(n);
@@ -31,13 +36,13 @@ function OnboardeeDashboard({ user }) {
   }
 
   const updateScheduledViewTask = (id) => {
-    console.log("Running:", id);
-    console.log("Process:", process.scheduledTasks);
+    //console.log("Running:", id);
+    //console.log("Process:", process.scheduledTasks);
     const task = process.scheduledTasks.find(
       (task) => task.task && task.task._id === id
     );
 
-    console.log("Task:", task);
+    //console.log("Task:", task);
     if (task) {
       setActiveTaskObj(task);
       setActiveTask(true);
@@ -47,7 +52,9 @@ function OnboardeeDashboard({ user }) {
   };
 
   const updateBacklogViewTask = (id) => {
+    console.log(id);
     const task = process.unscheduledTasks.find((task) => task._id === id);
+    console.log(task);
     if (task) {
       setActiveTaskObj(task);
       setActiveTask(true);
@@ -57,16 +64,16 @@ function OnboardeeDashboard({ user }) {
   };
 
   const handleStatusChange = async (task) => {
-    console.log(task);
+    //console.log(task);
     const taskToBeUpdated = process.scheduledTasks.find(
       (scheduledTask) => scheduledTask.task._id === task.task._id
     );
-    console.log("task to be updated:", taskToBeUpdated);
+    //console.log("task to be updated:", taskToBeUpdated);
     // taskToBeUpdated.taskStatus = "CLOSED";
     const updatedProcess = await changeTaskStatus(process._id, taskToBeUpdated);
-    console.log(updatedProcess);
+    //console.log(updatedProcess);
+    setProcess(updatedProcess);
   };
-
   return (
     <article className="onboardee-dashboard">
       {(activeTask && (
@@ -78,7 +85,11 @@ function OnboardeeDashboard({ user }) {
       )) ||
         (process && (
           <>
-            <Greeting user={user} corp={process.organization.name} />
+            {(!seniorRole && (
+              <Greeting user={user} corp={process.organization.name} />
+            )) || (
+              <h2>{user.firstName + " " + user.lastName}'s Onboarding Plan</h2>
+            )}
             <section className="onboardee-dashboard__section onboardee-dashboard-section">
               <h2 className="onboardee-dashboard-section__headline">
                 Contact Persons
@@ -90,13 +101,51 @@ function OnboardeeDashboard({ user }) {
                 on slack.
               </p>
               <div className="onboardee-dashboard-section__body">
-                <p>Include here the role card component</p>
-                <div>
-                  Role Card: <div>User Card</div>
-                </div>
-                <div>
-                  Role Card: <div>User Card</div>
-                </div>
+                <CardDeck>
+                  <Card border="warning">
+                    <Card.Header user={user} className="font-weight-bold">
+                      <img
+                        src={process.manager.avatar}
+                        alt="avatar"
+                        className="avatar"
+                      />{" "}
+                      &nbsp; Your Onboarding Mentor: {process.mentor.firstName}{" "}
+                      {process.mentor.lastName}
+                    </Card.Header>
+                    <Card.Body>
+                      <Card.Text>
+                        {process.manager.firstName} will guide and support you
+                        through your onboarding process and answer any technical
+                        questions.
+                      </Card.Text>
+                      <br />
+                      <Card.Text>
+                        <AiIcons.AiOutlineMail /> {process.mentor.email}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  <Card border="warning">
+                    <Card.Header user={user} className="font-weight-bold">
+                      <img
+                        src={process.manager.avatar}
+                        alt="avatar"
+                        className="avatar"
+                      />{" "}
+                      &nbsp; Your Engineering Manager:{" "}
+                      {process.manager.firstName} {process.manager.lastName}
+                    </Card.Header>
+                    <Card.Body>
+                      <Card.Text>
+                        {process.manager.firstName} will provide you feedback
+                        and support you in your personal development path.
+                      </Card.Text>
+                      <br />
+                      <Card.Text>
+                        <AiIcons.AiOutlineMail /> {process.manager.email}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </CardDeck>
               </div>
             </section>
             <section className="onboardee-dashboard__section onboardee-dashboard-section">
@@ -108,11 +157,12 @@ function OnboardeeDashboard({ user }) {
                 topics that should be followed each day.
               </p>
               <div className="onboardee-dashboard-section__body">
-                <p>Include here the calendar component</p>
+                {/* <p>Include here the calendar component</p> */}
                 {weekNumbers.map((n) => (
                   <WeekView
                     process={process}
                     week={n}
+                    key={n}
                     updateViewTask={updateScheduledViewTask}
                   />
                 ))}
@@ -133,21 +183,15 @@ function OnboardeeDashboard({ user }) {
                   onUpdate={(newProcess) => setProcess(newProcess)}
                   updateViewTask={updateBacklogViewTask}
                   user={user}
+                  seniorRole={seniorRole}
                 />
               </div>
             </section>
-            <section className="onboardee-dashboard__section onboardee-dashboard-section">
-              <h2 className="onboardee-dashboard-section__headline">
-                Feedback Notes
-              </h2>
-              <p className="onboardee-dashboard-section__intro">
-                Help us improve the onboarding process by adding here feedback
-                notes and optimization suggestions:
-              </p>
-              <div className="onboardee-dashboard-section__body">
-                <p>Include here the feedback component</p>
-              </div>
-            </section>
+            <OnboardingFeedback
+              process={process}
+              user={user}
+              seniorRole={seniorRole}
+            />
           </>
         ))}
     </article>

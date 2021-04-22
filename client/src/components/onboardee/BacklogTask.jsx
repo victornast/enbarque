@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import './BacklogTask.scss';
-import TimePicker from './TimePicker';
-import { scheduleTask } from './../../services/onboarding';
+import React, { useState } from "react";
+import "./BacklogTask.scss";
+import TimePicker from "./TimePicker";
+import { scheduleTask } from "./../../services/onboarding";
 
 const BacklogTask = ({
   process,
   task,
   onDelete,
   onUpdate,
-  updateViewTask
+  updateViewTask,
+  seniorRole,
 }) => {
   const [pickerDisplay, setPickerDisplay] = useState(false);
-  const [pickedDate, setPickedDate] = useState(null);
+  const [pickedDate, setPickedDate] = useState(new Date());
 
   const handleScheduleTask = async () => {
     const newBacklogList = process.unscheduledTasks.filter(
@@ -23,9 +24,9 @@ const BacklogTask = ({
       pickedDate,
       newBacklogList
     );
-    console.log(updatedProcess);
-    onUpdate(updatedProcess);
+    //console.log(updatedProcess);
     setPickerDisplay(!pickerDisplay);
+    onUpdate(updatedProcess);
   };
 
   return (
@@ -57,22 +58,23 @@ const BacklogTask = ({
             </button>
           </div>
         </div>
-      )) || (
-        <>
-          <button
-            onClick={() => setPickerDisplay(!pickerDisplay)}
-            className="backlog-task__action eb-button eb-button--primary"
-          >
-            Schedule
-          </button>
-          <button
-            onClick={onDelete}
-            className="backlog-task__action eb-button eb-button--secondary"
-          >
-            Delete
-          </button>
-        </>
-      )}
+      )) ||
+        (seniorRole && (
+          <>
+            <button
+              onClick={() => setPickerDisplay(!pickerDisplay)}
+              className="backlog-task__action eb-button eb-button--primary"
+            >
+              Schedule
+            </button>
+            <button
+              onClick={onDelete}
+              className="backlog-task__action eb-button eb-button--secondary"
+            >
+              Delete
+            </button>
+          </>
+        ))}
     </div>
   );
 };
