@@ -6,7 +6,7 @@ import "./BacklogList.scss";
 
 function BacklogList({ process, onUpdate, updateViewTask, user }) {
   const backlogList = process.unscheduledTasks;
-  console.log(backlogList);
+  //console.log(backlogList);
 
   const [displayList, setDisplayList] = useState(false);
 
@@ -16,7 +16,7 @@ function BacklogList({ process, onUpdate, updateViewTask, user }) {
       unscheduledTasks: [...newList],
     };
     const newProcess = await editProcess(processId, data);
-    console.log(newProcess);
+    //console.log(newProcess);
     onUpdate(newProcess);
   };
 

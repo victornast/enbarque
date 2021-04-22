@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { updateTask } from './../../services/task';
-import { getPositionOptions } from './../../services/userOptions';
-import TextareaAutosize from 'react-textarea-autosize';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import { updateTask } from "./../../services/task";
+import { getPositionOptions } from "./../../services/userOptions";
+import TextareaAutosize from "react-textarea-autosize";
 //import { levelOptions, positionOptions, roleOptions } from "../common";
-import './AddUser.scss';
-import './EditTask.scss';
+import "./AddUser.scss";
+import "./EditTask.scss";
 //
 class EditTask extends Component {
   state = {
@@ -17,7 +17,7 @@ class EditTask extends Component {
     checkboxes: {},
     duration: this.props.task.duration,
     id: this.props.task._id,
-    success: false
+    success: false,
   };
   async componentDidMount() {
     //console.log('this.state.position: ', this.state.position);
@@ -29,18 +29,18 @@ class EditTask extends Component {
       checkboxes: this.props.task.position.reduce(
         (accumulator, item) => ({
           ...accumulator,
-          [item._id]: false
+          [item._id]: false,
         }),
         {}
       ),
-      loaded: true
+      loaded: true,
     });
   }
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -48,7 +48,7 @@ class EditTask extends Component {
     const { name, files } = event.target;
     const file = files[0];
     this.setState({
-      [name]: file
+      [name]: file,
     });
   };
 
@@ -58,10 +58,10 @@ class EditTask extends Component {
     this.setState((prevState) => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
-      }
+        [name]: !prevState.checkboxes[name],
+      },
     }));
-    console.log('this.state.checkboxes: ', this.state.checkboxes);
+    //console.log('this.state.checkboxes: ', this.state.checkboxes);
   };
 
   selectAllCheckboxes = (isSelected) => {
@@ -69,8 +69,8 @@ class EditTask extends Component {
       this.setState((prevState) => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected
-        }
+          [checkbox]: isSelected,
+        },
       }));
     });
   };
@@ -81,42 +81,42 @@ class EditTask extends Component {
   handleFormSubmission = async (event) => {
     event.preventDefault();
     const selectedCheckboxes = [];
-    console.log('this.state.checkboxes: ', this.state.checkboxes);
+    console.log("this.state.checkboxes: ", this.state.checkboxes);
     Object.keys(this.state.checkboxes)
       .filter((checkbox) => this.state.checkboxes[checkbox])
       .forEach((checkbox) => {
         selectedCheckboxes.push(checkbox);
-        console.log(checkbox, 'is selected.');
+        console.log(checkbox, "is selected.");
       });
-    console.log('selectedCheckboxes: ', selectedCheckboxes);
+    console.log("selectedCheckboxes: ", selectedCheckboxes);
     const formData = {
       headline: this.state.headline,
       description: this.state.description,
       position: selectedCheckboxes,
       duration: this.state.duration,
-      id: this.state.id
+      id: this.state.id,
     };
     const response = await updateTask(this.state.id, formData);
-    console.log('response: ', response);
-    if (response.data.status === 'success') {
-      this.notify('Edit successful!', 'info');
+    console.log("response: ", response);
+    if (response.data.status === "success") {
+      this.notify("Edit successful!", "info");
 
       setTimeout(() => {
         this.setState({ success: true });
       }, 3000);
     } else {
-      this.notify('ERROR', 'error');
+      this.notify("ERROR", "error");
     }
   };
 
   handleSelectChange = (name, value) => {
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
   cancelForm = () => {
-    console.log('cancelForm was called');
+    console.log("cancelForm was called");
     this.props.toggleForm();
   };
 
@@ -124,12 +124,12 @@ class EditTask extends Component {
     toast.configure({
       autoClose: 3000,
       draggable: false,
-      position: 'bottom-right'
+      position: "bottom-right",
     });
 
-    if (type === 'info') {
+    if (type === "info") {
       toast.info(message);
-    } else if (type === 'error') {
+    } else if (type === "error") {
       toast.error(message);
     } else {
       toast.info(message);
@@ -205,7 +205,7 @@ class EditTask extends Component {
               );
             })}
             <br />
-            <label htmlFor="duration" style={{ display: 'none' }}>
+            <label htmlFor="duration" style={{ display: "none" }}>
               Duration
             </label>
             <select

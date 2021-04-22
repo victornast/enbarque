@@ -23,7 +23,7 @@ function OnboardeeDashboard({ user }) {
 
   const weekNumbers = [];
   if (process) {
-    console.log(process.amountOfDays);
+    //console.log(process.amountOfDays);
     const amountOfWeeks = Math.ceil(process.amountOfDays / 5);
     for (let n = 1; n <= amountOfWeeks; n++) {
       weekNumbers.push(n);
@@ -31,13 +31,13 @@ function OnboardeeDashboard({ user }) {
   }
 
   const updateScheduledViewTask = (id) => {
-    console.log("Running:", id);
-    console.log("Process:", process.scheduledTasks);
+    //console.log("Running:", id);
+    //console.log("Process:", process.scheduledTasks);
     const task = process.scheduledTasks.find(
       (task) => task.task && task.task._id === id
     );
 
-    console.log("Task:", task);
+    //console.log("Task:", task);
     if (task) {
       setActiveTaskObj(task);
       setActiveTask(true);
@@ -57,14 +57,14 @@ function OnboardeeDashboard({ user }) {
   };
 
   const handleStatusChange = async (task) => {
-    console.log(task);
+    //console.log(task);
     const taskToBeUpdated = process.scheduledTasks.find(
       (scheduledTask) => scheduledTask.task._id === task.task._id
     );
-    console.log("task to be updated:", taskToBeUpdated);
+    //console.log("task to be updated:", taskToBeUpdated);
     // taskToBeUpdated.taskStatus = "CLOSED";
     const updatedProcess = await changeTaskStatus(process._id, taskToBeUpdated);
-    console.log(updatedProcess);
+    //console.log(updatedProcess);
     setProcess(updatedProcess);
   };
 

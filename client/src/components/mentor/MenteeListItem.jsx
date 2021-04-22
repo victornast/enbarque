@@ -8,7 +8,7 @@ const MenteeListItem = ({ mentee }) => {
   useEffect(() => {
     const fetchProcess = async (id) => {
       const process = await getProcess(id);
-      console.log(process);
+      //console.log(process);
       setProcess(process);
     };
     fetchProcess(mentee._id);
