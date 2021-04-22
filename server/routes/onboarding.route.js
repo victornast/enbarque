@@ -1,9 +1,8 @@
 'use strict';
 
 const express = require('express');
-const { update } = require('../models/onboardingProcess.model');
 const router = new express.Router();
-//const routeGuard = require('../middleware/route-guard');
+const routeGuard = require('../middleware/route-guard');
 
 const OnboardingProcess = require('../models/onboardingProcess.model');
 const Task = require('../models/task.model');
@@ -14,9 +13,7 @@ router.get('/', async (req, res, next) => {
     const onboardingProcessPlans = await OnboardingProcess.find({
       organization: orgId
     });
-    //console.log('Listing all onboarding processes.');
-    //console.log(onboardingProcessPlans);
-    res.json({ status: 'success', onboardingProcessPlans });
+    res.json({ onboardingProcessPlans });
   } catch (error) {
     next(error);
   }
@@ -76,7 +73,8 @@ router.get('/:id', async (req, res, next) => {
     console.log(id);
     const process = await OnboardingProcess.findOne({ onboardee: id })
       .populate('unscheduledTasks')
-      .populate('scheduledTasks.task');
+      .populate('scheduledTasks.task')
+      .populate('organization');
     console.log('Found an onboarding process.', process);
     res.json({ status: 'success', process });
   } catch (error) {
@@ -124,4 +122,63 @@ router.patch('/:processId', async (req, res, next) => {
     next(error);
   }
 });
+
+router.patch(
+  '/:processId/backlog/:taskId',
+  routeGuard,
+  async (req, res, next) => {
+    try {
+      const processId = req.params.processId;
+      const taskId = req.params.taskId;
+      const updatedProcess = await OnboardingProcess.findByIdAndUpdate(
+        processId,
+        {
+          $push: {
+            unscheduledTasks: taskId
+          }
+        },
+        { new: true }
+      )
+        .populate('unscheduledTasks')
+        .populate('scheduledTasks.task');
+      console.log(updatedProcess);
+      res.json({ updatedProcess });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.patch('/:processId/status', routeGuard, async (req, res, next) => {
+  try {
+    const processId = req.params.processId;
+    const task = req.body;
+    const updatedProcess = await OnboardingProcess.findOneAndUpdate(
+      { _id: processId, scheduledTasks: task },
+      {
+        $set: { 'scheduledTasks.$.taskStatus': 'CLOSED' }
+      },
+      { new: true }
+    )
+      .populate('unscheduledTasks')
+      .populate('scheduledTasks.task');
+    console.log(updatedProcess);
+    res.json({ updatedProcess });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id/mentees', routeGuard, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const processes = await OnboardingProcess.find({ mentor: id }).populate(
+      'onboardee'
+    );
+    res.json({ processes });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

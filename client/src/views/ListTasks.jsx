@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { findTasks } from './../services/task';
-import './../ListTasks.scss';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { findTasks } from "./../services/task";
+import "./../ListTasks.scss";
 
 class ListTasks extends Component {
   constructor(props) {
     super(props);
-    this.state = { tasks: '', loaded: false };
+    this.state = { tasks: "", loaded: false };
   }
 
   async componentDidMount() {
-    const tasks = await findTasks();
-    console.log('tasks: ', tasks);
-    console.log('tasks.allTasks: ', tasks.allTasks);
-    this.setState({ tasks: [...tasks.allTasks], loaded: true });
-    console.log('this.state.tasks: ', this.state.tasks);
-    console.log('this.state.tasks: ', typeof this.state.tasks);
-    console.log('this.state.tasks[0]: ', this.state.tasks[0]);
+    const allTasks = await findTasks();
+    console.log("tasks: ", allTasks);
+    console.log("tasks.allTasks: ", allTasks);
+    this.setState({ tasks: [...allTasks], loaded: true });
+    console.log("this.state.tasks: ", this.state.tasks);
+    console.log("this.state.tasks: ", typeof this.state.tasks);
+    console.log("this.state.tasks[0]: ", this.state.tasks[0]);
   }
 
   render() {
-    console.log('this.props.user: ', this.props.user);
+    console.log("this.props.user: ", this.props.user);
     return this.state.loaded ? (
       <React.Fragment>
         <h1>All tasks</h1>
@@ -42,7 +42,7 @@ class ListTasks extends Component {
                       key={task._id}
                       to={{
                         pathname: `/tasks/${task._id}`,
-                        state: { task }
+                        state: { task },
                       }}
                     >
                       {task.headline}

@@ -12,16 +12,23 @@ export class DayCard extends Component {
       (task) =>
         new Date(task.startingTimeSlot).getDate() === new Date(date).getDate()
     );
-    console.log(taskOfTheDay);
+    // console.log(taskOfTheDay);
     return (
       <div className="day-card">
         <h4 className="day-card__OBday">Day {this.props.nDay}</h4>
         <h3 className="day-card__date">{displayDate}</h3>
         <div className="day-card__tasks">
           {!!taskOfTheDay &&
-            taskOfTheDay.map((task) => (
-              <ScheduledTaskCard key={task.task._id} task={task} />
-            ))}
+            taskOfTheDay.map(
+              (task) =>
+                task.task && (
+                  <ScheduledTaskCard
+                    key={task.task._id}
+                    task={task}
+                    updateViewTask={this.props.updateViewTask}
+                  />
+                )
+            )}
         </div>
       </div>
     );

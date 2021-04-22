@@ -1,88 +1,127 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { findUsers } from '../services/organization';
+import { findMentors } from '../services/organization';
 import { createOnboarding } from '../services/onboarding';
 
 function CreateOnboarding({ user, history }) {
   const location = useLocation();
   const onboardee = location.state?.onboardee;
 
-  // console.log(onboardee);
   const today = new Date();
   const [startDate, setStartDate] = useState(
     today.toJSON().slice(0, 10)
   );
   const [amountOfDays, setAmountOfDays] = useState(5);
-  //const [onboardee, setOnboardee] = useState(null);
-  const [mentor, setMentor] = useState(user._id);
-  const [usersList, setUsersList] = useState([]);
+  const [mentor, setMentor] = useState(null);
+  const [mentorsList, setMentorsList] = useState([]);
 
   useEffect(() => {
-    async function getApi() {
-      const users = await findUsers();
-      setUsersList(users);
+    async function getMentorList(positionId) {
+      const usersWithSamePosition = await findMentors(positionId);
+      const mentors = usersWithSamePosition.filter(
+        (user) => user.level.level > onboardee.level.level
+      );
+      setMentorsList(mentors);
+      Boolean(mentors) && setMentor(mentors[0]);
     }
-    getApi();
-  }, []);
+
+    getMentorList(onboardee.position._id);
+  }, [onboardee.level.level, onboardee.position._id]);
 
   const handleFormSubmission = async (event) => {
     event.preventDefault();
     const data = {
-      onboardee: onboardee,
-      mentor,
+      onboardee,
+      mentor: mentor._id,
       startDate,
       amountOfDays
     };
     const res = await createOnboarding(data);
     history.push(`/onboarding/${res.onboardee}`);
-    console.log(res);
   };
 
   return (
-    <>
-      <h1>Create New Onboarding Plan</h1>
-      {onboardee && (
-        <h3>
-          for {onboardee.firstName} {onboardee.lastName}
-        </h3>
-      )}
+    <article className="eb-create-onboarding">
+      <h2>Create Onboarding Plan</h2>
 
-      <form onSubmit={handleFormSubmission}>
-        <label htmlFor="input-mentor">Select Mentor:</label>
-        <select
-          name="onboardee"
-          id="input-onboardee"
-          value={mentor}
-          onChange={(e) => setMentor(e.target.value)}
-        >
-          {usersList.map((user) => (
-            <option key={user._id} value={user._id}>
-              {user.firstName}
+      <form
+        className="eb-create-onboarding__form eb-form"
+        onSubmit={handleFormSubmission}
+      >
+        {onboardee && (
+          <>
+            <label className="eb-form__label" htmlFor="input-onboardee">
+              Onboardee:
+            </label>
+            <input
+              type="text"
+              id="input-onboardee"
+              value={onboardee.firstName + ' ' + onboardee.lastName}
+              readOnly
+              className="eb-form__input eb-form__input--readonly"
+            />
+          </>
+        )}
+
+        <label className="eb-form__label" htmlFor="input-mentor">
+          Select Mentor:
+        </label>
+        {(!!mentorsList.length && (
+          <select
+            name="mentor"
+            id="input-onboardee"
+            onChange={(e) => setMentor(e.target.value)}
+            className="eb-form__input"
+          >
+            {mentorsList.map((mentor) => (
+              <option key={mentor._id} value={mentor._id}>
+                {mentor.firstName + ' ' + mentor.lastName}
+              </option>
+            ))}
+          </select>
+        )) || (
+          <select
+            name="mentor"
+            id="input-onboardee"
+            value={user._id}
+            onChange={(e) => setMentor(e.target.value)}
+            className="eb-form__input"
+          >
+            <option value={user._id}>
+              {user.firstName + ' ' + user.lastName}
             </option>
-          ))}
-        </select>
+          </select>
+        )}
 
-        <label htmlFor="input-starting-date">Starting Date:</label>
+        <label className="eb-form__label" htmlFor="input-starting-date">
+          Starting Date:
+        </label>
         <input
           id="input-starting-date"
           type="date"
           name="startDate"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
+          className="eb-form__input"
         />
 
-        <label htmlFor="input-amount-days">Amount of Days:</label>
+        <label className="eb-form__label" htmlFor="input-amount-days">
+          Amount of Days:
+        </label>
         <input
           id="input-amount-days"
           type="number"
           name="amountOfDays"
           value={amountOfDays}
           onChange={(e) => setAmountOfDays(e.target.value)}
+          className="eb-form__input"
         />
 
-        <button>Create</button>
+        <button className="eb-form__action eb-button eb-button--primary">
+          Create
+        </button>
       </form>
-    </>
+    </article>
   );
 }
 
