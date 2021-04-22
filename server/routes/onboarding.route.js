@@ -111,13 +111,18 @@ router.patch('/:processId', async (req, res, next) => {
         { new: true }
       )
         .populate('unscheduledTasks')
-        .populate('scheduledTasks.task');
+        .populate('scheduledTasks.task')
+        .populate('mentor')
+        .populate('manager');
       console.log('new scheduled tasks:', updatedProcess);
     } else {
       console.log('Updating the process');
       updatedProcess = await OnboardingProcess.findByIdAndUpdate(id, data, {
         new: true
-      }).populate('unscheduledTasks');
+      })
+        .populate('unscheduledTasks')
+        .populate('mentor')
+        .populate('manager');
     }
     res.json({ updatedProcess });
   } catch (error) {
@@ -142,7 +147,9 @@ router.patch(
         { new: true }
       )
         .populate('unscheduledTasks')
-        .populate('scheduledTasks.task');
+        .populate('scheduledTasks.task')
+        .populate('mentor')
+        .populate('manager');
       console.log(updatedProcess);
       res.json({ updatedProcess });
     } catch (error) {
@@ -163,7 +170,9 @@ router.patch('/:processId/status', routeGuard, async (req, res, next) => {
       { new: true }
     )
       .populate('unscheduledTasks')
-      .populate('scheduledTasks.task');
+      .populate('scheduledTasks.task')
+      .populate('mentor')
+      .populate('manager');
     console.log(updatedProcess);
     res.json({ updatedProcess });
   } catch (error) {
