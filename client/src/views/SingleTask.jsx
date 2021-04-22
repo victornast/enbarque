@@ -21,8 +21,6 @@ class SingleTask extends Component {
   async componentDidMount() {
     const { pathname } = this.props.location;
     const task = await loadTask(pathname.slice(7));
-    //console.log('pathname.slice(7): ', pathname.slice(7));
-    //console.log('task: ', task);
     this.setState({ task, loaded: true });
   }
 
@@ -39,15 +37,17 @@ class SingleTask extends Component {
         success: false
       });
     this.notify('Task deleted!', 'error');
+    await this.props.history.push('/tasks');
 
     // hier: success auf true setzen, dann redirect to ....
   };
 
   notify = (message, type) => {
     toast.configure({
-      autoClose: 2000,
+      autoClose: 1000,
       draggable: false,
-      position: 'bottom-right'
+      position: 'bottom-right',
+      hideProgressBar: true
     });
     toast.error(message);
   };
@@ -58,21 +58,20 @@ class SingleTask extends Component {
     return this.state.success ? (
       <Redirect to="/tasks" />
     ) : this.state.loaded ? (
-      <React.Fragment>
+      <div>
         <h1> {this.state.task.headline}</h1>
         <h3>{this.state.task.description}</h3>
         <br />
         <div className="technical-information">
           <small>
-            {' '}
             🕑 
-            {this.state.task.duration / 1 === 1
+            {this.state.task.duration === 1
               ? this.state.task.duration + ' hour'
               : this.state.task.duration + ' hours'}{' '}
           </small>
           <br />
           {this.state.task.position.map((task) => {
-            return <small id={task._id}>👤 {task.name}  </small>;
+            return <small key={task._id}>👤 {task.name}  </small>;
           })}
         </div>
         <div className="buttons">
@@ -86,7 +85,7 @@ class SingleTask extends Component {
             //onAddUser={this.loadEmployees}
           />
         )}
-      </React.Fragment>
+      </div>
     ) : (
       []
     );

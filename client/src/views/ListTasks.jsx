@@ -1,26 +1,29 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { findTasks } from "./../services/task";
-import "./../ListTasks.scss";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { findTasks } from './../services/task';
+import './../ListTasks.scss';
 
 class ListTasks extends Component {
   constructor(props) {
     super(props);
-    this.state = { tasks: "", loaded: false };
+    this.state = { tasks: '', loaded: false };
   }
 
   async componentDidMount() {
     const allTasks = await findTasks();
-    console.log("tasks: ", allTasks);
-    console.log("tasks.allTasks: ", allTasks);
-    this.setState({ tasks: [...allTasks], loaded: true });
-    console.log("this.state.tasks: ", this.state.tasks);
-    console.log("this.state.tasks: ", typeof this.state.tasks);
-    console.log("this.state.tasks[0]: ", this.state.tasks[0]);
+    // console.log('tasks: ', allTasks);
+    // console.log('tasks.allTasks: ', allTasks);
+    this.setState({
+      tasks: [...allTasks],
+      loaded: true
+    });
+    // console.log('this.state.tasks: ', typeof this.state.tasks);
+    // console.log('this.state.tasks[0]: ', this.state.tasks[0]);
   }
 
   render() {
-    console.log("this.props.user: ", this.props.user);
+    //console.log('this.props.user: ', this.props.user);
+    console.log('this.state.tasks: ', this.state.tasks);
     return this.state.loaded ? (
       <React.Fragment>
         <h1>All tasks</h1>
@@ -29,29 +32,37 @@ class ListTasks extends Component {
           <thead className="coloredColumn">
             <tr>
               <th>Headline</th>
-              <th>Description</th>
+              <th>Duration</th>
               <th>Suited Positions</th>
             </tr>
           </thead>
           <tbody>
             {this.state.tasks.map((task, key) => {
               return (
-                <tr key={task._id}>
-                  <td valign="top">
+                <tr>
+                  <td key={task._id} valign="top">
                     <Link
                       key={task._id}
                       to={{
                         pathname: `/tasks/${task._id}`,
-                        state: { task },
+                        state: { task }
                       }}
                     >
                       {task.headline}
                     </Link>
                   </td>
-                  <td>{task.description}</td>
-                  {this.state.task.map((el) => {
-                    return <li>{el.position.name}</li>;
-                  })}
+                  <td>
+                    {' '}
+                    🕑 
+                    {task.duration === 1
+                      ? task.duration + ' hour'
+                      : task.duration + ' hours'}{' '}
+                  </td>
+                  <td>
+                    {task.position.map((el) => {
+                      return <p key={el._id}>👤 {el.name}</p>;
+                    })}
+                  </td>
                 </tr>
               );
             })}
