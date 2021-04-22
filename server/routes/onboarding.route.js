@@ -112,6 +112,7 @@ router.patch('/:processId', routeGuard, async (req, res, next) => {
         new: true
       })
         .populate('unscheduledTasks')
+        .populate('scheduledTasks.task')
         .populate('mentor')
         .populate('manager');
     }
