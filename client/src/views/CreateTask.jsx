@@ -1,16 +1,16 @@
-import { Redirect } from "react-router-dom";
-import React, { Component } from "react";
-import { createTask } from "./../services/task";
-import { getPositionOptions } from "./../services/userOptions";
+import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
+import { createTask } from './../services/task';
+import { getPositionOptions } from './../services/userOptions';
 
 class CreateTask extends Component {
   state = {
-    headline: "",
-    description: "",
+    headline: '',
+    description: '',
     position: [],
     checkboxes: {},
     duration: 0,
-    success: false,
+    success: false
   };
   async componentDidMount() {
     const position = await getPositionOptions();
@@ -19,17 +19,17 @@ class CreateTask extends Component {
       checkboxes: position.reduce(
         (accumulator, item) => ({
           ...accumulator,
-          [item._id]: false,
+          [item._id]: false
         }),
         {}
-      ),
+      )
     });
   }
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -38,8 +38,8 @@ class CreateTask extends Component {
     this.setState((prevState) => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name],
-      },
+        [name]: !prevState.checkboxes[name]
+      }
     }));
   };
 
@@ -48,8 +48,8 @@ class CreateTask extends Component {
       this.setState((prevState) => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected,
-        },
+          [checkbox]: isSelected
+        }
       }));
     });
   };
@@ -71,15 +71,15 @@ class CreateTask extends Component {
       headline: this.state.headline,
       description: this.state.description,
       position: selectedCheckboxes,
-      duration: this.state.duration,
+      duration: this.state.duration
     };
 
     await createTask(formData).then((res) => {
       this.setState({
-        success: true,
+        success: true
       });
     });
-    this.props.history.push("/tasks");
+    this.props.history.push('/tasks');
   };
 
   render() {
@@ -131,7 +131,7 @@ class CreateTask extends Component {
             required
             className="eb-form__input"
           >
-            <option value={1} name="duration" selected>
+            <option value={1} name="duration">
               1h
             </option>
             <option value={2} name="duration">
