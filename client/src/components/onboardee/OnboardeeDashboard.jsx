@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Greeting from './../dashboard/Greeting';
+import OnboardingFeedback from './../dashboard/OnboardingFeedback';
 import TaskDetail from './../dashboard/TaskDetail';
 import BacklogList from './BacklogList';
 import WeekView from './WeekView';
@@ -146,18 +147,11 @@ function OnboardeeDashboard({ user, seniorRole }) {
                 />
               </div>
             </section>
-            <section className="onboardee-dashboard__section onboardee-dashboard-section">
-              <h2 className="onboardee-dashboard-section__headline">
-                Feedback Notes
-              </h2>
-              <p className="onboardee-dashboard-section__intro">
-                Help us improve the onboarding process by adding here
-                feedback notes and optimization suggestions:
-              </p>
-              <div className="onboardee-dashboard-section__body">
-                <p>Include here the feedback component</p>
-              </div>
-            </section>
+            <OnboardingFeedback
+              process={process}
+              user={user}
+              seniorRole={seniorRole}
+            />
           </>
         ))}
     </article>
