@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function TaskDetail({ task, onClose, onStatusChange }) {
-  const [status, setStatus] = useState("OPEN");
+  const [status, setStatus] = useState(task.taskStatus);
   const handleClick = () => {
     setStatus("CLOSED");
     onStatusChange(task);

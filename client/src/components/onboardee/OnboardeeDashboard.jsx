@@ -65,6 +65,7 @@ function OnboardeeDashboard({ user }) {
     // taskToBeUpdated.taskStatus = "CLOSED";
     const updatedProcess = await changeTaskStatus(process._id, taskToBeUpdated);
     console.log(updatedProcess);
+    setProcess(updatedProcess);
   };
 
   return (
