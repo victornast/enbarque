@@ -1,0 +1,13 @@
+.mentee-list {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.mentee-item {
+  display: flex;
+  justify-content: space-between;
+  &__name {
+    font-weight: 500;
+    margin-right: 2em;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getMenteeList } from "./../../services/onboarding";
 import MenteeListItem from "./MenteeListItem";
+import "./MentorDashboard.scss";
 
 const MentorDashboard = ({ user }) => {
   const [menteeList, setMenteeList] = useState([]);
@@ -16,7 +17,7 @@ const MentorDashboard = ({ user }) => {
   }, [user._id]);
 
   return (
-    <div>
+    <div className="mentee-list">
       {!!menteeList &&
         menteeList.map((mentee) => (
           <MenteeListItem key={mentee._id} mentee={mentee} />
