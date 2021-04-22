@@ -1,12 +1,13 @@
 'use strict';
 
 const { Router } = require('express');
+const routeGuard = require('../middleware/route-guard');
 
 const Feedback = require('../models/processFeedbackMessage.model');
 
 const router = new Router();
 
-router.post('/', async (req, res, next) => {
+router.post('/', routeGuard, async (req, res, next) => {
   const data = {
     content: req.body.content,
     userId: req.body.user._id,
@@ -23,7 +24,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', routeGuard, async (req, res, next) => {
   try {
     const feedbackMessages = await Feedback.find({
       processId: req.params.id

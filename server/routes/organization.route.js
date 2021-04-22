@@ -44,7 +44,7 @@ router.get('/users/:positionId', routeGuard, async (req, res, next) => {
 });
 
 // Get the levels set by the manager
-router.get('/levels', async (req, res, next) => {
+router.get('/levels', routeGuard, async (req, res, next) => {
   const id = req.user._id;
   //console.log('levels', id);
   try {
@@ -58,7 +58,7 @@ router.get('/levels', async (req, res, next) => {
   }
 });
 
-router.get('/roles', async (req, res, next) => {
+router.get('/roles', routeGuard, async (req, res, next) => {
   const id = req.user._id;
   // console.log('roles', id);
   try {
@@ -71,7 +71,7 @@ router.get('/roles', async (req, res, next) => {
   }
 });
 
-router.get('/positions', async (req, res, next) => {
+router.get('/positions', routeGuard, async (req, res, next) => {
   const id = req.user._id;
   // console.log('positions', id);
   try {

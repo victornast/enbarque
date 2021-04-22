@@ -7,7 +7,7 @@ const routeGuard = require('../middleware/route-guard');
 const OnboardingProcess = require('../models/onboardingProcess.model');
 const Task = require('../models/task.model');
 
-router.get('/', async (req, res, next) => {
+router.get('/', routeGuard, async (req, res, next) => {
   try {
     const orgId = req.user.organization;
     const onboardingProcessPlans = await OnboardingProcess.find({
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', routeGuard, async (req, res, next) => {
   const { onboardee, mentor, startDate, amountOfDays } = req.body;
   console.log(onboardee);
   try {
@@ -49,7 +49,7 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
-router.patch('/:id/edit', async (req, res, next) => {
+router.patch('/:id/edit', routeGuard, async (req, res, next) => {
   try {
     console.log('Editing an onboarding processes.');
     res.json({ status: 'success' });
@@ -58,7 +58,7 @@ router.patch('/:id/edit', async (req, res, next) => {
   }
 });
 
-router.delete('/:id/delete', async (req, res, next) => {
+router.delete('/:id/delete', routeGuard, async (req, res, next) => {
   try {
     console.log('Deleting an onboarding processes.');
     res.json({ status: 'success' });
@@ -67,7 +67,7 @@ router.delete('/:id/delete', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', routeGuard, async (req, res, next) => {
   try {
     const id = req.params.id; // it's the user id and not the orgId
     console.log(id);
@@ -84,7 +84,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.patch('/:processId/task/:taskId', async (req, res, next) => {
+router.patch('/:processId/task/:taskId', routeGuard, async (req, res, next) => {
   try {
     console.log('Updating time for a task in a process.');
     res.json({ status: 'success' });
@@ -93,7 +93,7 @@ router.patch('/:processId/task/:taskId', async (req, res, next) => {
   }
 });
 
-router.patch('/:processId', async (req, res, next) => {
+router.patch('/:processId', routeGuard, async (req, res, next) => {
   try {
     const id = req.params.processId;
     const data = req.body;

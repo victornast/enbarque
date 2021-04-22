@@ -3,11 +3,10 @@
 const express = require('express');
 const router = new express.Router();
 const Task = require('../models/task.model');
-const Position = require('../models/position.model');
 
-//const routeGuard = require('../middleware/route-guard');
+const routeGuard = require('../middleware/route-guard');
 
-router.get('/', async (req, res, next) => {
+router.get('/', routeGuard, async (req, res, next) => {
   try {
     const allTasks = await Task.find({ organization: req.user.organization })
       .populate('organization')
@@ -19,7 +18,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', routeGuard, async (req, res, next) => {
   const { headline, description, duration } = req.body;
   console.log('req.body: ', req.body);
   const newTask = {
@@ -42,7 +41,7 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
-router.patch('/:id/edit', async (req, res, next) => {
+router.patch('/:id/edit', routeGuard, async (req, res, next) => {
   console.log('Editing a task.');
   try {
     const id = req.params.id;
@@ -55,7 +54,7 @@ router.patch('/:id/edit', async (req, res, next) => {
   }
 });
 
-router.delete('/:id/delete', async (req, res, next) => {
+router.delete('/:id/delete', routeGuard, async (req, res, next) => {
   try {
     console.log('Deleting a task.');
     const id = req.params.id;
@@ -66,7 +65,7 @@ router.delete('/:id/delete', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', routeGuard, async (req, res, next) => {
   try {
     const task = await Task.findById(req.params.id).populate([
       'organization',

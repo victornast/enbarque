@@ -9,10 +9,11 @@ const Role = require('../models/role.model');
 const generatePassword = require('../utilities/generate-password');
 const sendEmail = require('../utilities/send-email');
 const bcryptjs = require('bcryptjs');
+const routeGuard = require('../middleware/route-guard');
 
 const router = new Router();
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', routeGuard, async (req, res, next) => {
   const { firstName, lastName, email, position, role, level } = req.body;
   const orgId = req.user.organization;
   const password = await generatePassword();
@@ -66,7 +67,7 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
-router.get('/welcome/:token', async (req, res, next) => {
+router.get('/welcome/:token', routeGuard, async (req, res, next) => {
   try {
     const token = req.params.token;
     // console.log(token);
@@ -78,7 +79,7 @@ router.get('/welcome/:token', async (req, res, next) => {
   }
 });
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', routeGuard, async (req, res, next) => {
   try {
     const id = req.params.id;
     // console.log('user id', id);
@@ -112,7 +113,7 @@ router.patch('/:id', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', routeGuard, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id).populate([
       'role',
