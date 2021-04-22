@@ -3,7 +3,14 @@ import "./BacklogTask.scss";
 import TimePicker from "./TimePicker";
 import { scheduleTask } from "./../../services/onboarding";
 
-const BacklogTask = ({ process, task, onDelete, onUpdate, updateViewTask }) => {
+const BacklogTask = ({
+  process,
+  task,
+  onDelete,
+  onUpdate,
+  updateViewTask,
+  seniorRole,
+}) => {
   const [pickerDisplay, setPickerDisplay] = useState(false);
   const [pickedDate, setPickedDate] = useState(null);
 
@@ -51,22 +58,23 @@ const BacklogTask = ({ process, task, onDelete, onUpdate, updateViewTask }) => {
             </button>
           </div>
         </div>
-      )) || (
-        <>
-          <button
-            onClick={() => setPickerDisplay(!pickerDisplay)}
-            className="backlog-task__action eb-button eb-button--primary"
-          >
-            Schedule
-          </button>
-          <button
-            onClick={onDelete}
-            className="backlog-task__action eb-button eb-button--secondary"
-          >
-            Delete
-          </button>
-        </>
-      )}
+      )) ||
+        (seniorRole && (
+          <>
+            <button
+              onClick={() => setPickerDisplay(!pickerDisplay)}
+              className="backlog-task__action eb-button eb-button--primary"
+            >
+              Schedule
+            </button>
+            <button
+              onClick={onDelete}
+              className="backlog-task__action eb-button eb-button--secondary"
+            >
+              Delete
+            </button>
+          </>
+        ))}
     </div>
   );
 };

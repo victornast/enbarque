@@ -8,8 +8,8 @@ function TaskDetail({ task, onClose, onStatusChange }) {
   };
   return (
     <article className="task-detail">
-      <h2 className="task-detail__headline">{task.task.headline}</h2>
-      <p className="task-detail__description">{task.task.description}</p>
+      <h2 className="task-detail__headline">{task.headline}</h2>
+      <p className="task-detail__description">{task.description}</p>
       <div className="task-detail__status-wrapper">
         Status:
         <span className={"task-detail__status__" + status}> {status}</span>
