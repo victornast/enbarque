@@ -1,72 +1,55 @@
-import { Redirect } from 'react-router-dom';
-import React, { Component } from 'react';
-import { createTask } from './../services/task';
-import { getPositionOptions } from './../services/userOptions';
-import './../CreateTask.scss';
+import { Redirect } from "react-router-dom";
+import React, { Component } from "react";
+import { createTask } from "./../services/task";
+import { getPositionOptions } from "./../services/userOptions";
 
 class CreateTask extends Component {
   state = {
-    headline: '',
-    description: '',
+    headline: "",
+    description: "",
     position: [],
     checkboxes: {},
-    duration: '',
-    success: false
+    duration: 0,
+    success: false,
   };
   async componentDidMount() {
     const position = await getPositionOptions();
     this.setState({ position });
-    console.log('this.state.position: ', this.state.position);
     this.setState({
       checkboxes: position.reduce(
         (accumulator, item) => ({
           ...accumulator,
-          [item._id]: false
+          [item._id]: false,
         }),
         {}
-      )
+      ),
     });
-    // this.setState({
-    //   checkboxes: position.reduce((options, option) => ({
-    //     ...options,
-    //     [option]: false
-    //   }))
-    // });
-    console.log('this.state.checkboxes: ', this.state.checkboxes);
   }
+
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
-  handleFileInputChange = (event) => {
-    const { name, files } = event.target;
-    const file = files[0];
-    this.setState({
-      [name]: file
-    });
-  };
+
   handleCheckboxChange = (event) => {
-    console.log(this.state);
     const { name } = event.target;
     this.setState((prevState) => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
-      }
+        [name]: !prevState.checkboxes[name],
+      },
     }));
-    console.log('this.state.checkboxes: ', this.state.checkboxes);
   };
 
   selectAllCheckboxes = (isSelected) => {
     Object.keys(this.state.checkboxes).forEach((checkbox) => {
-      // BONUS: Can you explain why we pass updater function to setState instead of an object?
       this.setState((prevState) => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected
-        }
+          [checkbox]: isSelected,
+        },
       }));
     });
   };
@@ -77,52 +60,53 @@ class CreateTask extends Component {
   handleFormSubmission = async (event) => {
     event.preventDefault();
     const selectedCheckboxes = [];
-    console.log('this.state.checkboxes: ', this.state.checkboxes);
+
     Object.keys(this.state.checkboxes)
       .filter((checkbox) => this.state.checkboxes[checkbox])
       .forEach((checkbox) => {
         selectedCheckboxes.push(checkbox);
-        console.log(checkbox, 'is selected.');
       });
-    console.log('selectedCheckboxes: ', selectedCheckboxes);
+
     const formData = {
       headline: this.state.headline,
       description: this.state.description,
       position: selectedCheckboxes,
-      duration: this.state.duration
+      duration: this.state.duration,
     };
+
     await createTask(formData).then((res) => {
-      console.log('res: ', res);
       this.setState({
-        success: true
+        success: true,
       });
     });
+    this.props.history.push("/tasks");
   };
+
   render() {
-    //  console.log("this.state.checkboxes: ", this.state.checkboxes);
     return this.state.success ? (
       <Redirect to="/dashboard"></Redirect>
     ) : (
-      <div>
-        <h1>Create Task</h1>
-        <form onSubmit={this.handleFormSubmission}>
-          <h4>Task Headline</h4>
-          <label htmlFor="headline-input" style={{ display: 'none' }}>
-            Task
+      <article className="eb-create-task">
+        <h2>Create Task</h2>
+        <form
+          className="eb-create-task__form eb-form"
+          onSubmit={this.handleFormSubmission}
+        >
+          <label className="eb-form__label" htmlFor="headline-input">
+            Task Name
           </label>
           <input
             id="headline-input"
             type="text"
-            placeholder="headline"
+            placeholder="Task Name"
             name="headline"
-            className="headline-input"
+            className="eb-form__input"
             value={this.state.headline}
             onChange={this.handleInputChange}
             required
           />
-          <br />
-          <h4>Description</h4>
-          <label htmlFor="description-input" style={{ display: 'none' }}>
+
+          <label className="eb-form__label" htmlFor="description-input">
             Description
           </label>
           <textarea
@@ -132,34 +116,12 @@ class CreateTask extends Component {
             value={this.state.description}
             onChange={this.handleInputChange}
             required
+            className="eb-form__textarea"
+            rows="5"
           />
-          <br />
-          <br />
-          <h4>Suited for the following position:</h4>
-          <button className="de-select_all" onClick={this.selectAll}>
-            Select all
-          </button>
-          <button className="de-select_all" onClick={this.deselectAll}>
-            Deselect all
-          </button>
-          {this.state.position.map((position) => {
-            return (
-              <div key={position._id}>
-                <label>{position.name}</label>
-                <input
-                  type="checkbox"
-                  name={position._id}
-                  checked={this.state.checkboxes[position._id]}
-                  onChange={this.handleCheckboxChange}
-                  className="form-check-input"
-                  id={position._id}
-                />
-              </div>
-            );
-          })}
-          <h4>Estimated Time Requirement</h4>
-          <label htmlFor="duration-input" style={{ display: 'none' }}>
-            Duration
+
+          <label className="eb-form__label" htmlFor="duration-input">
+            Estimated Time Requirement
           </label>
           <select
             name="duration"
@@ -167,57 +129,79 @@ class CreateTask extends Component {
             value={this.state.duration}
             onChange={this.handleInputChange}
             required
+            className="eb-form__input"
           >
-            <option value="" disabled>
-              Select...
-            </option>
-            <option value="30" name="duration">
-              30min
-            </option>
-            <option value="60" name="duration">
+            <option value={1} name="duration" selected>
               1h
             </option>
-            <option value="90" name="duration">
-              1h 30min
-            </option>
-            <option value="120" name="duration">
+            <option value={2} name="duration">
               2h
             </option>
-            <option value="150" name="duration">
-              2h 30min
-            </option>
-            <option value="180" name="duration">
+            <option value={3} name="duration">
               3h
             </option>
-            <option value="210" name="duration">
-              3h 30min
-            </option>
-            <option value="240" name="duration">
+            <option value={4} name="duration">
               half a day
             </option>
-            <option value="480" name="duration">
+            <option value={5} name="duration">
+              5h
+            </option>
+            <option value={6} name="duration">
+              6h
+            </option>
+            <option value={7} name="duration">
+              7h
+            </option>
+            <option value={8} name="duration">
               whole day
             </option>
-            {/* <option value="other" name="duration">
-              specify time manually...
-            </option> */}
           </select>
-          <br />
-          {/* {this.state.duration === 'other' ? (
-            <input
-              type="text"
-              name="duration"
-              value=""
-              placeholder="time in minutes"
-              onChange={this.handleInputChange}
-            />
-          ) : (
-            ''
-          )} */}
-          <br />
-          <button className="submit">Create Task</button>
+
+          <fieldset className="eb-form__fieldset">
+            <legend className="eb-form__legend">
+              Suited for the following position:
+            </legend>
+
+            {this.state.position.map((position) => {
+              return (
+                <label
+                  className="eb-form__checkbox eb-form-checkbox"
+                  key={position._id}
+                >
+                  <input
+                    type="checkbox"
+                    name={position._id}
+                    checked={this.state.checkboxes[position._id]}
+                    onChange={this.handleCheckboxChange}
+                    className="eb-form-checkbox__input"
+                    id={position._id}
+                  />
+                  <span className="eb-form-checkbox__text">
+                    {position.name}
+                  </span>
+                </label>
+              );
+            })}
+
+            <button
+              className="eb-form__filter eb-button eb-button--compact"
+              onClick={this.selectAll}
+            >
+              Select all
+            </button>
+            <button
+              className="eb-form__filter eb-button eb-button--compact"
+              onClick={this.deselectAll}
+            >
+              Deselect all
+            </button>
+          </fieldset>
+
+          <button className="eb-form__action eb-button eb-button--primary">
+            Create Task
+          </button>
         </form>
-      </div>
+      </article>
     );
   }
 }

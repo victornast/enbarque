@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
       .populate('organization')
       .populate('position');
     res.json({ allTasks });
-    // console.log('allTasks: ', allTasks);
+    console.log('allTasks: ', allTasks);
   } catch (error) {
     next(error);
   }
@@ -42,10 +42,14 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
-router.post('/:id/edit', async (req, res, next) => {
+router.patch('/:id/edit', async (req, res, next) => {
+  console.log('Editing a task.');
   try {
-    console.log('Editing a task.');
-    res.json({ status: 'success' });
+    const id = req.params.id;
+    const data = req.body;
+    const task = await Task.findByIdAndUpdate(id, data, { new: true });
+    console.log('backend task: ', task);
+    res.json({ status: 'success', task: task });
   } catch (error) {
     next(error);
   }
@@ -54,6 +58,8 @@ router.post('/:id/edit', async (req, res, next) => {
 router.delete('/:id/delete', async (req, res, next) => {
   try {
     console.log('Deleting a task.');
+    const id = req.params.id;
+    await Task.findByIdAndDelete(id);
     res.json({ status: 'success' });
   } catch (error) {
     next(error);

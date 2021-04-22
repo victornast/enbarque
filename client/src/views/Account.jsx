@@ -33,7 +33,6 @@ class Account extends Component {
                 <div className="column">
                   {' '}
                   <p>
-                    <br />
                     <span className="text">Full name: </span> {user.firstName}{' '}
                     {user.lastName}
                   </p>
@@ -49,7 +48,6 @@ class Account extends Component {
                   {' '}
                   <p>
                     {' '}
-                    <br />
                     <span className="text">Position: </span>{' '}
                     {user.position.name}
                   </p>

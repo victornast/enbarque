@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
 
-const ScheduledTaskCard = (task) => {
-  console.log(task);
+const ScheduledTaskCard = ({ task, updateViewTask }) => {
+  console.log('Task:', task.task);
   return (
-    <div>
-      <Link to={`/tasks/${task.task.task._id}`}>
-        <h5>{task.task.task.headline}</h5>
-      </Link>
-    </div>
+    <h5
+      onClick={() => updateViewTask(task.task._id)}
+      className="task-card"
+    >
+      {task.task.headline}
+    </h5>
   );
 };
 

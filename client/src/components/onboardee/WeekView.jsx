@@ -9,26 +9,31 @@ export class WeekView extends Component {
       <div className="week-view">
         <DayCard
           process={this.props.process}
+          updateViewTask={this.props.updateViewTask}
           startDate={startDate}
           nDay={this.props.week * 5 - 4}
         />
         <DayCard
           process={this.props.process}
+          updateViewTask={this.props.updateViewTask}
           startDate={startDate}
           nDay={this.props.week * 5 - 3}
         />
         <DayCard
           process={this.props.process}
+          updateViewTask={this.props.updateViewTask}
           startDate={startDate}
           nDay={this.props.week * 5 - 2}
         />
         <DayCard
           process={this.props.process}
+          updateViewTask={this.props.updateViewTask}
           startDate={startDate}
           nDay={this.props.week * 5 - 1}
         />
         <DayCard
           process={this.props.process}
+          updateViewTask={this.props.updateViewTask}
           startDate={startDate}
           nDay={this.props.week * 5}
         />

@@ -40,8 +40,9 @@ const onboardingProcessSchema = new mongoose.Schema(
           type: Date
         },
         taskStatus: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'TaskStatus'
+          type: String,
+          enum: ['OPEN', 'CLOSED'],
+          default: 'OPEN'
         },
         timeslotSize: {
           type: Number,

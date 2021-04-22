@@ -1,7 +1,11 @@
+@import './eb-variables';
+@import './eb-mixins';
+
 .eb-button {
   display: inline-block;
   padding: 0.75em 1.5em;
   border: 0;
+  border-radius: 0.5rem;
   text-align: center;
   text-decoration: none;
   font-weight: 600;
@@ -18,4 +22,14 @@
     color: $color-primary-light;
     background-color: $color-secondary;
   }
+
+  &--compact {
+    @include headline-s;
+    padding: 0.25em 0.5em;
+    font-weight: 300;
+  }
+}
+
+.eb-link {
+  text-decoration: underline;
 }

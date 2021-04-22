@@ -1,0 +1,80 @@
+@import './eb-variables';
+@import './eb-mixins';
+
+.eb-form {
+  max-width: 35em;
+
+  &__fieldset {
+    border: 0;
+    padding: 0;
+    margin-top: 1.5em;
+  }
+
+  &__legend {
+    @include headline-l;
+
+    &--secondary {
+      @include headline-m;
+    }
+  }
+
+  &__label {
+    @include headline-s;
+    display: block;
+
+    &:not(:first-child) {
+      margin-top: 0.5em;
+    }
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    padding: 0.5em 0.7em;
+    border: 1px solid $color-primary-dark;
+    border-radius: 0.5rem;
+
+    &--readonly {
+      background-color: transparent;
+      border: 0;
+      font-weight: 600;
+    }
+  }
+
+  &__textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5em 0.7em;
+    border: 1px solid $color-primary-dark;
+    border-radius: 0.5rem;
+  }
+
+  &__checkbox {
+    display: block;
+    width: 100%;
+  }
+
+  &__filter {
+    margin-top: 1em;
+    & + .eb-form__filter {
+      margin-left: 1em;
+    }
+  }
+
+  &__action {
+    margin-top: 1em;
+    width: 100%;
+  }
+}
+
+.eb-form-checkbox {
+  display: flex;
+  align-items: center;
+
+  &__input {
+    margin-right: 0.5em;
+    width: 1em;
+    height: 1em;
+  }
+}

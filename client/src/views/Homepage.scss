@@ -1,0 +1,50 @@
+.eb-homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__headline {
+    margin-top: auto;
+    text-align: center;
+    font-size: 3rem;
+  }
+
+  &__intro {
+    text-align: center;
+  }
+
+  &__actions {
+    margin-top: auto;
+  }
+}
+
+.eb-intro {
+  margin-top: 4em;
+  font-size: 1.4em;
+  font-weight: 300;
+}
+
+.eb-signin-up {
+  @media (min-width: 37.5em) {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__action {
+    min-width: 15em;
+
+    // Specificity boost to css order
+    &.eb-signin-up__action {
+      display: block;
+    }
+
+    &:not(:first-child) {
+      margin-top: 1.5rem;
+
+      @media (min-width: 37.5em) {
+        margin-top: 0;
+        margin-left: 1.5rem;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
-import React from "react";
-import EmployeeCardSmall from "./EmployeeCardSmall";
-import "./EmployeeList.scss";
+import React from 'react';
+import EmployeeCardSmall from './EmployeeCardSmall';
+import './EmployeeList.scss';
 
 const EmployeeList = ({ employees, user, plans }) => {
   const hasPlan = (employee) => {
@@ -24,9 +24,7 @@ const EmployeeList = ({ employees, user, plans }) => {
             <span>Name</span>
             <span>Position</span>
             <span>Level</span>
-            <span>Onboarding role</span>
             <span>Onboarding plan</span>
-            <span>Profile</span>
           </div>
         </div>
         {employeesList.map((employee) => (

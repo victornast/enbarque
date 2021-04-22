@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
 import EmployeeList from './../employees/EmployeeList';
 import AddUser from '../forms/AddUser';
+import Greeting from './../dashboard/Greeting';
+
 import { findUsers } from '../../services/organization';
 import { findPlans } from '../../services/onboarding';
 import './ManagerDashboard.scss';
@@ -42,8 +45,7 @@ class ManagerDashboard extends Component {
       <div className="manager-dashboard">
         {this.state.loaded && (
           <>
-            <h1>Manager Dashboard</h1>
-            <h3>Welcome back {manager.firstName}!</h3>
+            <Greeting user={this.props.user} />
             <div className="list-header">
               <h4>Employees:</h4>
               <button

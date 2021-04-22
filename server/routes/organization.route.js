@@ -23,6 +23,26 @@ router.get('/users', routeGuard, async (req, res, next) => {
   }
 });
 
+router.get('/users/:positionId', routeGuard, async (req, res, next) => {
+  const positionId = req.params.positionId;
+  console.log(positionId);
+  // const levelId = req.params.levelId;
+  const orgId = req.user.organization;
+  // console.log(orgId);
+  const mentors = await User.find({
+    $and: [
+      {
+        organization: orgId
+      },
+      {
+        position: positionId
+      }
+    ]
+  }).populate('level');
+  console.log(mentors);
+  res.json({ mentors: mentors });
+});
+
 // Get the levels set by the manager
 router.get('/levels', async (req, res, next) => {
   const id = req.user._id;
