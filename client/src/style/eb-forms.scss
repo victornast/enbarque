@@ -10,6 +10,10 @@
     margin-top: 1.5em;
   }
 
+  &__inline-section {
+    margin-top: 0.5em;
+  }
+
   &__legend {
     @include headline-l;
 
@@ -76,5 +80,21 @@
     margin-right: 0.5em;
     width: 1em;
     height: 1em;
+  }
+}
+
+.eb-form-inline-section {
+  @media (min-width: 37.5em) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1em;
+  }
+}
+
+.eb-form-button-group {
+  @media (min-width: 37.5em) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1em;
   }
 }

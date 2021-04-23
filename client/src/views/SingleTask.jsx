@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 import { deleteTask } from './../services/task';
 import EditTask from './../components/forms/EditTask';
 import { toast } from 'react-toastify';
-import './../SingleTask.scss';
-// import { useLocation } from 'react-router-dom';
+import './SingleTask.scss';
 
 class SingleTask extends Component {
   constructor(props) {
@@ -38,8 +37,6 @@ class SingleTask extends Component {
       });
     this.notify('Task deleted!', 'error');
     await this.props.history.push('/tasks');
-
-    // hier: success auf true setzen, dann redirect to ....
   };
 
   notify = (message, type) => {
@@ -53,39 +50,44 @@ class SingleTask extends Component {
   };
 
   render() {
-    console.log('this.state.task', this.state.task);
-    //console.log('this.props.location: ', this.props.location);
     return this.state.success ? (
       <Redirect to="/tasks" />
     ) : this.state.loaded ? (
-      <div>
-        <h1> {this.state.task.headline}</h1>
-        <h3>{this.state.task.description}</h3>
-        <br />
-        <div className="technical-information">
-          <small>
+      <article className="eb-single-task">
+        <h2> {this.state.task.headline}</h2>
+        <ul className="eb-single-task__technical-details">
+          <li>
             🕑 
             {this.state.task.duration === 1
               ? this.state.task.duration + ' hour'
-              : this.state.task.duration + ' hours'}{' '}
-          </small>
-          <br />
+              : this.state.task.duration + ' hours'}
+          </li>
           {this.state.task.position.map((task) => {
-            return <small key={task._id}>👤 {task.name}  </small>;
+            return <li key={task._id}>👤 {task.name}  </li>;
           })}
-        </div>
-        <div className="buttons">
-          <button onClick={this.toggleEditTaskForm}>Edit task</button>
-          <button onClick={this.eraseTask}>Delete task</button>
+        </ul>
+        <p>{this.state.task.description}</p>
+        <div className="eb-single-task__buttons">
+          <button
+            className="eb-single-task__button eb-button"
+            onClick={this.eraseTask}
+          >
+            Delete task
+          </button>
+          <button
+            className="eb-single-task__button eb-button eb-button--primary"
+            onClick={this.toggleEditTaskForm}
+          >
+            Edit task
+          </button>
         </div>
         {this.state.createForm && (
           <EditTask
             toggleForm={this.toggleEditTaskForm}
             task={this.state.task}
-            //onAddUser={this.loadEmployees}
           />
         )}
-      </div>
+      </article>
     ) : (
       []
     );

@@ -1,0 +1,19 @@
+@import './eb-variables';
+@import './eb-mixins';
+
+.eb-table {
+  width: 100%;
+
+  &__head-cell {
+    background-color: $color-secondary;
+    color: $color-primary-light;
+    font-weight: 300;
+    padding: 0 0.75em;
+  }
+
+  &__cell {
+    padding: 0.75em;
+    border-top: 1px solid $color-secondary;
+    vertical-align: top;
+  }
+}

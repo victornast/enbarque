@@ -1,0 +1,12 @@
+.eb-account {
+  &__details {
+    list-style: none;
+    padding: 0;
+    margin-top: 2em;
+
+    @media (min-width: 37.5rem) {
+      columns: 2;
+      gap: 2em;
+    }
+  }
+}

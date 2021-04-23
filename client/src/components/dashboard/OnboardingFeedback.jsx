@@ -45,7 +45,7 @@ function OnboardingFeedback({ seniorRole, user, process }) {
         {!!feedbackPosts.length && (
           <ul>
             {feedbackPosts.map((post) => (
-              <li>
+              <li key={post._id}>
                 <img
                   src={post.userId.avatar}
                   style={{ width: '50px' }}

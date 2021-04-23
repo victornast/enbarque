@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { findTasks } from './../services/task';
-import './../ListTasks.scss';
+import './ListTasks.scss';
 
 class ListTasks extends Component {
   constructor(props) {
@@ -11,36 +11,37 @@ class ListTasks extends Component {
 
   async componentDidMount() {
     const allTasks = await findTasks();
-    // console.log('tasks: ', allTasks);
-    // console.log('tasks.allTasks: ', allTasks);
     this.setState({
       tasks: [...allTasks],
       loaded: true
     });
-    // console.log('this.state.tasks: ', typeof this.state.tasks);
-    // console.log('this.state.tasks[0]: ', this.state.tasks[0]);
   }
 
   render() {
-    //console.log('this.props.user: ', this.props.user);
-    console.log('this.state.tasks: ', this.state.tasks);
     return this.state.loaded ? (
-      <React.Fragment>
-        <h1>All tasks</h1>
-        <Link to="/tasks/create">Create New Task</Link>
-        <table>
-          <thead className="coloredColumn">
+      <article className="eb-list-task">
+        <h2>All tasks</h2>
+
+        <Link
+          className="eb-list-task__action eb-button eb-button--primary eb-button--compact"
+          to="/tasks/create"
+        >
+          Create New Task
+        </Link>
+
+        <table className="eb-list-task__table eb-table">
+          <thead>
             <tr>
-              <th>Headline</th>
-              <th>Duration</th>
-              <th>Suited Positions</th>
+              <th className="eb-table__head-cell">Headline</th>
+              <th className="eb-table__head-cell">Duration</th>
+              <th className="eb-table__head-cell">Suited Positions</th>
             </tr>
           </thead>
           <tbody>
             {this.state.tasks.map((task, key) => {
               return (
-                <tr>
-                  <td key={task._id} valign="top">
+                <tr key={task._id}>
+                  <td className="eb-table__cell">
                     <Link
                       key={task._id}
                       to={{
@@ -51,14 +52,13 @@ class ListTasks extends Component {
                       {task.headline}
                     </Link>
                   </td>
-                  <td>
-                    {' '}
+                  <td className="eb-table__cell">
                     🕑 
                     {task.duration === 1
                       ? task.duration + ' hour'
-                      : task.duration + ' hours'}{' '}
+                      : task.duration + ' hours'}
                   </td>
-                  <td>
+                  <td className="eb-table__cell">
                     {task.position.map((el) => {
                       return <p key={el._id}>👤 {el.name}</p>;
                     })}
@@ -68,9 +68,7 @@ class ListTasks extends Component {
             })}
           </tbody>
         </table>
-
-        <p>{this.state.tasks.name}</p>
-      </React.Fragment>
+      </article>
     ) : (
       []
     );

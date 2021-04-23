@@ -42,33 +42,40 @@ class ManagerDashboard extends Component {
     const manager = this.props.user;
     const plans = this.state.plans;
     return (
-      <div className="manager-dashboard">
-        {this.state.loaded && (
-          <>
-            <Greeting user={this.props.user} />
-            <div className="list-header">
-              <h4>Employees:</h4>
-              <button
-                className="toggle-form__button"
-                onClick={this.toggleCreateAnUserForm}
-              >
-                Add a new employee
-              </button>
-            </div>
+      this.state.loaded && (
+        <article className="eb-manager-dashboard">
+          <h2 className="sr-only">Manager Dashboard</h2>
+
+          <Greeting user={this.props.user} />
+
+          <section className="eb-manager-dashboard-add-employee">
+            <h3 className="sr-only">Add New Employee</h3>
+            <button
+              className="eb-manager-dashboard-add-employee__action eb-button eb-button--primary eb-button--compact"
+              onClick={this.toggleCreateAnUserForm}
+            >
+              Add a new employee
+            </button>
             {this.state.createForm && (
-              <AddUser
-                toggleForm={this.toggleCreateAnUserForm}
-                onAddUser={this.loadEmployees}
-              />
+              <div className="eb-manager-dashboard-add-employee__form">
+                <AddUser
+                  toggleForm={this.toggleCreateAnUserForm}
+                  onAddUser={this.loadEmployees}
+                />
+              </div>
             )}
+          </section>
+
+          <section className="list-header">
+            <h3>Employees:</h3>
             <EmployeeList
               employees={this.state.employees}
               user={manager}
               plans={plans}
             />
-          </>
-        )}
-      </div>
+          </section>
+        </article>
+      )
     );
   }
 }

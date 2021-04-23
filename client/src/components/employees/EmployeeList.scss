@@ -1,47 +1,50 @@
-.table {
-  table-layout: fixed;
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
+@import './../../style/eb-variables';
+@import './../../style/eb-mixins';
+
+.eb-employee-list {
   .table__header {
-    .table__row {
-      font-size: 0.8em;
-      color: rgb(56, 56, 56);
-      padding: 1em 0 0 0;
-      display: flex;
-      justify-content: space-between;
-      span:nth-child(1) {
-        width: 25%;
-      }
-      span:nth-child(2) {
-        width: 25%;
-      }
-      span:nth-child(3) {
-        width: 25%;
-      }
-      span:nth-child(4) {
-        width: 25%;
-      }
-    }
-  }
-  & > .table__row {
-    border-radius: 15px;
-    background-color: #f6f2cf;
-    padding: 0.5em 0;
-    margin-top: 1em;
     display: flex;
     justify-content: space-between;
+    background-color: $color-secondary;
+    color: $color-primary-light;
+    span {
+      padding: 0 0.75em;
+    }
     span:nth-child(1) {
-      width: 25%;
+      width: 30%;
+      padding-left: 1em;
     }
     span:nth-child(2) {
       width: 25%;
     }
     span:nth-child(3) {
-      width: 25%;
+      width: 20%;
     }
     span:nth-child(4) {
       width: 25%;
+      text-align: right;
+    }
+  }
+
+  .table__row {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $color-secondary;
+    span {
+      padding: 0.75em;
+    }
+    span:nth-child(1) {
+      width: 30%;
+    }
+    span:nth-child(2) {
+      width: 25%;
+    }
+    span:nth-child(3) {
+      width: 20%;
+    }
+    span:nth-child(4) {
+      width: 25%;
+      text-align: right;
     }
     .table__btn {
       &--view {

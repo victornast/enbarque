@@ -1,8 +1,7 @@
-import "./SelectGroup.scss";
-import { useState } from "react";
+import { useState } from 'react';
 
 const SelectGroup = ({ options, onUpdate }) => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
 
   const handleInputChange = (event) => {
     const { value } = event.target;
@@ -12,7 +11,7 @@ const SelectGroup = ({ options, onUpdate }) => {
 
   return (
     <select
-      className="select-group"
+      className="eb-form__input"
       value={selected}
       onChange={handleInputChange}
     >

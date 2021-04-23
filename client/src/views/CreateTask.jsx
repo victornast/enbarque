@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { createTask } from './../services/task';
 import { getPositionOptions } from './../services/userOptions';
@@ -9,8 +8,7 @@ class CreateTask extends Component {
     description: '',
     position: [],
     checkboxes: {},
-    duration: 0,
-    success: false
+    duration: 0
   };
   async componentDidMount() {
     const position = await getPositionOptions();
@@ -74,18 +72,12 @@ class CreateTask extends Component {
       duration: this.state.duration
     };
 
-    await createTask(formData).then((res) => {
-      this.setState({
-        success: true
-      });
-    });
+    await createTask(formData);
     this.props.history.push('/tasks');
   };
 
   render() {
-    return this.state.success ? (
-      <Redirect to="/dashboard"></Redirect>
-    ) : (
+    return (
       <article className="eb-create-task">
         <h2>Create Task</h2>
         <form
@@ -165,6 +157,7 @@ class CreateTask extends Component {
             {this.state.position.map((position) => {
               return (
                 <label
+                  htmlFor={position._id}
                   className="eb-form__checkbox eb-form-checkbox"
                   key={position._id}
                 >

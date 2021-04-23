@@ -14,7 +14,6 @@ export const findPlans = async () => {
 export const getProcess = async (id) => {
   const response = await api.get(`/onboarding/${id}`);
   if (response) {
-    console.log(response);
     return response.data.process;
   } else {
     return console.log(
@@ -25,7 +24,6 @@ export const getProcess = async (id) => {
 
 export const editProcess = async (processId, data) => {
   const response = await api.patch(`/onboarding/${processId}`, data);
-  console.log('response', response);
   return response.data.updatedProcess;
 };
 

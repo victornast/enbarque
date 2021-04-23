@@ -1,0 +1,40 @@
+.eb-single-task {
+  &__technical-details {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    li:not(:first-child)::before {
+      content: '//';
+      margin: 0 1em;
+    }
+  }
+
+  &__buttons {
+    margin-top: 4em;
+
+    @media (min-width: 37.5em) {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      gap: 1em;
+    }
+  }
+
+  &__button {
+    width: 100%;
+
+    // (1) Specificity boost
+    &.eb-single-task__button {
+      display: block; // (1)
+    }
+
+    &:not(:first-child) {
+      margin-top: 1em;
+
+      @media (min-width: 37.5em) {
+        margin-top: 0;
+      }
+    }
+  }
+}
