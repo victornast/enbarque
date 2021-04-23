@@ -5,9 +5,10 @@
 
 .day-card {
   border: 1px solid #000;
-  // padding: 0.3em 0.5em;
-  display: grid;
-  grid-template-rows: auto auto repeat(8, 2em);
+
+  &:not(:first-child) {
+    margin-left: -1px;
+  }
 
   &__header {
     background-color: rgba(0, 0, 0, 0.03);
