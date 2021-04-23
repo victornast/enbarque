@@ -10,13 +10,9 @@ const EmployeeCardSmall = ({ employee, plan }) => {
         </Link>
       </span>
       <span>
-        {(employee.position && <span>{employee.position.name}</span>) ||
-          'n/a'}
+        {(employee.position && employee.position.name) || 'n/a'}
       </span>
-      <span>
-        {(employee.level && <span>{employee.level.name}</span>) ||
-          'n/a'}
-      </span>
+      <span>{(employee.level && employee.level.name) || 'n/a'}</span>
       <span>
         {(employee.role.name === 'Onboardee' && plan && (
           <Link

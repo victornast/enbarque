@@ -1,32 +1,33 @@
-import React, { Component } from "react";
-import SelectGroup from "./SelectGroup";
-//import { levelOptions, positionOptions, roleOptions } from "../common";
+import React, { Component } from 'react';
+import SelectGroup from './SelectGroup';
+
 import {
   getLevelOptions,
   getPositionOptions,
-  getRoleOptions,
-} from "../../services/userOptions";
-import { addUser } from "../../services/user";
-import "./AddUser.scss";
-//
+  getRoleOptions
+} from '../../services/userOptions';
+import { addUser } from '../../services/user';
+
 class AddUser extends Component {
   state = {
     levels: [],
     positions: [],
     roles: [],
-    firstName: "",
-    lastName: "",
-    email: "",
-    position: "",
-    role: "",
-    level: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    position: '',
+    role: '',
+    level: '',
     user: this.props.user,
-    loaded: false,
+    loaded: false
   };
   async componentDidMount() {
     const levelObjectArray = await getLevelOptions();
     let levels = [];
-    levelObjectArray.map((levelObject) => levels.push(levelObject.name));
+    levelObjectArray.map((levelObject) =>
+      levels.push(levelObject.name)
+    );
     const roleObjectArray = await getRoleOptions();
     let roles = [];
     roleObjectArray.map((roleObject) => roles.push(roleObject.name));
@@ -39,22 +40,29 @@ class AddUser extends Component {
       levels,
       roles,
       positions,
-      loaded: true,
+      loaded: true
     });
   }
 
   // username and password should be generated automatically
   handleFormSubmission = async (event) => {
     event.preventDefault();
-    const { firstName, lastName, email, position, role, level } = this.state;
-    // console.log(firstName, lastName, email, possition, role, level);
+    const {
+      firstName,
+      lastName,
+      email,
+      position,
+      role,
+      level
+    } = this.state;
+
     await addUser({
       firstName,
       lastName,
       email,
       position,
       role,
-      level,
+      level
     });
     this.props.toggleForm();
     this.props.onAddUser();
@@ -63,116 +71,117 @@ class AddUser extends Component {
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
   handleSelectChange = (name, value) => {
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
   cancelForm = () => {
-    console.log("cancelForm was called");
     this.props.toggleForm();
   };
   render() {
-    // console.log("from AddUser", this.state.levels);
-    // console.log("from AddUser", this.state.roles);
-    // console.log("from AddUser", this.state.positions);
     return (
-      <div className="add-user">
-        <h3 className="add-user__header">New employee profile</h3>
-        {this.state.loaded && (
-          <form className="add-user-form" onSubmit={this.handleFormSubmission}>
-            <div className="add-user-form__input-label-wrapper">
-              <label className="add-user-form__lable" htmlFor="firstName-input">
-                Name
-              </label>
-              <div className="add-user-form__name-inputs">
-                <input
-                  id="firstName-input"
-                  type="text"
-                  placeholder="First Name"
-                  name="firstName"
-                  value={this.state.firstName}
-                  onChange={this.handleInputChange}
-                  className="add-user-form__input"
-                />
-                <input
-                  id="lastName-input"
-                  type="text"
-                  placeholder="Last Name"
-                  name="lastName"
-                  value={this.state.lastName}
-                  onChange={this.handleInputChange}
-                  className="add-user-form__input"
-                />
-              </div>
-            </div>
-            <div className="add-user-form__input-label-wrapper">
-              <label className="add-user-form__lable" htmlFor="email-input">
-                Email
-              </label>
-              <input
-                id="email-input"
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-                className="add-user-form__input"
+      this.state.loaded && (
+        <form
+          className="eb-add-user eb-form"
+          onSubmit={this.handleFormSubmission}
+        >
+          <legend className="eb-form__legend">
+            New employee profile
+          </legend>
+
+          <label className="eb-form__label" htmlFor="firstName-input">
+            First Name
+          </label>
+          <input
+            id="firstName-input"
+            type="text"
+            placeholder="First Name"
+            name="firstName"
+            value={this.state.firstName}
+            onChange={this.handleInputChange}
+            className="eb-form__input"
+          />
+
+          <label className="eb-form__label" htmlFor="firstName-input">
+            Last Name
+          </label>
+          <input
+            id="lastName-input"
+            type="text"
+            placeholder="Last Name"
+            name="lastName"
+            value={this.state.lastName}
+            onChange={this.handleInputChange}
+            className="eb-form__input"
+          />
+
+          <label className="eb-form__label" htmlFor="email-input">
+            Email
+          </label>
+          <input
+            id="email-input"
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+            className="eb-form__input"
+          />
+
+          <div className="eb-form__inline-section eb-form-inline-section">
+            <div className="eb-form-inline-section__item">
+              <label className="eb-form__label">Position</label>
+              <SelectGroup
+                name="position"
+                options={this.state.positions}
+                onUpdate={(value) =>
+                  this.handleSelectChange('position', value)
+                }
               />
             </div>
-            <div className="add-user-form__options-wrapper">
-              <div className="add-user-form__input-label-wrapper">
-                <label className="add-user-form__lable">Position</label>
-                <div className="add-user-form__option">
-                  <SelectGroup
-                    name="position"
-                    options={this.state.positions}
-                    onUpdate={(value) =>
-                      this.handleSelectChange("position", value)
-                    }
-                  />
-                </div>
-              </div>
-              <div className="add-user-form__input-label-wrapper">
-                <label className="add-user-form__lable">Level</label>
-                <div className="add-user-form__option">
-                  <SelectGroup
-                    name="level"
-                    options={this.state.levels}
-                    onUpdate={(value) =>
-                      this.handleSelectChange("level", value)
-                    }
-                  />
-                </div>
-              </div>
-              <div className="add-user-form__input-label-wrapper">
-                <label className="add-user-form__lable">Role</label>
-                <div className="add-user-form__option">
-                  <SelectGroup
-                    name="role"
-                    options={this.state.roles}
-                    onUpdate={(value) => this.handleSelectChange("role", value)}
-                  />
-                </div>
-              </div>
+
+            <div className="eb-form-inline-section__item">
+              <label className="eb-form__label">Level</label>
+              <SelectGroup
+                name="level"
+                options={this.state.levels}
+                onUpdate={(value) =>
+                  this.handleSelectChange('level', value)
+                }
+              />
             </div>
-            <div className="add-form-button-group">
-              <button className="add-form-button--save">Save</button>
-              <div
-                onClick={this.cancelForm}
-                className="add-form-button--cancel"
-              >
-                Cancel
-              </div>
+
+            <div className="eb-form-inline-section__item">
+              <label className="eb-form__label">Role</label>
+              <SelectGroup
+                name="role"
+                options={this.state.roles}
+                onUpdate={(value) =>
+                  this.handleSelectChange('role', value)
+                }
+              />
             </div>
-          </form>
-        )}
-      </div>
+          </div>
+
+          <div className="eb-form-button-group eb-form__button-group">
+            <button
+              onClick={this.cancelForm}
+              className="eb-form__action eb-button"
+            >
+              Cancel
+            </button>
+            <button className="eb-form__action eb-button eb-button--primary">
+              Save
+            </button>
+          </div>
+        </form>
+      )
     );
   }
 }
