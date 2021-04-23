@@ -1,0 +1,12 @@
+.eb-list-task {
+  display: flex;
+  flex-direction: column;
+
+  &__action {
+    align-self: flex-end;
+  }
+
+  &__table {
+    margin-top: 2em;
+  }
+}
