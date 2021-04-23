@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import { updateTask } from './../../services/task';
 import { getPositionOptions } from './../../services/userOptions';
 import TextareaAutosize from 'react-textarea-autosize';
-import './EditTask.scss';
 
 class EditTask extends Component {
   state = {
@@ -15,7 +14,7 @@ class EditTask extends Component {
     checkboxes: {},
     duration: this.props.task.duration,
     id: this.props.task._id,
-    success: false,
+    success: false
   };
   async componentDidMount() {
     const position = await getPositionOptions();
@@ -24,18 +23,18 @@ class EditTask extends Component {
       checkboxes: position.reduce(
         (accumulator, item) => ({
           ...accumulator,
-          [item._id]: false,
+          [item._id]: false
         }),
         {}
       ),
-      loaded: true,
+      loaded: true
     });
   }
 
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -44,8 +43,8 @@ class EditTask extends Component {
     this.setState((prevState) => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name],
-      },
+        [name]: !prevState.checkboxes[name]
+      }
     }));
   };
 
@@ -54,8 +53,8 @@ class EditTask extends Component {
       this.setState((prevState) => ({
         checkboxes: {
           ...prevState.checkboxes,
-          [checkbox]: isSelected,
-        },
+          [checkbox]: isSelected
+        }
       }));
     });
   };
@@ -78,7 +77,7 @@ class EditTask extends Component {
       description: this.state.description,
       position: selectedCheckboxes,
       duration: this.state.duration,
-      id: this.state.id,
+      id: this.state.id
     };
     const response = await updateTask(this.state.id, formData);
 
@@ -88,13 +87,13 @@ class EditTask extends Component {
         this.setState({ success: true });
       }, 3000);
     } else {
-      this.notify("ERROR", "error");
+      this.notify('ERROR', 'error');
     }
   };
 
   handleSelectChange = (name, value) => {
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -106,7 +105,7 @@ class EditTask extends Component {
     toast.configure({
       autoClose: 3000,
       draggable: false,
-      position: "bottom-right",
+      position: 'bottom-right'
     });
 
     if (type === 'success') {
@@ -125,128 +124,120 @@ class EditTask extends Component {
       <article className="eb-create-task edit-task">
         <h2>Edit task</h2>
         {this.state.loaded && (
-          <React.Fragment>
-            <form
-              className="eb-create-task__form eb-form"
-              onSubmit={this.handleFormSubmission}
+          <form
+            className="eb-create-task__form eb-form"
+            onSubmit={this.handleFormSubmission}
+          >
+            <label className="eb-form__label" htmlFor="headline">
+              Headline
+            </label>
+            <input
+              id="headline"
+              type="text"
+              name="headline"
+              value={this.state.headline}
+              onChange={this.handleInputChange}
+              className="eb-form__input"
+            />
+            <label className="eb-form__label" htmlFor="description">
+              Description
+            </label>
+            <TextareaAutosize
+              id="description-input"
+              type="text"
+              placeholder="Last Name"
+              name="description"
+              value={this.state.description}
+              onChange={this.handleInputChange}
+              className="eb-form__textarea"
+            />
+
+            <label className="eb-form__label" htmlFor="duration">
+              Duration
+            </label>
+            <select
+              name="duration"
+              id="duration"
+              value={this.state.duration}
+              onChange={this.handleInputChange}
+              required
+              className="eb-form__input"
             >
-              <label className="eb-form__label" htmlFor="headline">
-                Headline
-              </label>
-              <input
-                id="headline"
-                type="text"
-                name="headline"
-                value={this.state.headline}
-                onChange={this.handleInputChange}
-                className="eb-form__input"
-              />
-              <label className="eb-form__label" htmlFor="description">
-                Description
-              </label>
-              <TextareaAutosize
-                id="description-input"
-                type="text"
-                placeholder="Last Name"
-                name="description"
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                className="eb-form__textarea"
-              />
+              <option value="" disabled>
+                Select...
+              </option>
+              <option value="1" name="duration">
+                1h
+              </option>
+              <option value="2" name="duration">
+                2h
+              </option>
+              <option value="3" name="duration">
+                3h
+              </option>
+              <option value="4" name="duration">
+                half a day
+              </option>
+              <option value="5" name="duration">
+                5h
+              </option>
+              <option value="6" name="duration">
+                6h
+              </option>
+              <option value="7" name="duration">
+                7h
+              </option>
+              <option value="8" name="duration">
+                whole day
+              </option>
+            </select>
 
-              <fieldset className="eb-form__fieldset">
-                <legend className="eb-form__legend">Positions</legend>
-                <button
-                  type="button"
-                  className="eb-form__filter eb-button eb-button--compact"
-                  onClick={this.selectAll}
-                >
-                  Select all
-                </button>
-                <button
-                  type="button"
-                  className="eb-form__filter eb-button eb-button--compact"
-                  onClick={this.deselectAll}
-                >
-                  Deselect all
-                </button>
+            <fieldset className="eb-form__fieldset">
+              <legend className="eb-form__legend">Positions</legend>
+              <button
+                type="button"
+                className="eb-form__filter eb-button eb-button--compact"
+                onClick={this.selectAll}
+              >
+                Select all
+              </button>
+              <button
+                type="button"
+                className="eb-form__filter eb-button eb-button--compact"
+                onClick={this.deselectAll}
+              >
+                Deselect all
+              </button>
 
-                {this.state.position.map((position) => {
-                  return (
-                    <label key={position._id} className="eb-form__label">
-                      <input
-                        type="checkbox"
-                        name={position._id}
-                        checked={this.state.checkboxes[position._id]}
-                        onChange={this.handleCheckboxChange}
-                        className="eb-form-checkbox__input"
-                        id={position._id}
-                      />
-                      <span className="eb-form-checkbox__text">
-                        {position.name}
-                      </span>
-                    </label>
-                  );
-                })}
-                <br />
-                <label
-                  className="eb-form__label"
-                  htmlFor="duration"
-                  style={{ display: 'none' }}
-                >
-                  Duration
-                </label>
-                <select
-                  name="duration"
-                  id="duration"
-                  value={this.state.duration}
-                  onChange={this.handleInputChange}
-                  required
-                  className="eb-form__input"
-                >
-                  <option value="" disabled>
-                    Select...
-                  </option>
-                  <option value="1" name="duration">
-                    1h
-                  </option>
-                  <option value="2" name="duration">
-                    2h
-                  </option>
-                  <option value="3" name="duration">
-                    3h
-                  </option>
-                  <option value="4" name="duration">
-                    half a day
-                  </option>
-                  <option value="5" name="duration">
-                    5h
-                  </option>
-                  <option value="6" name="duration">
-                    6h
-                  </option>
-                  <option value="7" name="duration">
-                    7h
-                  </option>
-                  <option value="8" name="duration">
-                    whole day
-                  </option>
-                </select>
+              {this.state.position.map((position) => {
+                return (
+                  <label key={position._id} className="eb-form__label">
+                    <input
+                      type="checkbox"
+                      name={position._id}
+                      checked={this.state.checkboxes[position._id]}
+                      onChange={this.handleCheckboxChange}
+                      className="eb-form-checkbox__input"
+                      id={position._id}
+                    />
+                    <span className="eb-form-checkbox__text">
+                      {position.name}
+                    </span>
+                  </label>
+                );
+              })}
 
-                <button className="eb-form__action eb-button eb-button--primary">
-                  Save
-                </button>
-                <div>
-                  <button
-                    onClick={this.cancelForm}
-                    className="eb-form__action eb-button eb-button--compact"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </fieldset>
-            </form>
-          </React.Fragment>
+              <button className="eb-form__action eb-button eb-button--primary">
+                Save
+              </button>
+              <button
+                onClick={this.cancelForm}
+                className="eb-form__action eb-button"
+              >
+                Cancel
+              </button>
+            </fieldset>
+          </form>
         )}
       </article>
     );
