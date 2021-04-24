@@ -45,6 +45,7 @@ router.post('/create', routeGuard, async (req, res, next) => {
       level: levelId,
       token
     });
+
     await sendEmail({
       receiver: newUser.email,
       subject: 'Invitation to the Onboarding Dashboard!',
