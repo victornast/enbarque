@@ -2,10 +2,7 @@ import React from "react";
 import "./TaskList.scss";
 
 const TaskItem = ({ task, onAddTask }) => {
-  const duration =
-    task.duration % 60 === 0
-      ? task.duration / 60
-      : (task.duration / 60).toFixed(1);
+  const duration = task.duration;
 
   const handleClick = () => {
     onAddTask(task._id);
