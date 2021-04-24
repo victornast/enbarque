@@ -52,7 +52,7 @@ router.post('/create', routeGuard, async (req, res, next) => {
       body: `<h3>Hello ${firstName}!</h3>
       <p>Welcome to our onboarding process!</p>
 
-      <p>Click <a href="http://localhost:3000/welcome?token=${token}"><b>here</b></a> to visit your dashboard</p>
+      <p>Click <a href="${process.env.WELCOME_DOMAIN}welcome?token=${token}"><b>here</b></a> to visit your dashboard</p>
       <p>Log in email: ${email}<br>
       
       <p>We are looking forward to welcoming you soon!</p>
