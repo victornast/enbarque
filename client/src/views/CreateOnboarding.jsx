@@ -22,20 +22,23 @@ function CreateOnboarding({ user, history }) {
         (user) => user.level.level > onboardee.level.level
       );
       setMentorsList(mentors);
-      Boolean(mentors) && setMentor(mentors[0]);
+      (Boolean(mentors) && setMentor(mentors[0])) || setMentor(user);
     }
 
     getMentorList(onboardee.position._id);
-  }, [onboardee.level.level, onboardee.position._id]);
+  }, [onboardee.level.level, onboardee.position._id, user]);
 
   const handleFormSubmission = async (event) => {
     event.preventDefault();
+    console.log('Mentor:', mentor);
+    const mentorId = mentor._id || mentor;
     const data = {
       onboardee,
-      mentor: mentor._id || mentor,
+      mentor: mentorId,
       startDate,
       amountOfDays
     };
+    console.log('Data:', data);
     const res = await createOnboarding(data);
     history.push(`/onboarding/${res.onboardee}`);
   };
@@ -69,7 +72,7 @@ function CreateOnboarding({ user, history }) {
         {(!!mentorsList.length && (
           <select
             name="mentor"
-            id="input-onboardee"
+            id="input-mentor"
             onChange={(e) => setMentor(e.target.value)}
             className="eb-form__input"
           >
@@ -82,8 +85,7 @@ function CreateOnboarding({ user, history }) {
         )) || (
           <select
             name="mentor"
-            id="input-onboardee"
-            value={user._id}
+            id="input-mentor"
             onChange={(e) => setMentor(e.target.value)}
             className="eb-form__input"
           >

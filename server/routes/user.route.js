@@ -46,7 +46,7 @@ router.post('/create', routeGuard, async (req, res, next) => {
       token
     });
     await sendEmail({
-      receiver: process.env.EMAIL_ADDRESS,
+      receiver: newUser.email,
       subject: 'Invitation to the Onboarding Dashboard!',
       body: `<h3>Hello ${firstName}!</h3>
       <p>Welcome to our onboarding process!</p>
