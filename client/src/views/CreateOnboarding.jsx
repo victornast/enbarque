@@ -32,7 +32,7 @@ function CreateOnboarding({ user, history }) {
     event.preventDefault();
     const data = {
       onboardee,
-      mentor: mentor._id,
+      mentor: mentor._id || mentor,
       startDate,
       amountOfDays
     };
