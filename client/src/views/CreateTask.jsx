@@ -177,12 +177,14 @@ class CreateTask extends Component {
             })}
 
             <button
+              type="button"
               className="eb-form__filter eb-button eb-button--compact"
               onClick={this.selectAll}
             >
               Select all
             </button>
             <button
+              type="button"
               className="eb-form__filter eb-button eb-button--compact"
               onClick={this.deselectAll}
             >
