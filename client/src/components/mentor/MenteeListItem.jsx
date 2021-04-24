@@ -20,7 +20,7 @@ const MenteeListItem = ({ mentee }) => {
   if (process) {
     totalDuration = process.scheduledTasks.reduce(
       (totalDuration, task) =>
-        task ? totalDuration + task.task.duration : 0,
+        (task && task.task && totalDuration + task.task.duration) || 0,
       0
     );
 
@@ -35,10 +35,6 @@ const MenteeListItem = ({ mentee }) => {
     progress =
       Math.round((accomplishedDuration / totalDuration) * 100) || 0;
   }
-
-  console.log(totalDuration);
-  console.log(accomplishedDuration);
-  console.log(progress);
 
   return (
     <Link
