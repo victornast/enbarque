@@ -75,9 +75,11 @@ class App extends Component {
                 <Link className="eb-nav__item" to="/dashboard">
                   Dashboard
                 </Link>
-                <Link className="eb-nav__item" to="/tasks">
-                  View Tasks
-                </Link>
+                {this.state.user.role.accessLevel > 1 && (
+                  <Link className="eb-nav__item" to="/tasks">
+                    View Tasks
+                  </Link>
+                )}
                 <Link
                   className="eb-nav__item"
                   to={`/corp/user/${this.state.user._id}`}
