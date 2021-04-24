@@ -6,7 +6,10 @@ import OnboardingFeedback from './../dashboard/OnboardingFeedback';
 import TaskDetail from './../dashboard/TaskDetail';
 import BacklogList from './BacklogList';
 import WeekView from './WeekView';
-import { getProcess, changeTaskStatus } from './../../services/onboarding';
+import {
+  getProcess,
+  changeTaskStatus
+} from './../../services/onboarding';
 import * as AiIcons from 'react-icons/ai';
 
 import './OnboardeeDashboard.scss';
@@ -46,7 +49,9 @@ function OnboardeeDashboard({ user, seniorRole }) {
   };
 
   const updateBacklogViewTask = (id) => {
-    const task = process.unscheduledTasks.find((task) => task._id === id);
+    const task = process.unscheduledTasks.find(
+      (task) => task._id === id
+    );
     if (task) {
       setActiveTaskObj(task);
       setActiveTask(true);
@@ -59,7 +64,10 @@ function OnboardeeDashboard({ user, seniorRole }) {
     const taskToBeUpdated = process.scheduledTasks.find(
       (scheduledTask) => scheduledTask.task._id === task.task._id
     );
-    const updatedProcess = await changeTaskStatus(process._id, taskToBeUpdated);
+    const updatedProcess = await changeTaskStatus(
+      process._id,
+      taskToBeUpdated
+    );
     setProcess(updatedProcess);
   };
 
@@ -77,35 +85,41 @@ function OnboardeeDashboard({ user, seniorRole }) {
             {(!seniorRole && (
               <Greeting user={user} corp={process.organization.name} />
             )) || (
-              <h2>{user.firstName + ' ' + user.lastName}'s Onboarding Plan</h2>
+              <h2>
+                {user.firstName + ' ' + user.lastName}'s Onboarding Plan
+              </h2>
             )}
             <section className="onboardee-dashboard__section onboardee-dashboard-section">
               <h2 className="onboardee-dashboard-section__headline">
                 Contact Persons
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Here is an overview about your main contact persons during your
-                onboarding. Of course you can always reach out to other
-                colleagues as well when you feel stuck. Check our team channel
-                on slack.
+                Here is an overview about your main contact persons
+                during your onboarding. Of course you can always reach
+                out to other colleagues as well when you feel stuck.
+                Check our team channel on slack.
               </p>
               <div className="onboardee-dashboard-section__body">
                 <CardDeck>
                   <Card border="warning">
-                    <Card.Header user={user} className="font-weight-bold">
+                    <Card.Header
+                      user={user}
+                      className="font-weight-bold"
+                    >
                       <img
-                        src={process.manager.avatar}
+                        src={process.mentor.avatar}
                         alt="avatar"
                         className="avatar"
                       />{' '}
-                      &nbsp; Your Onboarding Mentor: {process.mentor.firstName}{' '}
+                      &nbsp; Your Onboarding Mentor:{' '}
+                      {process.mentor.firstName}{' '}
                       {process.mentor.lastName}
                     </Card.Header>
                     <Card.Body>
                       <Card.Text>
-                        {process.mentor.firstName} will guide and support you
-                        through your onboarding process and answer any technical
-                        questions.
+                        {process.mentor.firstName} will guide and
+                        support you through your onboarding process and
+                        answer any technical questions.
                       </Card.Text>
                       <br />
                       <Card.Text>
@@ -114,23 +128,29 @@ function OnboardeeDashboard({ user, seniorRole }) {
                     </Card.Body>
                   </Card>
                   <Card border="warning">
-                    <Card.Header user={user} className="font-weight-bold">
+                    <Card.Header
+                      user={user}
+                      className="font-weight-bold"
+                    >
                       <img
                         src={process.manager.avatar}
                         alt="avatar"
                         className="avatar"
                       />{' '}
                       &nbsp; Your Engineering Manager:{' '}
-                      {process.manager.firstName} {process.manager.lastName}
+                      {process.manager.firstName}{' '}
+                      {process.manager.lastName}
                     </Card.Header>
                     <Card.Body>
                       <Card.Text>
-                        {process.manager.firstName} will provide you feedback
-                        and support you in your personal development path.
+                        {process.manager.firstName} will provide you
+                        feedback and support you in your personal
+                        development path.
                       </Card.Text>
                       <br />
                       <Card.Text>
-                        <AiIcons.AiOutlineMail /> {process.manager.email}
+                        <AiIcons.AiOutlineMail />{' '}
+                        {process.manager.email}
                       </Card.Text>
                     </Card.Body>
                   </Card>
@@ -142,8 +162,8 @@ function OnboardeeDashboard({ user, seniorRole }) {
                 Onboarding Schedule
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Calendar View of the weeks planned for the onboarding and the
-                topics that should be followed each day.
+                Calendar View of the weeks planned for the onboarding
+                and the topics that should be followed each day.
               </p>
               <div className="onboardee-dashboard-section__body">
                 {/* <p>Include here the calendar component</p> */}
@@ -162,9 +182,10 @@ function OnboardeeDashboard({ user, seniorRole }) {
                 Onboarding Backlog
               </h2>
               <p className="onboardee-dashboard-section__intro">
-                Topics that couldn't be covered during the onboarding and should
-                be approached as soon as possible in parallel with the projects,
-                as part of the personal development plans.
+                Topics that couldn't be covered during the onboarding
+                and should be approached as soon as possible in parallel
+                with the projects, as part of the personal development
+                plans.
               </p>
               <div className="onboardee-dashboard-section__body">
                 <BacklogList
