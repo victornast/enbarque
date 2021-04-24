@@ -13,11 +13,17 @@
     'avatar title'
     'avatar message'
     '. message';
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
 
   &__avatar {
     grid-area: avatar;
     display: flex;
     align-self: center;
+    &.eb-feedback-comment-item__avatar {
+      width: 3em;
+    }
   }
 
   &__name {
@@ -29,5 +35,6 @@
 
   &__message {
     grid-area: message;
+    font-style: italic;
   }
 }

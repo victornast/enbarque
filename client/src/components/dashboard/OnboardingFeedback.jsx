@@ -53,7 +53,6 @@ function OnboardingFeedback({ seniorRole, user, process }) {
               >
                 <img
                   src={post.userId.avatar}
-                  style={{ width: '50px' }}
                   alt={
                     post.userId.firstName + ' ' + post.userId.lastName
                   }
