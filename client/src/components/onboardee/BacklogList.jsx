@@ -12,7 +12,6 @@ function BacklogList({
   seniorRole
 }) {
   const backlogList = process.unscheduledTasks;
-  //console.log(backlogList);
 
   const [displayList, setDisplayList] = useState(false);
 
@@ -50,8 +49,11 @@ function BacklogList({
           ))}
       </ul>
       {seniorRole && (
-        <button onClick={() => setDisplayList(!displayList)}>
-          {(displayList && 'X') || 'Add more tasks'}
+        <button
+          className="backlog-wrapper__action eb-button eb-button--primary eb-button--compact"
+          onClick={() => setDisplayList(!displayList)}
+        >
+          {(displayList && 'X') || 'Add more tasks to the backlog'}
         </button>
       )}
       {displayList && (

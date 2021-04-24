@@ -1,0 +1,33 @@
+.eb-feedback-comment {
+  list-style: none;
+  padding-left: 1em;
+}
+
+.eb-feedback-comment-item {
+  display: grid;
+  grid-column-gap: 1em;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: repeat(3, minmax(min-content, max-content)) 1fr;
+  grid-template-areas:
+    'avatar .'
+    'avatar title'
+    'avatar message'
+    '. message';
+
+  &__avatar {
+    grid-area: avatar;
+    display: flex;
+    align-self: center;
+  }
+
+  &__name {
+    grid-area: title;
+    align-self: center;
+    display: flex;
+    align-items: center;
+  }
+
+  &__message {
+    grid-area: message;
+  }
+}

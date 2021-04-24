@@ -164,7 +164,7 @@ class CreateTask extends Component {
                   <input
                     type="checkbox"
                     name={position._id}
-                    checked={this.state.checkboxes[position._id]}
+                    checked={!!this.state.checkboxes[position._id]}
                     onChange={this.handleCheckboxChange}
                     className="eb-form-checkbox__input"
                     id={position._id}

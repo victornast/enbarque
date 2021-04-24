@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { sendFeedback, getFeedback } from './../../services/onboarding';
 
+import './OnboardingFeedback.scss';
+
 function OnboardingFeedback({ seniorRole, user, process }) {
   const [feedback, setFeedback] = useState('');
   const [feedbackPosts, setFeedbackPosts] = useState([]);
@@ -29,7 +31,7 @@ function OnboardingFeedback({ seniorRole, user, process }) {
     setFeedback('');
     setFeedbackPosts([...feedbackPosts, res]);
   };
-  // TO DO: Adjust Style
+
   return (
     <section className="onboardee-dashboard__section onboardee-dashboard-section">
       <h2 className="onboardee-dashboard-section__headline">
@@ -43,20 +45,26 @@ function OnboardingFeedback({ seniorRole, user, process }) {
       )}
       <div className="onboardee-dashboard-section__body">
         {!!feedbackPosts.length && (
-          <ul>
+          <ul className="eb-onboardee-dashboard__feedback eb-feedback-comment">
             {feedbackPosts.map((post) => (
-              <li key={post._id}>
+              <li
+                className="eb-feedback-comment-item eb-feedback-comment__item"
+                key={post._id}
+              >
                 <img
                   src={post.userId.avatar}
                   style={{ width: '50px' }}
                   alt={
                     post.userId.firstName + ' ' + post.userId.lastName
                   }
+                  className="eb-feedback-comment-item__avatar"
                 />
-                <p>
+                <p className="eb-feedback-comment-item__name">
                   {post.userId.firstName + ' ' + post.userId.lastName}
                 </p>
-                <p>{post.content}</p>
+                <p className="eb-feedback-comment-item__message">
+                  {post.content}
+                </p>
               </li>
             ))}
           </ul>
