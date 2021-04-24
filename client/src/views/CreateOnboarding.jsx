@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { findMentors } from '../services/organization';
-import { createOnboarding } from '../services/onboarding';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { findMentors } from "../services/organization";
+import { createOnboarding } from "../services/onboarding";
 
 function CreateOnboarding({ user, history }) {
   const location = useLocation();
   const onboardee = location.state?.onboardee;
 
   const today = new Date();
-  const [startDate, setStartDate] = useState(
-    today.toJSON().slice(0, 10)
-  );
+  const [startDate, setStartDate] = useState(today.toJSON().slice(0, 10));
   const [amountOfDays, setAmountOfDays] = useState(5);
   const [mentor, setMentor] = useState(null);
   const [mentorsList, setMentorsList] = useState([]);
@@ -22,7 +20,7 @@ function CreateOnboarding({ user, history }) {
         (user) => user.level.level > onboardee.level.level
       );
       setMentorsList(mentors);
-      (Boolean(mentors) && setMentor(mentors[0])) || setMentor(user);
+      Boolean(mentors) ? setMentor(mentors[0]) : setMentor(user);
     }
 
     getMentorList(onboardee.position._id);
@@ -30,15 +28,15 @@ function CreateOnboarding({ user, history }) {
 
   const handleFormSubmission = async (event) => {
     event.preventDefault();
-    console.log('Mentor:', mentor);
+    console.log("Mentor:", mentor);
     const mentorId = mentor._id || mentor;
     const data = {
       onboardee,
       mentor: mentorId,
       startDate,
-      amountOfDays
+      amountOfDays,
     };
-    console.log('Data:', data);
+    console.log("Data:", data);
     const res = await createOnboarding(data);
     history.push(`/onboarding/${res.onboardee}`);
   };
@@ -59,7 +57,7 @@ function CreateOnboarding({ user, history }) {
             <input
               type="text"
               id="input-onboardee"
-              value={onboardee.firstName + ' ' + onboardee.lastName}
+              value={onboardee.firstName + " " + onboardee.lastName}
               readOnly
               className="eb-form__input eb-form__input--readonly"
             />
@@ -78,7 +76,7 @@ function CreateOnboarding({ user, history }) {
           >
             {mentorsList.map((mentor) => (
               <option key={mentor._id} value={mentor._id}>
-                {mentor.firstName + ' ' + mentor.lastName}
+                {mentor.firstName + " " + mentor.lastName}
               </option>
             ))}
           </select>
@@ -90,7 +88,7 @@ function CreateOnboarding({ user, history }) {
             className="eb-form__input"
           >
             <option value={user._id}>
-              {user.firstName + ' ' + user.lastName}
+              {user.firstName + " " + user.lastName}
             </option>
           </select>
         )}
