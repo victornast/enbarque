@@ -18,7 +18,7 @@ router.post('/create', routeGuard, async (req, res, next) => {
   const orgId = req.user.organization;
   const password = await generatePassword();
   const hash = await bcryptjs.hash(password, 10);
-
+  console.log(req.user.email);
   const token = await generatePassword();
 
   try {
@@ -47,6 +47,7 @@ router.post('/create', routeGuard, async (req, res, next) => {
     });
 
     await sendEmail({
+      sender: req.user,
       receiver: newUser.email,
       subject: 'Invitation to the Onboarding Dashboard!',
       body: `<h3>Hello ${firstName}!</h3>
